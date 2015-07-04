@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NGribCS.Grib2;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -18,7 +19,14 @@ namespace NGribCS.ConsoleTester
             Grib2Manager g2m = new Grib2Manager(@"e:\gribdata.grb2", false);
 
            
+            // Lets output the inventory
 
+            foreach (Grib2Product p in g2m.G2I.Products)
+            {
+                Console.WriteLine(p.ParameterCategory.Id.ToString() + " - " + p.ParameterCategory.Name + " / " + p.Parameter.Abbreviation + " - " + p.Parameter.Name + " - " + p.Parameter.Unit);
+
+
+            }
 
 
 

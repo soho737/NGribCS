@@ -14,3 +14,7 @@ C:\Users\Karsten\Documents\GitHub\NGribCS\NGribCS.ConsoleTester\bin\Debug\NGribC
 C:\Users\Karsten\Documents\GitHub\NGribCS\NGribCS.ConsoleTester\bin\Debug\gribcs.dll
 C:\Users\Karsten\Documents\GitHub\NGribCS\NGribCS.ConsoleTester\bin\Debug\gribcs.pdb
 C:\Users\Karsten\Documents\GitHub\NGribCS\NGribCS.ConsoleTester\obj\Debug\NGribCS.ConsoleTester.csprojResolveAssemblyReference.cache
+C:\Users\Karsten\Documents\GitHub\NGribCS\NGribCS.ConsoleTester\bin\Debug\EntityFramework.dll
+C:\Users\Karsten\Documents\GitHub\NGribCS\NGribCS.ConsoleTester\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Karsten\Documents\GitHub\NGribCS\NGribCS.ConsoleTester\bin\Debug\EntityFramework.xml
+C:\Users\Karsten\Documents\GitHub\NGribCS\NGribCS.ConsoleTester\bin\Debug\EntityFramework.SqlServer.xml

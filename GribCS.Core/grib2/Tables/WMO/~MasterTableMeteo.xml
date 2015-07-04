@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<WMOTables xmlns="http://tempuri.org/MasterMeteo.xsd">
+  <Tables>
+    <ParameterTable>
+      <Version>14</Version>
+      <ParameterCategories>
+        <ParameterCategory>
+          <CategoryId>0</CategoryId>
+          <CategoryName>Temperature</CategoryName>
+          <Parameters>
+            <Parameter>
+              <Number>0</Number>
+              <Name>Temperature</Name>
+              <Unit>K</Unit>
+              <Abbreviation>TMP</Abbreviation>
+            </Parameter>
+            <Parameter>
+              <Number>1</Number>
+              <Name>Virtual Temperature</Name>
+              <Unit>K</Unit>
+              <Abbreviation>VTMP</Abbreviation>
+            </Parameter>
+            <Parameter>
+              <Number>2</Number>
+              <Name>Potential Temperature</Name>
+              <Unit>K</Unit>
+              <Abbreviation>POT</Abbreviation>
+            </Parameter>
+          </Parameters>
+        </ParameterCategory>
+
+        <ParameterCategory>
+          <CategoryId>1</CategoryId>
+          <CategoryName>Moisture</CategoryName>
+          <Parameters>
+            <Parameter>
+              <Number>0</Number>
+              <Name>Specific Humidity</Name>
+              <Unit>kg per kg</Unit>
+              <Abbreviation>SPFH</Abbreviation>
+            </Parameter>
+          </Parameters>
+        </ParameterCategory>
+      </ParameterCategories>
+    </ParameterTable>
+  </Tables>
+</WMOTables>

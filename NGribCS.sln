@@ -3,16 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NGribCS", "GribCS\NGribCS.csproj", "{FF512132-E6AE-4A88-8240-BC2BD1864569}"
-	ProjectSection(ProjectDependencies) = postProject
-		{1696B092-9A76-4FFA-BA91-C12A5F385D2B} = {1696B092-9A76-4FFA-BA91-C12A5F385D2B}
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libjasper", "jasper\msvc\libjasper.vcxproj", "{E5BED18F-212B-445B-A107-D346B46187C0}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JpcDecoder", "JpcDecoder\JpcDecoder.vcxproj", "{1696B092-9A76-4FFA-BA91-C12A5F385D2B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NGribCS.ConsoleTester", "NGribCS.ConsoleTester\NGribCS.ConsoleTester.csproj", "{4C555A01-8927-4C2A-9F75-6DAD25225756}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NGribCS.Core", "GribCS.Core\NGribCS.Core.csproj", "{FF512132-E6AE-4A88-8240-BC2BD1864569}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,16 +21,6 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FF512132-E6AE-4A88-8240-BC2BD1864569}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FF512132-E6AE-4A88-8240-BC2BD1864569}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FF512132-E6AE-4A88-8240-BC2BD1864569}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{FF512132-E6AE-4A88-8240-BC2BD1864569}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{FF512132-E6AE-4A88-8240-BC2BD1864569}.Debug|Win32.ActiveCfg = Debug|Any CPU
-		{FF512132-E6AE-4A88-8240-BC2BD1864569}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FF512132-E6AE-4A88-8240-BC2BD1864569}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FF512132-E6AE-4A88-8240-BC2BD1864569}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{FF512132-E6AE-4A88-8240-BC2BD1864569}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{FF512132-E6AE-4A88-8240-BC2BD1864569}.Release|Win32.ActiveCfg = Release|Any CPU
 		{E5BED18F-212B-445B-A107-D346B46187C0}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{E5BED18F-212B-445B-A107-D346B46187C0}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
 		{E5BED18F-212B-445B-A107-D346B46187C0}.Debug|Mixed Platforms.Build.0 = Debug|Win32
@@ -64,6 +51,16 @@ Global
 		{4C555A01-8927-4C2A-9F75-6DAD25225756}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{4C555A01-8927-4C2A-9F75-6DAD25225756}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{4C555A01-8927-4C2A-9F75-6DAD25225756}.Release|Win32.ActiveCfg = Release|Any CPU
+		{FF512132-E6AE-4A88-8240-BC2BD1864569}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF512132-E6AE-4A88-8240-BC2BD1864569}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF512132-E6AE-4A88-8240-BC2BD1864569}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{FF512132-E6AE-4A88-8240-BC2BD1864569}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{FF512132-E6AE-4A88-8240-BC2BD1864569}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{FF512132-E6AE-4A88-8240-BC2BD1864569}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF512132-E6AE-4A88-8240-BC2BD1864569}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF512132-E6AE-4A88-8240-BC2BD1864569}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{FF512132-E6AE-4A88-8240-BC2BD1864569}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{FF512132-E6AE-4A88-8240-BC2BD1864569}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
