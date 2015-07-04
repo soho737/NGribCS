@@ -1,0 +1,8 @@
+C:\Users\Karsten\Desktop\GribCS Fork\NGribCS.ConsoleTester\obj\Debug\NGribCS.ConsoleTester.csprojResolveAssemblyReference.cache
+C:\Users\Karsten\Desktop\GribCS Fork\NGribCS.ConsoleTester\bin\Debug\NGribCS.ConsoleTester.exe.config
+C:\Users\Karsten\Desktop\GribCS Fork\NGribCS.ConsoleTester\bin\Debug\NGribCS.ConsoleTester.exe
+C:\Users\Karsten\Desktop\GribCS Fork\NGribCS.ConsoleTester\bin\Debug\NGribCS.ConsoleTester.pdb
+C:\Users\Karsten\Desktop\GribCS Fork\NGribCS.ConsoleTester\bin\Debug\gribcs.dll
+C:\Users\Karsten\Desktop\GribCS Fork\NGribCS.ConsoleTester\bin\Debug\gribcs.pdb
+C:\Users\Karsten\Desktop\GribCS Fork\NGribCS.ConsoleTester\obj\Debug\NGribCS.ConsoleTester.exe
+C:\Users\Karsten\Desktop\GribCS Fork\NGribCS.ConsoleTester\obj\Debug\NGribCS.ConsoleTester.pdb

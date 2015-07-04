@@ -1,0 +1,173 @@
+﻿Build started 04.07.2015 13:16:44.
+     1>Project "C:\Users\Karsten\Desktop\GribCS Fork\jasper\msvc\libjasper.vcxproj" on node 2 (Rebuild target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\libjasper\headers /I..\libjasper\include /I..\libjasper\bmp /I..\libjasper\pgx /I..\libjasper\pnm /I..\libjasper\ras /ZI /nologo /W3 /WX- /Od /Oy- /D _DEBUG /D WIN32 /D _LIB /D JAS_WIN_MSVC_BUILD /D _CRT_SECURE_NO_WARNINGS /D _VC80_UPGRADE=0x0600 /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo".\Debug/" /Fd".\Debug/vc120.pdb" /Gd /TC /analyze- /errorReport:prompt ..\libjasper\base\jas_cm.c ..\libjasper\base\jas_debug.c ..\libjasper\base\jas_getopt.c ..\libjasper\base\jas_icc.c ..\libjasper\base\jas_iccdata.c ..\libjasper\base\jas_image.c ..\libjasper\base\jas_init.c ..\libjasper\base\jas_malloc.c ..\libjasper\base\jas_seq.c ..\libjasper\base\jas_stream.c ..\libjasper\base\jas_string.c ..\libjasper\base\jas_tvp.c ..\libjasper\base\jas_version.c ..\libjasper\bmp\bmp_cod.c ..\libjasper\bmp\bmp_dec.c ..\libjasper\bmp\bmp_enc.c ..\libjasper\jp2\jp2_cod.c ..\libjasper\jp2\jp2_dec.c ..\libjasper\jp2\jp2_enc.c ..\libjasper\jpc\jpc_bs.c ..\libjasper\jpc\jpc_cs.c ..\libjasper\jpc\jpc_dec.c ..\libjasper\jpc\jpc_enc.c ..\libjasper\jpc\jpc_math.c ..\libjasper\jpc\jpc_mct.c ..\libjasper\jpc\jpc_mqcod.c ..\libjasper\jpc\jpc_mqdec.c ..\libjasper\jpc\jpc_mqenc.c ..\libjasper\jpc\jpc_qmfb.c ..\libjasper\jpc\jpc_t1cod.c ..\libjasper\jpc\jpc_t1dec.c ..\libjasper\jpc\jpc_t1enc.c ..\libjasper\jpc\jpc_t2cod.c ..\libjasper\jpc\jpc_t2dec.c ..\libjasper\jpc\jpc_t2enc.c ..\libjasper\jpc\jpc_tagtree.c ..\libjasper\jpc\jpc_tsfb.c ..\libjasper\jpc\jpc_util.c ..\libjasper\jpg\jpg_dummy.c ..\libjasper\jpg\jpg_val.c ..\libjasper\mif\mif_cod.c ..\libjasper\pgx\pgx_cod.c ..\libjasper\pgx\pgx_dec.c ..\libjasper\pgx\pgx_enc.c ..\libjasper\pnm\pnm_cod.c ..\libjasper\pnm\pnm_dec.c ..\libjasper\pnm\pnm_enc.c ..\libjasper\ras\ras_cod.c ..\libjasper\ras\ras_dec.c ..\libjasper\ras\ras_enc.c
+         ras_enc.c
+         ras_dec.c
+         ras_cod.c
+         pnm_enc.c
+         pnm_dec.c
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\pnm\pnm_dec.c(401): warning C4244: '=' : conversion from 'int_fast64_t' to 'jas_seqent_t', possible loss of data
+         pnm_cod.c
+         pgx_enc.c
+         pgx_dec.c
+         pgx_cod.c
+         mif_cod.c
+         jpg_val.c
+         jpg_dummy.c
+         jpc_util.c
+         jpc_tsfb.c
+         jpc_tagtree.c
+         jpc_t2enc.c
+         jpc_t2dec.c
+         jpc_t2cod.c
+         jpc_t1enc.c
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\jpc\jpc_t1enc.c(187): warning C4018: '<' : signed/unsigned mismatch
+         jpc_t1dec.c
+         Generating Code...
+         Compiling...
+         jpc_t1cod.c
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\jpc\jpc_t1cod.c(313): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\jpc\jpc_t1cod.c(315): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\jpc\jpc_t1cod.c(319): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\jpc\jpc_t1cod.c(321): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\jpc\jpc_t1cod.c(323): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         jpc_qmfb.c
+         jpc_mqenc.c
+         jpc_mqdec.c
+         jpc_mqcod.c
+         jpc_mct.c
+         jpc_math.c
+         jpc_enc.c
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\jpc\jpc_enc.c(846): warning C4244: '=' : conversion from 'jpc_flt_t' to 'uint_fast32_t', possible loss of data
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\jpc\jpc_enc.c(1082): warning C4244: '=' : conversion from 'uint_fast16_t' to 'uint_fast8_t', possible loss of data
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\jpc\jpc_enc.c(1083): warning C4244: '=' : conversion from 'uint_fast16_t' to 'uint_fast8_t', possible loss of data
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\jpc\jpc_enc.c(1441): warning C4244: '=' : conversion from 'double' to 'uint_fast32_t', possible loss of data
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\jpc\jpc_enc.c(1445): warning C4244: '=' : conversion from 'double' to 'uint_fast32_t', possible loss of data
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\jpc\jpc_enc.c(1448): warning C4244: '=' : conversion from 'double' to 'uint_fast32_t', possible loss of data
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\jpc\jpc_enc.c(2345): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\jpc\jpc_enc.c(2354): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\jpc\jpc_enc.c(2377): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\jpc\jpc_enc.c(2437): warning C4018: '>' : signed/unsigned mismatch
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\jpc\jpc_enc.c(2438): warning C4018: '>' : signed/unsigned mismatch
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\jpc\jpc_enc.c(2440): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\jpc\jpc_enc.c(2442): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\jpc\jpc_enc.c(2477): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\jpc\jpc_enc.c(2486): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\jpc\jpc_enc.c(2519): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\jpc\jpc_enc.c(2655): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\jpc\jpc_enc.c(2661): warning C4018: '<' : signed/unsigned mismatch
+         jpc_dec.c
+         jpc_cs.c
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\jpc\jpc_cs.c(738): warning C4244: 'function' : conversion from 'uint_fast16_t' to 'uint_fast8_t', possible loss of data
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\jpc\jpc_cs.c(872): warning C4244: 'function' : conversion from 'uint_fast16_t' to 'uint_fast8_t', possible loss of data
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\jpc\jpc_cs.c(969): warning C4244: 'function' : conversion from 'uint_fast16_t' to 'uint_fast8_t', possible loss of data
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\jpc\jpc_cs.c(1330): warning C4244: 'function' : conversion from 'uint_fast16_t' to 'uint_fast8_t', possible loss of data
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\jpc\jpc_cs.c(1335): warning C4244: 'function' : conversion from 'uint_fast16_t' to 'uint_fast8_t', possible loss of data
+         jpc_bs.c
+         jp2_enc.c
+         jp2_dec.c
+         jp2_cod.c
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\jp2\jp2_cod.c(311): warning C4244: '=' : conversion from 'uint_fast64_t' to 'uint_fast32_t', possible loss of data
+         bmp_enc.c
+         bmp_dec.c
+         bmp_cod.c
+         jas_version.c
+         jas_tvp.c
+         jas_string.c
+         Generating Code...
+         Compiling...
+         jas_stream.c
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\base\jas_stream.c(331): warning C4996: 'open': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _open. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\io.h(336) : see declaration of 'open'
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\base\jas_stream.c(418): warning C4996: 'open': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _open. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\io.h(336) : see declaration of 'open'
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\base\jas_stream.c(429): warning C4996: 'unlink': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _unlink. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(278) : see declaration of 'unlink'
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\base\jas_stream.c(468): warning C4996: 'setmode': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _setmode. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\io.h(338) : see declaration of 'setmode'
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\base\jas_stream.c(1139): warning C4996: 'read': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _read. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\io.h(337) : see declaration of 'read'
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\base\jas_stream.c(1145): warning C4996: 'write': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _write. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\io.h(342) : see declaration of 'write'
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\base\jas_stream.c(1151): warning C4996: 'lseek': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _lseek. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\io.h(334) : see declaration of 'lseek'
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\base\jas_stream.c(1158): warning C4996: 'close': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _close. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\io.h(326) : see declaration of 'close'
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\base\jas_stream.c(1160): warning C4996: 'unlink': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _unlink. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(278) : see declaration of 'unlink'
+         jas_seq.c
+         jas_malloc.c
+         jas_init.c
+         jas_image.c
+         jas_iccdata.c
+         jas_icc.c
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\base\jas_icc.c(1237): warning C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _strdup. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(245) : see declaration of 'strdup'
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\base\jas_icc.c(1649): warning C4244: '=' : conversion from 'UINT64' to 'jas_iccuint16_t', possible loss of data
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\base\jas_icc.c(1659): warning C4244: '=' : conversion from 'INT64' to 'jas_iccsint32_t', possible loss of data
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\base\jas_icc.c(1668): warning C4244: '=' : conversion from 'UINT64' to 'jas_iccuint32_t', possible loss of data
+         jas_getopt.c
+         jas_debug.c
+         jas_cm.c
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\base\jas_cm.c(597): warning C4244: '=' : conversion from 'jas_cmreal_t' to 'long', possible loss of data
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\base\jas_cm.c(957): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\karsten\desktop\gribcs fork\jasper\libjasper\base\jas_cm.c(960): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+         Generating Code...
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:".\Debug\libjasper.lib" /NOLOGO .\Debug/jas_cm.obj
+         .\Debug/jas_debug.obj
+         .\Debug/jas_getopt.obj
+         .\Debug/jas_icc.obj
+         .\Debug/jas_iccdata.obj
+         .\Debug/jas_image.obj
+         .\Debug/jas_init.obj
+         .\Debug/jas_malloc.obj
+         .\Debug/jas_seq.obj
+         .\Debug/jas_stream.obj
+         .\Debug/jas_string.obj
+         .\Debug/jas_tvp.obj
+         .\Debug/jas_version.obj
+         .\Debug/bmp_cod.obj
+         .\Debug/bmp_dec.obj
+         .\Debug/bmp_enc.obj
+         .\Debug/jp2_cod.obj
+         .\Debug/jp2_dec.obj
+         .\Debug/jp2_enc.obj
+         .\Debug/jpc_bs.obj
+         .\Debug/jpc_cs.obj
+         .\Debug/jpc_dec.obj
+         .\Debug/jpc_enc.obj
+         .\Debug/jpc_math.obj
+         .\Debug/jpc_mct.obj
+         .\Debug/jpc_mqcod.obj
+         .\Debug/jpc_mqdec.obj
+         .\Debug/jpc_mqenc.obj
+         .\Debug/jpc_qmfb.obj
+         .\Debug/jpc_t1cod.obj
+         .\Debug/jpc_t1dec.obj
+         .\Debug/jpc_t1enc.obj
+         .\Debug/jpc_t2cod.obj
+         .\Debug/jpc_t2dec.obj
+         .\Debug/jpc_t2enc.obj
+         .\Debug/jpc_tagtree.obj
+         .\Debug/jpc_tsfb.obj
+         .\Debug/jpc_util.obj
+         .\Debug/jpg_dummy.obj
+         .\Debug/jpg_val.obj
+         .\Debug/mif_cod.obj
+         .\Debug/pgx_cod.obj
+         .\Debug/pgx_dec.obj
+         .\Debug/pgx_enc.obj
+         .\Debug/pnm_cod.obj
+         .\Debug/pnm_dec.obj
+         .\Debug/pnm_enc.obj
+         .\Debug/ras_cod.obj
+         .\Debug/ras_dec.obj
+         .\Debug/ras_enc.obj
+         libjasper.vcxproj -> C:\Users\Karsten\Desktop\GribCS Fork\jasper\msvc\Debug\libjasper.lib
+     1>Done Building Project "C:\Users\Karsten\Desktop\GribCS Fork\jasper\msvc\libjasper.vcxproj" (Rebuild target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:12.70
