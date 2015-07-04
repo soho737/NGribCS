@@ -1,2 +1,3 @@
 # NGribCS
-This is a fork of GribCS, resuming the development. This is heavy work in progess and should NOT BE USED right now.
+This is a fork of GribCS, resuming the development. This is heavy work in progess and should <b>NOT BE USED</b> right now.
+It is defunct, and don't blame me, if you do use it anyway...
