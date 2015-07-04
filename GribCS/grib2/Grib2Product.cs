@@ -24,6 +24,7 @@
  * along with GribCS.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+using NGribCS.GribCS.grib2.Tables;
 /// <summary> Grib2Product.java</summary>
 /// <author>  Robb Kambic
 /// </author>
@@ -62,6 +63,13 @@ namespace NGribCS.Grib2
 			}
 			
 		}
+
+
+        public ParamCategory ParameterCategory
+        {
+            get { return parameterCategory; }
+        }
+
 		/// <summary> GDSkey is a MD5 checksum of the GDS for this record.</summary>
 		/// <returns> gdsKey
 		/// </returns>
@@ -95,7 +103,12 @@ namespace NGribCS.Grib2
 			}
 			
 		}
-		
+
+
+  
+        private ParamCategory parameterCategory;
+
+
 		//UPGRADE_NOTE: Final was removed from the declaration of 'header '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
 		private System.String header;
 		//UPGRADE_NOTE: Final was removed from the declaration of 'discipline '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
@@ -140,6 +153,12 @@ namespace NGribCS.Grib2
 			this.pds = pds;
 			this.GdsOffset = GdsOffset;
 			this.PdsOffset = PdsOffset;
+
+            // HERE NEW
+            parameterCategory = Grib2Resolver.ResolveParameterCategory(this.ID.Center_id, this.ID.Master_table_version, this.ID.Local_table_version, this.PDS.ParameterCategory);
+          
+
+            
 		}
 		
 		// --Commented out by Inspection START (11/16/05 2:14 PM):
@@ -163,5 +182,8 @@ namespace NGribCS.Grib2
 		{
 			return PdsOffset;
 		}
-	}
+
+
+    
+    }
 }

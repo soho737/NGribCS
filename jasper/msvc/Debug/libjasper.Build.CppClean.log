@@ -1,59 +1,59 @@
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\vc120.pdb
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\vc120.idb
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jpc_t1dec.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jpc_t1enc.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jpc_t2cod.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jpc_t2dec.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jpc_t2enc.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jpc_tagtree.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jpc_tsfb.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jpc_util.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jpg_dummy.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jpg_val.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\mif_cod.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\pgx_cod.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\pgx_dec.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\pgx_enc.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\pnm_cod.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\pnm_dec.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\pnm_enc.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\ras_cod.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\ras_dec.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\ras_enc.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jas_string.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jas_tvp.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jas_version.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\bmp_cod.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\bmp_dec.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\bmp_enc.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jp2_cod.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jp2_dec.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jp2_enc.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jpc_bs.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jpc_cs.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jpc_dec.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jpc_enc.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jpc_math.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jpc_mct.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jpc_mqcod.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jpc_mqdec.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jpc_mqenc.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jpc_qmfb.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jpc_t1cod.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jas_cm.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jas_debug.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jas_getopt.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jas_icc.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jas_iccdata.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jas_image.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jas_init.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jas_malloc.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jas_seq.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\jas_stream.obj
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\libjasper.lib
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\libjasper.tlog\cl.command.1.tlog
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\libjasper.tlog\cl.read.1.tlog
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\libjasper.tlog\cl.write.1.tlog
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\libjasper.tlog\lib-link.read.1.tlog
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\libjasper.tlog\lib-link.write.1.tlog
-c:\users\karsten\desktop\gribcs fork\jasper\msvc\debug\libjasper.tlog\lib.command.1.tlog
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\vc120.pdb
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\vc120.idb
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jpc_t1dec.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jpc_t1enc.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jpc_t2cod.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jpc_t2dec.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jpc_t2enc.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jpc_tagtree.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jpc_tsfb.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jpc_util.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jpg_dummy.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jpg_val.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\mif_cod.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\pgx_cod.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\pgx_dec.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\pgx_enc.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\pnm_cod.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\pnm_dec.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\pnm_enc.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\ras_cod.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\ras_dec.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\ras_enc.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jas_string.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jas_tvp.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jas_version.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\bmp_cod.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\bmp_dec.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\bmp_enc.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jp2_cod.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jp2_dec.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jp2_enc.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jpc_bs.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jpc_cs.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jpc_dec.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jpc_enc.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jpc_math.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jpc_mct.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jpc_mqcod.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jpc_mqdec.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jpc_mqenc.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jpc_qmfb.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jpc_t1cod.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jas_cm.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jas_debug.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jas_getopt.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jas_icc.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jas_iccdata.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jas_image.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jas_init.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jas_malloc.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jas_seq.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\jas_stream.obj
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\libjasper.lib
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\libjasper.tlog\cl.command.1.tlog
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\libjasper.tlog\cl.read.1.tlog
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\libjasper.tlog\cl.write.1.tlog
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\libjasper.tlog\lib-link.read.1.tlog
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\libjasper.tlog\lib-link.write.1.tlog
+c:\users\karsten\documents\github\ngribcs\jasper\msvc\debug\libjasper.tlog\lib.command.1.tlog

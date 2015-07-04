@@ -25,6 +25,7 @@
 */
 
 using NGribCS;
+using NGribCS.GribCS.grib2.Tables;
 using NGribCS.Helpers;
 /// <summary> Grib2ProductDefinitionSection.java  1.1  08/29/2003.</summary>
 /// <author>  Robb Kambic
@@ -69,7 +70,7 @@ namespace NGribCS.Grib2
 		{
 			get
 			{
-				return parameterCategory;
+				return parameterCategoryId;
 			}
 			
 		}
@@ -245,8 +246,9 @@ namespace NGribCS.Grib2
 		private int productDefinition;
 		
 		/// <summary> parameterCategory.</summary>
-		private int parameterCategory;
-		
+		private int parameterCategoryId;
+
+ 		
 		/// <summary> parameterNumber.</summary>
 		private int parameterNumber;
 		
@@ -289,7 +291,8 @@ namespace NGribCS.Grib2
 		private int nb;
 		
 		// *** constructors *******************************************************
-		
+
+
 		/// <summary> Constructs a Grib2ProductDefinitionSection  object from a raf.
 		/// 
 		/// </summary>
@@ -298,7 +301,7 @@ namespace NGribCS.Grib2
 		/// </param>
 		/// <throws>  IOException  if raf contains no valid GRIB file </throws>
 		//UPGRADE_TODO: Class 'java.io.RandomAccessFile' was converted to 'System.IO.FileStream' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaioRandomAccessFile'"
-		public Grib2ProductDefinitionSection(System.IO.Stream raf)
+		public Grib2ProductDefinitionSection(System.IO.Stream raf, int pCenterId=0, int pMasterTableVersion=0, int pLocalTableVersion=0)
 		{
 			// octets 1-4 (Length of PDS)
 			length = GribNumbers.int4(raf);
@@ -333,7 +336,7 @@ namespace NGribCS.Grib2
 				case 8:  {
 						
 						// octet 10
-						parameterCategory = raf.ReadByte();
+						parameterCategoryId = raf.ReadByte();
 						//System.out.println( "PDS parameterCategory=" + 
 						//parameterCategory );
 						
@@ -511,7 +514,7 @@ namespace NGribCS.Grib2
 				
 				case 20:  {
 						
-						parameterCategory = raf.ReadByte();
+						parameterCategoryId = raf.ReadByte();
 						//System.out.println( "PDS parameterCategory=" + 
 						//parameterCategory );
 						
@@ -543,7 +546,7 @@ namespace NGribCS.Grib2
 				
 				case 30:  {
 						
-						parameterCategory = raf.ReadByte();
+						parameterCategoryId = raf.ReadByte();
 						//System.out.println( "PDS parameterCategory=" + parameterCategory );
 						
 						parameterNumber = raf.ReadByte();
@@ -566,7 +569,7 @@ namespace NGribCS.Grib2
 				
 				case 254:  {
 						
-						parameterCategory = raf.ReadByte();
+						parameterCategoryId = raf.ReadByte();
 						//System.out.println( "PDS parameterCategory=" + 
 						//parameterCategory );
 						
@@ -584,6 +587,9 @@ namespace NGribCS.Grib2
 					break;
 				
 			} // end switch
+
+
+           
 		}
 		
 		// --Commented out by Inspection START (11/21/05 2:24 PM):

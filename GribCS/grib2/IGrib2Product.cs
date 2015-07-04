@@ -1,4 +1,5 @@
-﻿/*
+﻿using NGribCS.GribCS.grib2.Tables;
+/*
  * This file is part of GribCS.
  * This code is based on an automatic conversion of JGRIB Beta 7 
  * (http://jgrib.sourceforge.net/) from Java to C#.
@@ -38,5 +39,7 @@ namespace NGribCS.Grib2
         IGrib2IdentificationSection ID { get; }
         IGrib2ProductDefinitionSection PDS { get; }
         string ReferenceTime { get; }
+
+        ParamCategory ParameterCategory { get; }
     }
 }

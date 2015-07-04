@@ -32,7 +32,6 @@ namespace NGribCS.Grib2
     public interface IGrib2Data
     {
         float[] getData(long GdsOffset, long PdsOffset);
-        void setFilename(string filename);
-        void closeFile();
+         void closeFile();
     }
 }

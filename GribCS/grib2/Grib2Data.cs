@@ -59,10 +59,7 @@ namespace NGribCS.Grib2
         {
         }
 
-        public void setFilename(string filename)
-        {
-            this.raf = new System.IO.FileStream(filename, System.IO.FileMode.Open, System.IO.FileAccess.Read);
-        }
+
 
         public void closeFile()
         {

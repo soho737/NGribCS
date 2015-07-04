@@ -1,5 +1,5 @@
-﻿Build started 04.07.2015 13:16:57.
-     1>Project "C:\Users\Karsten\Desktop\GribCS Fork\JpcDecoder\JpcDecoder.vcxproj" on node 2 (Rebuild target(s)).
+﻿Build started 04.07.2015 15:01:40.
+     1>Project "C:\Users\Karsten\Documents\GitHub\NGribCS\JpcDecoder\JpcDecoder.vcxproj" on node 2 (Rebuild target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\jasper\libjasper\headers /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D JPCDECODER_EXPORTS /D JAS_WIN_MSVC_BUILD /D _CRT_SECURE_NO_WARNINGS /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Debug\JpcDecoder.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
          stdafx.cpp
@@ -8,15 +8,15 @@
        ResourceCompile:
          C:\Program Files (x86)\Windows Kits\8.1\bin\x86\rc.exe /D _UNICODE /D UNICODE /l"0x0409" /nologo /fo"Debug\JpcDecoder.res" JpcDecoder.rc 
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Karsten\Desktop\GribCS Fork\JpcDecoder\Debug\JpcDecoder.dll" /INCREMENTAL:NO /NOLOGO ..\jasper\msvc\Debug\libjasper.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Karsten\Desktop\GribCS Fork\JpcDecoder\Debug\JpcDecoder.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE:NO /IMPLIB:"C:\Users\Karsten\Desktop\GribCS Fork\JpcDecoder\Debug\JpcDecoder.lib" /MACHINE:X86 /SAFESEH /DLL Debug\JpcDecoder.res
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Karsten\Documents\GitHub\NGribCS\JpcDecoder\Debug\JpcDecoder.dll" /INCREMENTAL:NO /NOLOGO ..\jasper\msvc\Debug\libjasper.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Karsten\Documents\GitHub\NGribCS\JpcDecoder\Debug\JpcDecoder.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE:NO /IMPLIB:"C:\Users\Karsten\Documents\GitHub\NGribCS\JpcDecoder\Debug\JpcDecoder.lib" /MACHINE:X86 /SAFESEH /DLL Debug\JpcDecoder.res
          Debug\JpcDecoder.obj
          Debug\stdafx.obj
-         "C:\Users\Karsten\Desktop\GribCS Fork\jasper\msvc\Debug\libjasper.lib"
+         C:\Users\Karsten\Documents\GitHub\NGribCS\jasper\msvc\Debug\libjasper.lib
      1>JpcDecoder.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:LBR' specification
-            Creating library C:\Users\Karsten\Desktop\GribCS Fork\JpcDecoder\Debug\JpcDecoder.lib and object C:\Users\Karsten\Desktop\GribCS Fork\JpcDecoder\Debug\JpcDecoder.exp
-         JpcDecoder.vcxproj -> C:\Users\Karsten\Desktop\GribCS Fork\JpcDecoder\Debug\JpcDecoder.dll
-     1>Done Building Project "C:\Users\Karsten\Desktop\GribCS Fork\JpcDecoder\JpcDecoder.vcxproj" (Rebuild target(s)).
+            Creating library C:\Users\Karsten\Documents\GitHub\NGribCS\JpcDecoder\Debug\JpcDecoder.lib and object C:\Users\Karsten\Documents\GitHub\NGribCS\JpcDecoder\Debug\JpcDecoder.exp
+         JpcDecoder.vcxproj -> C:\Users\Karsten\Documents\GitHub\NGribCS\JpcDecoder\Debug\JpcDecoder.dll
+     1>Done Building Project "C:\Users\Karsten\Documents\GitHub\NGribCS\JpcDecoder\JpcDecoder.vcxproj" (Rebuild target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.07
+Time Elapsed 00:00:01.12

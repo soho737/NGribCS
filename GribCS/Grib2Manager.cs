@@ -12,7 +12,7 @@ namespace NGribCS
 
         private System.IO.Stream _sourceStream;
         private Grib2Input _g2i;
-
+        
 
         /// <summary>
         /// Initializes a new instance of the Grib2Manager from a grib file
@@ -27,6 +27,7 @@ namespace NGribCS
                 {
                     _sourceStream = new MemoryStream();
                     copyStream(fs, _sourceStream);
+                    _sourceStream.Position = 0;
                 }
             }
             else
@@ -35,7 +36,16 @@ namespace NGribCS
             }
 
             _g2i = new Grib2Input(_sourceStream);
-            _g2i.scan(false, false);
+
+            generateInventory();
+     
+        }
+
+
+        protected void generateInventory()
+        {
+            _g2i.scan(true, false);
+
         }
 
 

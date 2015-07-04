@@ -15,7 +15,7 @@ namespace NGribCS.ConsoleTester
          
             ///////////// WORK HERE
 
-            Grib2Manager g2m = new Grib2Manager(@"e:\gribdata.grb2", true);
+            Grib2Manager g2m = new Grib2Manager(@"e:\gribdata.grb2", false);
 
            
 
