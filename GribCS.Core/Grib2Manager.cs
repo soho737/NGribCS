@@ -5,61 +5,123 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace NGribCS
+namespace NGribCS.grib2
 {
     public class Grib2Manager : IDisposable
     {
 
-        private System.IO.Stream _sourceStream;
-        private Grib2Input _g2i;
-        
-        public Grib2Input G2I
-        {
-            get
-            {
-                return _g2i;
-            }
-        }
+        private bool _inMemoryProcessing = false;
+
+        private Dictionary<int,Stream> _StreamDictionary;
+        private Dictionary<int, Grib2Input> _Grib2Inputs;
+
+        private int sourcecount = 0;
+
+      
 
         /// <summary>
         /// Initializes a new instance of the Grib2Manager from a grib file
         /// </summary>
-        /// <param name="pFileName">The grib2-File that should be opened</param>
         /// <param name="pInMemoryProcessing">Process the grib2-File in memory. This is significantly faster, but consumes more ressources</param>
-        public Grib2Manager(string pFileName, bool pInMemoryProcessing)
+        public Grib2Manager(bool pInMemoryProcessing)
         {
-            if (pInMemoryProcessing)
-            {
-                using (FileStream fs = new System.IO.FileStream(pFileName, FileMode.Open, FileAccess.Read, FileShare.Read))
-                {
-                    _sourceStream = new MemoryStream();
-                    copyStream(fs, _sourceStream);
-                    _sourceStream.Position = 0;
-                }
-            }
-            else
-            {
-                _sourceStream = new System.IO.FileStream(pFileName, FileMode.Open, FileAccess.Read, FileShare.Read);
-            }
-
-            _g2i = new Grib2Input(_sourceStream);
-
-            generateInventory();
-     
+            _inMemoryProcessing = pInMemoryProcessing;
+            _StreamDictionary = new Dictionary<int, Stream>();
+            _Grib2Inputs = new Dictionary<int, Grib2Input>();
         }
 
 
-        protected void generateInventory()
+        public void AddFile(string pFileName)
         {
-            _g2i.scan(true, false);
+            Stream _sourceStream;
+            try
+            {
+                if (_inMemoryProcessing)
+                {
+                    using (FileStream fs = new System.IO.FileStream(pFileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+                    {
+                        _sourceStream = new MemoryStream();
+                        copyStream(fs, _sourceStream);
+                        _sourceStream.Position = 0;
+                    }
+                }
+                else
+                {
+                    _sourceStream = new System.IO.FileStream(pFileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+                }
 
+                Grib2Input g2i = new Grib2Input(_sourceStream);
+                g2i.scan(true, false);
+
+                _StreamDictionary.Add(sourcecount, _sourceStream);
+                _Grib2Inputs.Add(sourcecount, g2i);
+
+                
+            }
+            catch(Exception Ex)
+            {
+                throw Ex;
+            }
+            finally
+            {
+
+            }
+        }
+
+
+        public List<InventoryItem> GetInventory()
+        {
+            List<InventoryItem> iv =new List<InventoryItem>();
+            foreach (int key in _Grib2Inputs.Keys)
+            {
+                int i = 0;
+                foreach (Grib2Product gp in _Grib2Inputs[key].Products)
+                {
+                    iv.Add(new InventoryItem(key, i++, gp));
+                }
+
+          
+            }
+            return iv;
+        }
+    
+
+        public IGrib2Product GetProduct(InventoryItem i)
+        {
+            return  _Grib2Inputs[i.SourceIndex].GetProduct(i.ProductIndex);
+        }
+
+        public float[] GetRawData(InventoryItem i)
+        {
+            Grib2Data d = new Grib2Data(_StreamDictionary[i.SourceIndex]);
+            float[] data = d.getData(i.Product.getGdsOffset(), i.Product.getPdsOffset());
+            return data;
+        }
+
+        public Grib2GridDefinitionSection GetGDS(InventoryItem i)
+        {
+            Grib2GridDefinitionSection gds = new Grib2GridDefinitionSection(_StreamDictionary[i.SourceIndex], false);
+            return gds;
+
+        }
+        public IGrib2Record GetRecord(InventoryItem i)
+        {
+            _StreamDictionary[i.SourceIndex].Position = 0;
+            Grib2Input tmp = new Grib2Input(_StreamDictionary[i.SourceIndex]);
+            tmp.scan(false, false);
+
+            return tmp.GetRecord(i.ProductIndex);
         }
 
 
         public void Dispose()
         {
-            if (_sourceStream != null)
-                _sourceStream.Dispose();
+            foreach (Grib2Input g2i in _Grib2Inputs.Values)
+                g2i.closeFile();
+
+            foreach (Stream s in _StreamDictionary.Values)
+                if (s != null)
+                    s.Dispose();
         }
 
         private static void copyStream(Stream input, Stream output)

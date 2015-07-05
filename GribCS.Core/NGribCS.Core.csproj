@@ -213,6 +213,7 @@
     <Compile Include="grib2\IGrib2Product.cs" />
     <Compile Include="grib2\IGrib2ProductDefinitionSection.cs" />
     <Compile Include="grib2\IGrib2Record.cs" />
+    <Compile Include="grib2\InventoryItem.cs" />
     <Compile Include="grib2\Tables\Discipline.cs" />
     <Compile Include="grib2\Tables\Grib2Resolver.cs" />
     <Compile Include="grib2\Tables\WMO\WMOResolver.cs" />

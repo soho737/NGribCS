@@ -1,4 +1,5 @@
-﻿using NGribCS.Grib2;
+﻿using NGribCS.grib2;
+using NGribCS.Grib2;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,24 +17,14 @@ namespace NGribCS.ConsoleTester
          
             ///////////// WORK HERE
 
-            Grib2Manager g2m = new Grib2Manager(@"e:\gribdata.grb2", true);
+            Grib2Manager g2m = new Grib2Manager(true);
+            g2m.AddFile(@"e:\gribdata.grb2");
 
-           
-            // Lets output the inventory
+            List<InventoryItem> iv =  g2m.GetInventory();
+            IGrib2Product pro = g2m.GetProduct(iv[40]);
+            float[] data = g2m.GetRawData(iv[40]);
 
-            int i = 0;
-            foreach (Grib2Product p in g2m.G2I.Products)
-            {
-                i++;
-               // if (p.Parameter.Name!="UNDEFINED")
-                Console.WriteLine(i + " of " + g2m.G2I.Products.Count()+":");
-                Console.WriteLine("{Discipline " + p.Discipline.DisciplineId.ToString() + " - " + p.Discipline.DisciplineName + "}"); 
-              Console.WriteLine("[" + p.ParameterCategory.Id.ToString() + " - " + p.ParameterCategory.Name + "] " + p.Parameter.Id +"/" + p.Parameter.Abbreviation + " - " + p.Parameter.Name + " - " + p.Parameter.Unit);
-
-
-            }
-
-
+            Grib2GridDefinitionSection gds = g2m.GetGDS(iv[40]);
 
             /////////////
 
