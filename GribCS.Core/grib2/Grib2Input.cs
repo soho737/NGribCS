@@ -1,4 +1,3 @@
-
 /*
  * This file is part of NGribCS which is a fork of GribCS
  * found at http://sourceforge.net/projects/gribcs/ 

@@ -23,7 +23,8 @@ namespace NGribCS.ConsoleTester
 
             foreach (Grib2Product p in g2m.G2I.Products)
             {
-                Console.WriteLine(p.ParameterCategory.Id.ToString() + " - " + p.ParameterCategory.Name + " / " + p.Parameter.Abbreviation + " - " + p.Parameter.Name + " - " + p.Parameter.Unit);
+                if (p.Parameter.Name!="UNDEFINED")
+                Console.WriteLine("[" + p.ParameterCategory.Id.ToString() + " - " + p.ParameterCategory.Name + "] " + p.Parameter.Abbreviation + " - " + p.Parameter.Name + " - " + p.Parameter.Unit);
 
 
             }
