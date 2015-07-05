@@ -116,7 +116,7 @@ namespace NGribCS.Grib2
 			
 		}
 		/// <summary> Number of bits used for each packed value..</summary>
-		/// <returns> NumberOfBits NB
+		/// <returns> NumberOfBits numBitsEncodingEachGroup
 		/// </returns>
 		public int NumberOfBits
 		{
@@ -203,8 +203,8 @@ namespace NGribCS.Grib2
 			}
 			
 		}
-		/// <summary> NG - Number of groups of data values into which field is split.</summary>
-		/// <returns> NumberOfGroups NG
+		/// <summary> numGroups - Number of groups of data values into which field is split.</summary>
+		/// <returns> NumberOfGroups numGroups
 		/// </returns>
 		public int NumberOfGroups
 		{
@@ -362,7 +362,7 @@ namespace NGribCS.Grib2
 		//UPGRADE_NOTE: The initialization of  'secondaryMissingValue' was moved to method 'InitBlock'. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1005'"
 		private float secondaryMissingValue;
 		
-		/// <summary> NG - Number of groups of data values into which field is split.</summary>
+		/// <summary> numGroups - Number of groups of data values into which field is split.</summary>
 		private int numberOfGroups;
 		
 		/// <summary> Reference for group widths (see Note 12).</summary>

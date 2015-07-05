@@ -559,7 +559,7 @@ namespace NGribCS.Grib2
 						//System.out.println( "PDS backGenProcess=" + backGenProcess );
 						
 						nb = raf.ReadByte();
-						//System.out.println( "PDS nb =" + nb );
+						//System.out.println( "PDS numberOfBits =" + numberOfBits );
 						for (int j = 0; j < nb; j++)
 							SupportClass.Skip(raf, 10);
 						break;

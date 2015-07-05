@@ -98,7 +98,7 @@ namespace NGribCS.Grib2
 			Grib2BitMapSection bms = new Grib2BitMapSection(raf, gds); // Section 6
 			
 			Grib2DataSection ds = new Grib2DataSection(true, raf, gds, drs, bms); // Section 7
-			//System.out.println("DS offset=" + ds.getOffset() );
+			//System.out.println("DS offset=" + descriptorSpatial.getOffset() );
 			
 			return ds.Data;
 		} // end getData

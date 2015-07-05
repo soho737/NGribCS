@@ -225,10 +225,10 @@ namespace NGribCS.Grib1
 			}
 		} // end Grib1BinaryDataSection
 		
-		/// <summary> Convert bits (nb) to Unsigned Int .
+		/// <summary> Convert bits (numberOfBits) to Unsigned Int .
 		/// 
 		/// </summary>
-		/// <param name="nb">
+		/// <param name="numberOfBits">
 		/// </param>
 		/// <param name="raf">
 		/// </param>

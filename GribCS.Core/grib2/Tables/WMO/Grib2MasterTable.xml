@@ -497,6 +497,18 @@
           <Version>14</Version>
           <ParameterCategories>
             <ParameterCategory>
+              <CategoryId>0</CategoryId>
+              <CategoryName>Vegetation/Biomass</CategoryName>
+              <Parameters>
+                <Parameter>
+                  <Number>0</Number>
+                  <Name>Land Cover</Name>
+                  <Unit>Proportion</Unit>
+                  <Abbreviation>LAND</Abbreviation>
+                </Parameter>
+              </Parameters>
+            </ParameterCategory>
+            <ParameterCategory>
               <CategoryId>4</CategoryId>
               <CategoryName>Fire Weather</CategoryName>
               <Parameters>

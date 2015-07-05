@@ -1,5 +1,6 @@
 ﻿using NGribCS.Grib2;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -98,11 +99,78 @@ namespace NGribCS.grib2
             return data;
         }
 
+        public float[,] GetGriddedData(InventoryItem iv)
+        {
+           
+            Grib2GridDefinitionSection gds = GetGDS(iv);
+            float[] rawdata = GetRawData(iv);
+
+            // Determine Scanning Mode
+            BitArray ba = new BitArray(new byte[] {(Byte)gds.ScanMode});
+            
+            // This byte is reversed due to endianess, so the bit with the index 7 is actually bit 1
+            if (ba[7])
+            {
+                // Points of first row or column scan in the +i direction
+            }
+            else
+            {
+                // Points of first row or column scan in the -i direction
+            }
+
+            if (ba[6])
+            {
+                // Points of first row or column scan in the -j direction
+            }
+            else
+            {
+                //	Points of first row or column scan in the +j direction
+            }
+
+            if (ba[5])
+            {
+            	// Adjacent points in i direction are consecutive
+            }
+            else
+            {
+               // Adjacent points in j direction are consecutive
+            }
+
+            if (ba[4])
+            {
+               // All rows scan in the same direction
+            }
+            else
+            {
+               // Adjacent rows scan in the opposite direction
+            }
+
+            
+            // Defining the array bounds
+            float[,] fx = new float[gds.Nx, gds.Ny];
+
+            int n = 0;
+            // Currently we are assuming we scan in +i and +j, we'll fix this later
+            for (int i = 0; i < gds.Nx;i++ )
+            {
+                for (int j = 0; j < gds.Ny; j++)
+                {
+                    fx[i, j] = rawdata[n];
+                    n++;
+                }
+
+            }
+
+            return fx;
+
+        }
+
         public Grib2GridDefinitionSection GetGDS(InventoryItem i)
         {
-            Grib2GridDefinitionSection gds = new Grib2GridDefinitionSection(_StreamDictionary[i.SourceIndex], false);
-            return gds;
+            IGrib2Product p = _Grib2Inputs[i.SourceIndex].GetProduct(i.ProductIndex);
 
+            return _Grib2Inputs[i.SourceIndex].GDSs[i.Product.GDSkey];
+         
         }
         public IGrib2Record GetRecord(InventoryItem i)
         {

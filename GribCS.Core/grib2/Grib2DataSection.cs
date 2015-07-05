@@ -96,7 +96,7 @@ namespace NGribCS.Grib2
 				// skip data read
 				//System.out.println( "raf.position before reposition="+raf.getFilePointer());
 				//System.out.println( "raf.length=" + raf.length() );
-				// sanity check for erronous ds length
+				// sanity check for erronous descriptorSpatial length
 				if (length > 0 && length < raf.Length)
 				{
 					SupportClass.Skip(raf, length - 5);
@@ -163,7 +163,7 @@ namespace NGribCS.Grib2
 			float pmv = drs.PrimaryMissingValue;
 			//System.out.println( "DS pmv=" + pmv );
 			int nb = drs.NumberOfBits;
-			//System.out.println( "DS nb=" + nb );
+			//System.out.println( "DS numberOfBits=" + numberOfBits );
 			int D = drs.DecimalScaleFactor;
 			//System.out.println( "DS D=" + D );
 			//UPGRADE_WARNING: Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1042'"
@@ -239,12 +239,12 @@ namespace NGribCS.Grib2
 			//System.out.println( "DS pmv=" + pmv );
 			
 			int NG = drs.NumberOfGroups;
-			//System.out.println( "DS NG=" + NG );
+			//System.out.println( "DS numGroups=" + numGroups );
 			
 			// 6-xx  Get reference values for groups (X1's)
 			int[] X1 = new int[NG];
 			int nb = drs.NumberOfBits;
-			//System.out.println( "DS nb=" + nb );
+			//System.out.println( "DS numberOfBits=" + numberOfBits );
 			bitPos = 0;
 			bitBuf = 0;
 			for (int i = 0; i < NG; i++)
@@ -256,32 +256,32 @@ namespace NGribCS.Grib2
 			// [xx +1 ]-yy Get number of bits used to encode each group
 			int[] NB = new int[NG];
 			nb = drs.BitsGroupWidths;
-			//System.out.println( "DS nb=" + nb );
+			//System.out.println( "DS numberOfBits=" + numberOfBits );
 			bitPos = 0;
 			bitBuf = 0;
 			for (int i = 0; i < NG; i++)
 			{
 				NB[i] = bits2UInt(nb, raf);
-				//System.out.println( "DS NB[ i ]=" + NB[ i ] );
+				//System.out.println( "DS numBitsEncodingEachGroup[ i ]=" + numBitsEncodingEachGroup[ i ] );
 			}
 			
 			// [yy +1 ]-zz Get the scaled group lengths using formula
-			//     Ln = ref + Kn * len_inc, where n = 1-NG,
-			//          ref = referenceGroupLength, and  len_inc = lengthIncrement
+			//     Ln = ref + Kn * lengthIncrement, where n = 1-numGroups,
+			//          ref = referenceGroupLength, and  lengthIncrement = lengthIncrement
 			
 			int[] L = new int[NG];
 			int countL = 0;
 			int ref_Renamed = drs.ReferenceGroupLength;
 			//System.out.println( "DS ref=" + ref );
 			int len_inc = drs.LengthIncrement;
-			//System.out.println( "DS len_inc=" + len_inc );
+			//System.out.println( "DS lengthIncrement=" + lengthIncrement );
 			nb = drs.BitsScaledGroupLength;
-			//System.out.println( "DS nb=" + nb );
+			//System.out.println( "DS numberOfBits=" + numberOfBits );
 			bitPos = 0;
 			bitBuf = 0;
 			for (int i = 0; i < NG; i++)
 			{
-				// NG
+				// numGroups
 				L[i] = ref_Renamed + (bits2UInt(nb, raf) * len_inc);
 				//System.out.println( "DS L[ i ]=" + L[ i ] );
 				countL += L[i];
@@ -329,7 +329,7 @@ namespace NGribCS.Grib2
 			bitBuf = 0;
 			for (int i = 0; i < NG - 1; i++)
 			{
-				//System.out.println( "DS NB[ i ]=" + NB[ i ] );
+				//System.out.println( "DS numBitsEncodingEachGroup[ i ]=" + numBitsEncodingEachGroup[ i ] );
 				//System.out.println( "DS L[ i ]=" + L[ i ] );
 				//System.out.println( "DS X1[ i ]=" + X1[ i ] );
 				for (int j = 0; j < L[i]; j++)
@@ -366,7 +366,7 @@ namespace NGribCS.Grib2
 							}
 						}
 						//System.out.println( "DS count=" + count );
-						//System.out.println( "DS NB[ "+ i +" ]=" + NB[ i ] );
+						//System.out.println( "DS numBitsEncodingEachGroup[ "+ i +" ]=" + numBitsEncodingEachGroup[ i ] );
 						//System.out.println( "DS X1[ "+ i +" ]=" + X1[ i ] );
 						//System.out.println( "DS X2 =" +X2 );
 						//System.out.println( "DS X1[ i ] + X2 ="+(X1[ i ]+X2) );
@@ -428,120 +428,131 @@ namespace NGribCS.Grib2
 		//UPGRADE_TODO: Class 'java.io.RandomAccessFile' was converted to 'System.IO.FileStream' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaioRandomAccessFile'"
 		private void  complexUnpackingWithSpatial(System.IO.Stream raf, Grib2GridDefinitionSection gds, Grib2DataRepresentationSection drs)
 		{
-			int mvm = drs.MissingValueManagement;
-			//System.out.println( "DS mvm=" + mvm );
+
+             /*
+             * 0 - No explicit missing values included within the data values
+             * 1 - Primary missing values included within the data values
+             * 2 - Primary and secondary missing values included within the data values
+             */
+			int missingValManagement = drs.MissingValueManagement;
 			
-			float pmv = drs.PrimaryMissingValue;
-			//System.out.println( "DS pmv=" + pmv );
+
+			float primaryMissingValue = drs.PrimaryMissingValue;
 			
-			int NG = drs.NumberOfGroups;
-			//System.out.println( "DS NG=" + NG );
+			int numGroups = drs.NumberOfGroups;
+			//System.out.println( "DS numGroups=" + numGroups );
 			
 			int g1 = 0, gMin = 0, h1 = 0, h2 = 0, hMin = 0;
 			// [6-ww]   1st values of undifferenced scaled values and minimums
-			int os = drs.OrderSpatial;
-			int ds = drs.DescriptorSpatial;
-			//System.out.println( "DS os=" + os +" ds =" + ds );
+
+            // 1 - First-Order Spatial Differencing
+            // 2 - Second-Order Spatial Differencing
+			int orderSpatial = drs.OrderSpatial;
+
+            // Number of octets required in the data section to specify extra descriptors needed for spatial differencing
+			int descriptorSpatial = drs.DescriptorSpatial;
+			//System.out.println( "DS orderSpatial=" + orderSpatial +" descriptorSpatial =" + descriptorSpatial );
 			bitPos = 0;
 			bitBuf = 0;
 			int sign;
-			// ds is number of bytes, convert to bits -1 for sign bit
-			ds = ds * 8 - 1;
-			if (os == 1)
+			// descriptorSpatial is number of bytes, convert to bits -1 for sign bit
+			descriptorSpatial = descriptorSpatial * 8 - 1;
+			if (orderSpatial == 1)
 			{
 				// first order spatial differencing g1 and gMin
 				sign = bits2UInt(1, raf);
-				g1 = bits2UInt(ds, raf);
+				g1 = bits2UInt(descriptorSpatial, raf);
 				if (sign == 1)
 				{
 					g1 *= (- 1);
 				}
 				sign = bits2UInt(1, raf);
-				gMin = bits2UInt(ds, raf);
+				gMin = bits2UInt(descriptorSpatial, raf);
 				if (sign == 1)
 				{
 					gMin *= (- 1);
 				}
 			}
-			else if (os == 2)
+			else if (orderSpatial == 2)
 			{
 				//second order spatial differencing h1, h2, hMin
 				sign = bits2UInt(1, raf);
-				h1 = bits2UInt(ds, raf);
+				h1 = bits2UInt(descriptorSpatial, raf);
 				if (sign == 1)
 				{
 					h1 *= (- 1);
 				}
 				sign = bits2UInt(1, raf);
-				h2 = bits2UInt(ds, raf);
+				h2 = bits2UInt(descriptorSpatial, raf);
 				if (sign == 1)
 				{
 					h2 *= (- 1);
 				}
 				sign = bits2UInt(1, raf);
-				hMin = bits2UInt(ds, raf);
+				hMin = bits2UInt(descriptorSpatial, raf);
 				if (sign == 1)
 				{
 					hMin *= (- 1);
 				}
-				//System.out.println( "DS ds ="+ ds +" h1=" + h1 +" h2 =" + h2 + " hMin=" + hMin );
+				//System.out.println( "DS descriptorSpatial ="+ descriptorSpatial +" h1=" + h1 +" h2 =" + h2 + " hMin=" + hMin );
 			}
 			else
 			{
-				System.Console.Out.WriteLine("DS error os=" + os + " ds =" + ds);
+				System.Console.Out.WriteLine("DS error os=" + orderSpatial + " ds =" + descriptorSpatial);
 				return ;
 			}
 			
 			// [ww +1]-xx  Get reference values for groups (X1's)
-			int[] X1 = new int[NG];
-			int nb = drs.NumberOfBits;
-			//System.out.println( "DS nb=" + nb );
+			int[] X1 = new int[numGroups];
+			int numberOfBits = drs.NumberOfBits;
+			//System.out.println( "DS numberOfBits=" + numberOfBits );
 			bitPos = 0;
 			bitBuf = 0;
-			for (int i = 0; i < NG; i++)
+			for (int i = 0; i < numGroups; i++)
 			{
-				X1[i] = bits2UInt(nb, raf);
+				X1[i] = bits2UInt(numberOfBits, raf);
 				//System.out.println( "DS X1[ i ]=" + X1[ i ] );
 			}
 			
 			// [xx +1 ]-yy Get number of bits used to encode each group
-			int[] NB = new int[NG];
-			nb = drs.BitsGroupWidths;
-			//System.out.println( "DS nb=" + nb );
+			int[] numBitsEncodingEachGroup = new int[numGroups];
+			numberOfBits = drs.BitsGroupWidths;
+			//System.out.println( "DS numberOfBits=" + numberOfBits );
 			bitPos = 0;
 			bitBuf = 0;
-			for (int i = 0; i < NG; i++)
+			for (int i = 0; i < numGroups; i++)
 			{
-				NB[i] = bits2UInt(nb, raf);
-				//System.out.println( "DS NB[ i ]=" + NB[ i ] );
+				numBitsEncodingEachGroup[i] = bits2UInt(numberOfBits, raf);
 			}
 			
 			// [yy +1 ]-zz Get the scaled group lengths using formula
-			//     Ln = ref + Kn * len_inc, where n = 1-NG,
-			//          ref = referenceGroupLength, and  len_inc = lengthIncrement
+			//     Ln = ref + Kn * lengthIncrement, where n = 1-numGroups,
+			//          ref = referenceGroupLength, and  lengthIncrement = lengthIncrement
 			
-			int[] L = new int[NG];
+			int[] L = new int[numGroups];
 			int countL = 0;
-			int ref_Renamed = drs.ReferenceGroupLength;
+			int referenceGroupLength = drs.ReferenceGroupLength;
 			//System.out.println( "DS ref=" + ref );
-			int len_inc = drs.LengthIncrement;
-			//System.out.println( "DS len_inc=" + len_inc );
-			nb = drs.BitsScaledGroupLength;
-			//System.out.println( "DS nb=" + nb );
+			int lengthIncrement = drs.LengthIncrement;
+			//System.out.println( "DS lengthIncrement=" + lengthIncrement );
+			numberOfBits = drs.BitsScaledGroupLength;
+			//System.out.println( "DS numberOfBits=" + numberOfBits );
 			bitPos = 0;
 			bitBuf = 0;
-			for (int i = 0; i < NG; i++)
+			for (int i = 0; i < numGroups; i++)
 			{
-				// NG
-				L[i] = ref_Renamed + (bits2UInt(nb, raf) * len_inc);
+				// numGroups
+				L[i] = referenceGroupLength + (bits2UInt(numberOfBits, raf) * lengthIncrement);
 				//System.out.println( "DS L[ i ]=" + L[ i ] );
 				countL += L[i];
 			}
 			//System.out.println( "DS countL=" + countL );
 			
 			// [zz +1 ]-nn get X2 values and add X1[ i ] + X2
-			
-			data = new float[countL];
+		
+	
+            data = new float[countL];
+
 			//System.out.println( "DS countL=" + countL + " dataPoints=" +
 			//gds.getNumberPoints() );
 			// used to check missing values when X2 is packed with all 1's
@@ -562,42 +573,42 @@ namespace NGribCS.Grib2
 			int X2;
 			bitPos = 0;
 			bitBuf = 0;
-			for (int i = 0; i < NG - 1; i++)
+			for (int i = 0; i < numGroups - 1; i++)
 			{
 				//System.out.println( "DS pmv=" + pmv );
 				//System.out.println( "DS count=" + count );
 				//System.out.println( "DS L[ "+ i +" ]=" + L[ i ] );
-				//System.out.println( "DS NB[ "+ i +" ]=" + NB[ i ] );
+				//System.out.println( "DS numBitsEncodingEachGroup[ "+ i +" ]=" + numBitsEncodingEachGroup[ i ] );
 				//System.out.println( "DS X1[ "+ i +" ]=" + X1[ i ] );
 				//System.out.println( "DS cumlative L[i] =" + (count + L[ i ]) );
 				for (int j = 0; j < L[i]; j++)
 				{
-					if (NB[i] == 0)
+					if (numBitsEncodingEachGroup[i] == 0)
 					{
-						if (mvm == 0)
+						if (missingValManagement == 0)
 						{
 							// X2 = 0
 							data[count++] = X1[i];
 						}
-						else if (mvm == 1)
+						else if (missingValManagement == 1)
 						{
-							data[count++] = pmv;
+							data[count++] = primaryMissingValue;
 						}
 					}
 					else
 					{
-						X2 = bits2UInt(NB[i], raf);
+						X2 = bits2UInt(numBitsEncodingEachGroup[i], raf);
 						
-						if (mvm == 0)
+						if (missingValManagement == 0)
 						{
 							data[count++] = X1[i] + X2;
 						}
-						else if (mvm == 1)
+						else if (missingValManagement == 1)
 						{
 							// X2 is also set to missing value is all bits set to 1's
-							if (X2 == bitsmv1[NB[i]])
+							if (X2 == bitsmv1[numBitsEncodingEachGroup[i]])
 							{
-								data[count++] = pmv;
+								data[count++] = primaryMissingValue;
 							}
 							else
 							{
@@ -606,7 +617,7 @@ namespace NGribCS.Grib2
 						}
 						//if( count > 1235 && count < 1275 ) {
 						//   System.out.println( "DS count=" + count );
-						//   System.out.println( "DS NB[ "+ i +" ]=" + NB[ i ] );
+						//   System.out.println( "DS numBitsEncodingEachGroup[ "+ i +" ]=" + numBitsEncodingEachGroup[ i ] );
 						//   System.out.println( "DS X1[ "+ i +" ]=" + X1[ i ] );
 						//   System.out.println( "DS X2 =" +X2 );
 						//   System.out.println( "DS X1[ i ] + X2 ="+(X1[ i ]+X2) );
@@ -620,35 +631,36 @@ namespace NGribCS.Grib2
 			for (int j = 0; j < last; j++)
 			{
 				// last group
-				if (NB[NG - 1] == 0)
+				if (numBitsEncodingEachGroup[numGroups - 1] == 0)
 				{
-					if (mvm == 0)
+					if (missingValManagement == 0)
 					{
 						// X2 = 0
-						data[count++] = X1[NG - 1];
+
+						data[count++] = X1[numGroups - 1];
 					}
-					else if (mvm == 1)
+					else if (missingValManagement == 1)
 					{
-						data[count++] = pmv;
+						data[count++] = primaryMissingValue;
 					}
 				}
 				else
 				{
-					X2 = bits2UInt(NB[NG - 1], raf);
-					if (mvm == 0)
+					X2 = bits2UInt(numBitsEncodingEachGroup[numGroups - 1], raf);
+					if (missingValManagement == 0)
 					{
-						data[count++] = X1[NG - 1] + X2;
+						data[count++] = X1[numGroups - 1] + X2;
 					}
-					else if (mvm == 1)
+					else if (missingValManagement == 1)
 					{
 						// X2 is also set to missing value is all bits set to 1's
-						if (X2 == bitsmv1[NB[NG - 1]])
+						if (X2 == bitsmv1[numBitsEncodingEachGroup[numGroups - 1]])
 						{
-							data[count++] = pmv;
+							data[count++] = primaryMissingValue;
 						}
 						else
 						{
-							data[count++] = X1[NG - 1] + X2;
+							data[count++] = X1[numGroups - 1] + X2;
 						}
 					}
 				}
@@ -656,11 +668,11 @@ namespace NGribCS.Grib2
 			
 			
 			//System.out.println( "DS mvm =" + mvm );
-			if (os == 1)
+			if (orderSpatial == 1)
 			{
 				// g1 and gMin this coding is a sort of guess, no doc
 				float sum = 0;
-				if (mvm == 0)
+				if (missingValManagement == 0)
 				{
 					// no missing values
 					for (int i = 1; i < data.Length; i++)
@@ -677,12 +689,12 @@ namespace NGribCS.Grib2
 				else
 				{
 					// contains missing values
-					float lastOne = pmv;
+					float lastOne = primaryMissingValue;
 					// add the minimum back and set g1
 					int idx = 0;
 					for (int i = 0; i < data.Length; i++)
 					{
-						if (data[i] != pmv)
+						if (data[i] != primaryMissingValue)
 						{
 							if (idx == 0)
 							{
@@ -698,14 +710,14 @@ namespace NGribCS.Grib2
 						}
 					}
 					//System.out.println( "DS data[ 0 ] ="+ data[ 0 ] );
-					if (lastOne == pmv)
+					if (lastOne == primaryMissingValue)
 					{
 						System.Console.Out.WriteLine("DS bad spatial differencing data");
 						return ;
 					}
 					for (int i = idx; i < data.Length; i++)
 					{
-						if (data[i] != pmv)
+						if (data[i] != primaryMissingValue)
 						{
 							//System.out.println( "DS i=" + i + " sum =" + sum );
 							sum += data[i];
@@ -716,12 +728,12 @@ namespace NGribCS.Grib2
 					}
 				}
 			}
-			else if (os == 2)
+			else if (orderSpatial == 2)
 			{
 				//h1, h2, hMin
 				float hDiff = h2 - h1;
 				float sum = 0;
-				if (mvm == 0)
+				if (missingValManagement == 0)
 				{
 					// no missing values
 					for (int i = 2; i < data.Length; i++)
@@ -741,11 +753,11 @@ namespace NGribCS.Grib2
 				{
 					// contains missing values
 					int idx = 0;
-					float lastOne = pmv;
+					float lastOne = primaryMissingValue;
 					// add the minimum back and set h1 and h2
 					for (int i = 0; i < data.Length; i++)
 					{
-						if (data[i] != pmv)
+						if (data[i] != primaryMissingValue)
 						{
 							if (idx == 0)
 							{
@@ -769,14 +781,14 @@ namespace NGribCS.Grib2
 							}
 						}
 					}
-					if (lastOne == pmv)
+					if (lastOne == primaryMissingValue)
 					{
 						System.Console.Out.WriteLine("DS bad spatial differencing data");
 						return ;
 					}
 					for (int i = idx; i < data.Length; i++)
 					{
-						if (data[i] != pmv)
+						if (data[i] != primaryMissingValue)
 						{
 							//System.out.println( "DS i=" + i + " sum =" + sum );
 							sum += data[i];
@@ -806,7 +818,7 @@ namespace NGribCS.Grib2
 			float EE = (float) System.Math.Pow((double) 2.0, (double) E);
 			//System.out.println( "DS EE=" + EE );
 			
-			if (mvm == 0)
+			if (missingValManagement == 0)
 			{
 				// no missing values
 				for (int i = 0; i < data.Length; i++)
@@ -819,7 +831,7 @@ namespace NGribCS.Grib2
 				// missing value == 1
 				for (int i = 0; i < data.Length; i++)
 				{
-					if (data[i] != pmv)
+					if (data[i] != primaryMissingValue)
 					{
 						data[i] = (R + data[i] * EE) / DD;
 					}
@@ -853,7 +865,7 @@ namespace NGribCS.Grib2
 			float pmv = drs.PrimaryMissingValue;
 			//System.out.println( "DS pmv=" + pmv );
 			int nb = drs.NumberOfBits;
-			//System.out.println( "DS nb = " + nb );
+			//System.out.println( "DS numberOfBits = " + numberOfBits );
 			
 			int D = drs.DecimalScaleFactor;
 			//System.out.println( "DS D=" + D );
@@ -871,12 +883,12 @@ namespace NGribCS.Grib2
 			//System.out.println( "DS EE=" + EE );
 			
 			/*Grib2JpegDecoder g2j = null;
-			if (nb != 0)
+			if (numberOfBits != 0)
 			{
 				// there's data to decode
 				System.String[] argv = new System.String[4];
 				argv[0] = "-rate";
-				argv[1] = System.Convert.ToString(nb);
+				argv[1] = System.Convert.ToString(numberOfBits);
 				argv[2] = "-verbose";
 				argv[3] = "off";
 				//argv[ 2 ] = "-nocolorspace" ;
@@ -954,8 +966,8 @@ namespace NGribCS.Grib2
 		} // end jpeg2000Unpacking
 		
 		
-		/// <summary> Convert bits (nb) to Unsigned Int .</summary>
-		/// <param name="nb">the number of bits to convert to int
+		/// <summary> Convert bits (numberOfBits) to Unsigned Int .</summary>
+		/// <param name="numberOfBits">the number of bits to convert to int
 		/// </param>
 		/// <param name="raf">
 		/// </param>

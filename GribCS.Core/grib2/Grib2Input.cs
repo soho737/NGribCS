@@ -257,7 +257,7 @@ namespace NGribCS.Grib2
 				
 				bms = new Grib2BitMapSection(raf, gds); // Section 6
 				
-				//ds =  new Grib2DataSection( getData, raf, gds, drs, bms ); //Section 7
+				//descriptorSpatial =  new Grib2DataSection( getData, raf, gds, drs, bms ); //Section 7
 				ds = new Grib2DataSection(false, raf, gds, drs, bms); //Section 7
 				
 				// assume scan ok

@@ -141,7 +141,7 @@ namespace NGribCS.Grib2
 		//   /**
 		//    * Grib2DataSection object.
 		//    */
-		//   private Grib2DataSection ds = null;
+		//   private Grib2DataSection descriptorSpatial = null;
 		// --Commented out by Inspection STOP (12/8/05 1:26 PM)
 		/// <summary> GdsOffset in file.</summary>
 		private long GdsOffset = - 1;
@@ -218,7 +218,7 @@ namespace NGribCS.Grib2
 		//     * @return DataSection
 		//     */
 		//   public final Grib2DataSection getDS(){
-		//      return ds;
+		//      return descriptorSpatial;
 		//   }
 		// --Commented out by Inspection STOP (12/8/05 1:26 PM)
 	}
