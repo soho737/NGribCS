@@ -1,4 +1,5 @@
-﻿using NGribCS.GribCS.grib2.Tables;
+﻿using NGribCS.grib2.Tables;
+using NGribCS.GribCS.grib2.Tables;
 /*
  * This file is part of GribCS.
  * This code is based on an automatic conversion of JGRIB Beta 7 
@@ -32,7 +33,7 @@ namespace NGribCS.Grib2
     [GuidAttribute("C087C92F-F772-43d3-9713-EF57CE1BDAB8")]
     public interface IGrib2Product
     {
-        int Discipline { get; }
+        Discipline Discipline { get; }
         string GDSkey { get; }
         long getGdsOffset();
         long getPdsOffset();

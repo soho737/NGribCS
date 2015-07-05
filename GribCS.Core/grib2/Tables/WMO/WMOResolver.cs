@@ -1,4 +1,5 @@
-﻿/*
+﻿using NGribCS.grib2.Tables;
+/*
  * This file is part of NGribCS which is a fork of GribCS
  * found at http://sourceforge.net/projects/gribcs/ 
  * 
@@ -46,12 +47,12 @@ namespace NGribCS.GribCS.grib2.Tables.WMO
     {
         private static XElement _xDoc;
 
-        public ParamCategory ResolveParameterCategory(int pMasterTableVersion, int pLocalTableVersion, int pCategory)
+        public ParamCategory ResolveParameterCategory(int pDisciplineId, int pMasterTableVersion, int pLocalTableVersion, int pCategory)
         {
 
             LoadXML();
 
-            XElement catElement = getCategoryElement(14, pCategory);
+            XElement catElement = getCategoryElement(pDisciplineId, 14, pCategory);
             if (catElement == null)
                 return new ParamCategory("UNDEFINED", pCategory);
             else
@@ -62,11 +63,28 @@ namespace NGribCS.GribCS.grib2.Tables.WMO
             }
         }
 
-        public ParameterDefinition ResolveParameter(int pMasterTableVersion, int pLocalTableVersion, int pCategory, int pParamNumber)
+        public Discipline ResolveDiscipline(int pDisciplineId)
+        {
+            LoadXML();
+            XElement discElement = getDisciplineElement(pDisciplineId);
+
+
+            if (discElement == null)
+                return new Discipline(pDisciplineId, "UNDEFINED");
+            else
+                return new Discipline(pDisciplineId, discElement.Element(nsXName("DisciplineName")).Value);
+        }
+
+        public ParameterDefinition ResolveParameter(int pDiscipline, int pMasterTableVersion, int pLocalTableVersion, int pCategory, int pParamNumber)
         {
             LoadXML();
 
-            XElement parmElement = getParameterElement(pMasterTableVersion, pCategory, pParamNumber);
+            if (pCategory==0)
+            {
+                int x = 01;
+            }
+
+            XElement parmElement = getParameterElement(pDiscipline, pMasterTableVersion, pCategory, pParamNumber);
 
             if (parmElement == null)
                 return new ParameterDefinition(pParamNumber, "UNDEFINED", "UDEF", "XXX");
@@ -74,21 +92,47 @@ namespace NGribCS.GribCS.grib2.Tables.WMO
             return new ParameterDefinition(pParamNumber, parmElement.Element(nsXName("Name")).Value, parmElement.Element(nsXName("Abbreviation")).Value, parmElement.Element(nsXName("Unit")).Value);
         }
 
-        private XElement getTableElement(int pVersion)
+
+
+
+        private XElement getDisciplineElement(int pDisciplineId)
         {
-            XElement pTables = _xDoc.Element(nsXName("ParameterTables"));
+
+            XElement pDisciplines = _xDoc.Element(nsXName("Disciplines"));
+            if (pDisciplines.Elements(nsXName("Discipline")).Count(x => (int)x.Element(nsXName("DisciplineId")) == pDisciplineId) == 1)   
+                return pDisciplines.Elements(nsXName("Discipline")).Single(x => (int)x.Element(nsXName("DisciplineId")) == pDisciplineId);
+            else
+                return null;
+
+  
+
+        }
+
+        private XElement getTableElement(int pDisciplineId, int pVersion)
+        {
+            XElement xDiscipline = getDisciplineElement(pDisciplineId);
+            if (xDiscipline == null)
+                return null;
+            XElement pTables = xDiscipline.Element(nsXName("ParameterTables"));
+            if (pTables == null)
+                return null;
+
             XElement tableElement = pTables.Elements(nsXName("ParameterTable")).Single(x=> (int)x.Element(nsXName("Version")) == 14);
 
             return tableElement;
         }
 
-        private XElement getCategoryElement(int pVersion, int pCategory)
+        private XElement getCategoryElement(int pDisciplineId, int pVersion, int pCategory)
         {
 
             // Add an Exception for ambigious data
-            XElement tableElement = getTableElement(pVersion);
+            XElement tableElement = getTableElement(pDisciplineId, pVersion);
+            if (tableElement == null)
+                return null;
+            
             XElement catsElement = tableElement.Element(nsXName("ParameterCategories"));
-
+            if (catsElement == null)
+                return null;
 
             if (catsElement.Elements(nsXName("ParameterCategory")).Count(x => (int)x.Element(nsXName("CategoryId")) == pCategory) == 1)
                 return catsElement.Elements(nsXName("ParameterCategory")).Single(x => (int)x.Element(nsXName("CategoryId")) == pCategory);
@@ -97,16 +141,14 @@ namespace NGribCS.GribCS.grib2.Tables.WMO
          
         }
 
-        private XElement getParameterElement(int pVersion, int pCategory, int pNumber)
+        private XElement getParameterElement(int pDiscipline, int pVersion, int pCategory, int pNumber)
         {
-            XElement tableElement = getTableElement(pVersion);
-            XElement catsElement = tableElement.Element(nsXName("ParameterCategories"));
-            XElement catElement;
 
-            if (catsElement.Elements(nsXName("ParameterCategory")).Count(x => (int)x.Element(nsXName("CategoryId")) == pCategory) == 1)
-                catElement = catsElement.Elements(nsXName("ParameterCategory")).Single(x => (int)x.Element(nsXName("CategoryId")) == pCategory);
-            else
+            XElement catElement = getCategoryElement(pDiscipline, pVersion, pCategory);
+            if (catElement == null)
                 return null;
+
+           
 
             XElement parmsElement = catElement.Element(nsXName("Parameters"));
 
@@ -119,7 +161,7 @@ namespace NGribCS.GribCS.grib2.Tables.WMO
 
         private XName nsXName(string pLocalName)
         {
-            return XName.Get(pLocalName, "http://tempuri.org/MasterMeteo.xsd");
+            return XName.Get(pLocalName, "http://tempuri.org/Grib2MasterTable.xsd");
         }
 
         public void LoadXML()
@@ -128,7 +170,7 @@ namespace NGribCS.GribCS.grib2.Tables.WMO
             if (_xDoc == null)
             {
                 Assembly a = this.GetType().Assembly;
-                Stream s = a.GetManifestResourceStream("NGribCS.grib2.Tables.WMO.MasterTableMeteo.xml");
+                Stream s = a.GetManifestResourceStream("NGribCS.grib2.Tables.WMO.Grib2MasterTable.xml");
 
                 _xDoc = XElement.Load(s);
                 _xDoc.Save(@"E:\text.xml");
@@ -138,5 +180,7 @@ namespace NGribCS.GribCS.grib2.Tables.WMO
 
 
 
+
+       
     }
 }

@@ -16,15 +16,19 @@ namespace NGribCS.ConsoleTester
          
             ///////////// WORK HERE
 
-            Grib2Manager g2m = new Grib2Manager(@"e:\gribdata.grb2", false);
+            Grib2Manager g2m = new Grib2Manager(@"e:\gribdata.grb2", true);
 
            
             // Lets output the inventory
 
+            int i = 0;
             foreach (Grib2Product p in g2m.G2I.Products)
             {
-                if (p.Parameter.Name!="UNDEFINED")
-                Console.WriteLine("[" + p.ParameterCategory.Id.ToString() + " - " + p.ParameterCategory.Name + "] " + p.Parameter.Abbreviation + " - " + p.Parameter.Name + " - " + p.Parameter.Unit);
+                i++;
+               // if (p.Parameter.Name!="UNDEFINED")
+                Console.WriteLine(i + " of " + g2m.G2I.Products.Count()+":");
+                Console.WriteLine("{Discipline " + p.Discipline.DisciplineId.ToString() + " - " + p.Discipline.DisciplineName + "}"); 
+              Console.WriteLine("[" + p.ParameterCategory.Id.ToString() + " - " + p.ParameterCategory.Name + "] " + p.Parameter.Id +"/" + p.Parameter.Abbreviation + " - " + p.Parameter.Name + " - " + p.Parameter.Unit);
 
 
             }

@@ -24,6 +24,7 @@
  * along with GribCS.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+using NGribCS.grib2.Tables;
 using NGribCS.GribCS.grib2.Tables;
 /// <summary> Grib2Product.java</summary>
 /// <author>  Robb Kambic
@@ -44,7 +45,7 @@ namespace NGribCS.Grib2
 		/// <summary> Discipline number for this record.</summary>
 		/// <returns> discipline
 		/// </returns>
-		public int Discipline
+		public Discipline Discipline
 		{
 			get
 			{
@@ -52,6 +53,9 @@ namespace NGribCS.Grib2
 			}
 			
 		}
+
+     
+
 		/// <summary> Reference time for this product.</summary>
 		/// <returns> referenceTime
 		/// </returns>
@@ -120,7 +124,9 @@ namespace NGribCS.Grib2
 		//UPGRADE_NOTE: Final was removed from the declaration of 'header '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
 		private System.String header;
 		//UPGRADE_NOTE: Final was removed from the declaration of 'discipline '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
-		private int discipline;
+		private int disciplineId;
+
+        private Discipline discipline;
 		//UPGRADE_NOTE: Final was removed from the declaration of 'referenceTime '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
 		private System.String referenceTime;
 		private Grib2IdentificationSection id = null;
@@ -154,7 +160,7 @@ namespace NGribCS.Grib2
 		{
 			
 			this.header = header;
-			this.discipline = is_Renamed.Discipline;
+			this.disciplineId = is_Renamed.Discipline;
 			this.id = id;
 			this.referenceTime = id.ReferenceTime;
 			this.gdsKey = gdsKey;
@@ -163,8 +169,10 @@ namespace NGribCS.Grib2
 			this.PdsOffset = PdsOffset;
 
             // HERE NEW
-            parameterCategory = Grib2Resolver.ResolveParameterCategory(this.ID.Center_id, this.ID.Master_table_version, this.ID.Local_table_version, this.PDS.ParameterCategory);
-            parameter = Grib2Resolver.ResolveParameter(this.ID.Center_id, this.ID.Master_table_version, this.ID.Local_table_version, this.PDS.ParameterCategory, this.PDS.ParameterNumber);
+
+            discipline = Grib2Resolver.ResolveDiscipline(this.disciplineId, this.id.Center_id);
+            parameterCategory = Grib2Resolver.ResolveParameterCategory(this.disciplineId, this.ID.Center_id, this.ID.Master_table_version, this.ID.Local_table_version, this.PDS.ParameterCategory);
+            parameter = Grib2Resolver.ResolveParameter(this.disciplineId, this.ID.Center_id, this.ID.Master_table_version, this.ID.Local_table_version, this.PDS.ParameterCategory, this.PDS.ParameterNumber);
 
             
 		}

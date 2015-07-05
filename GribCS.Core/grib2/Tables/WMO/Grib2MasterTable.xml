@@ -1,0 +1,657 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WMOTables xmlns="http://tempuri.org/Grib2MasterTable.xsd">
+  <Disciplines>
+    <Discipline>
+      <DisciplineId>0</DisciplineId>
+      <DisciplineName>Meteorological Products</DisciplineName>
+      <ParameterTables>
+        <ParameterTable>
+          <Version>14</Version>
+          <ParameterCategories>
+            <ParameterCategory>
+              <CategoryId>0</CategoryId>
+              <CategoryName>Temperature</CategoryName>
+              <Parameters>
+                <Parameter>
+                  <Number>0</Number>
+                  <Name>Temperature</Name>
+                  <Unit>K</Unit>
+                  <Abbreviation>TMP</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>1</Number>
+                  <Name>Virtual Temperature</Name>
+                  <Unit>K</Unit>
+                  <Abbreviation>VTMP</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>2</Number>
+                  <Name>Potential Temperature</Name>
+                  <Unit>K</Unit>
+                  <Abbreviation>POT</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>3</Number>
+                  <Name>Equivalent Potential Temperature</Name>
+                  <Unit>K</Unit>
+                  <Abbreviation>EPOT</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>4</Number>
+                  <Name>Maximum Temperature</Name>
+                  <Unit>K</Unit>
+                  <Abbreviation>TMAX</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>5</Number>
+                  <Name>Minimum Temperature</Name>
+                  <Unit>K</Unit>
+                  <Abbreviation>TMIN</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>6</Number>
+                  <Name>Dew Point Temperature</Name>
+                  <Unit>K</Unit>
+                  <Abbreviation>DPT</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>7</Number>
+                  <Name>Dew Point Depression</Name>
+                  <Unit>K</Unit>
+                  <Abbreviation>DEPR</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>8</Number>
+                  <Name>Lapse Rate</Name>
+                  <Unit>K per m</Unit>
+                  <Abbreviation>LAPR</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>9</Number>
+                  <Name>Temperature Anomaly</Name>
+                  <Unit>K</Unit>
+                  <Abbreviation>TMPA</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>10</Number>
+                  <Name>Latent Heat Net Flux</Name>
+                  <Unit>W * m^-2</Unit>
+                  <Abbreviation>LHTFL</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>11</Number>
+                  <Name>Sensible Heat Net Flux</Name>
+                  <Unit>W * m^-2</Unit>
+                  <Abbreviation>SHTFL</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>12</Number>
+                  <Name>Heat Index</Name>
+                  <Unit>K</Unit>
+                  <Abbreviation>HEATX</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>13</Number>
+                  <Name>Wind Chill Factor</Name>
+                  <Unit>K</Unit>
+                  <Abbreviation>WCF</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>14</Number>
+                  <Name>Minimum Dew Point Depression</Name>
+                  <Unit>K</Unit>
+                  <Abbreviation>MINDPD</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>15</Number>
+                  <Name>Virtual Potential Temperature</Name>
+                  <Unit>K</Unit>
+                  <Abbreviation>VPTMP</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>16</Number>
+                  <Name>Snow Phase Heat Change Flux</Name>
+                  <Unit>W * m^-2</Unit>
+                  <Abbreviation>SNOHF</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>17</Number>
+                  <Name>Skin Temperature</Name>
+                  <Unit>K</Unit>
+                  <Abbreviation>SKINT</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>18</Number>
+                  <Name>Snow temperature</Name>
+                  <Unit>K</Unit>
+                  <Abbreviation>SNOT</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>19</Number>
+                  <Name>Turbulent Transfer Coefficient for Heat</Name>
+                  <Unit>Numeric</Unit>
+                  <Abbreviation>TTCHT</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>20</Number>
+                  <Name>Turbulent Diffusion Coefficient for Heat</Name>
+                  <Unit>m²*s^-1</Unit>
+                  <Abbreviation>TDCHT</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>21</Number>
+                  <Name>Apparent Temperature</Name>
+                  <Unit>K</Unit>
+                  <Abbreviation>APTMP</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>192</Number>
+                  <Name>Snow Phase Change Heat Flux</Name>
+                  <Unit>W * m^-2</Unit>
+                  <Abbreviation>SNOHF</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>193</Number>
+                  <Name>Temperature Tendency by All Radiation</Name>
+                  <Unit>K * s^-1</Unit>
+                  <Abbreviation>TTRAD</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>194</Number>
+                  <Name>Relative Error Variance</Name>
+                  <Unit></Unit>
+                  <Abbreviation>REV</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>195</Number>
+                  <Name>Large Scale Condensate Heating Rate</Name>
+                  <Unit>K * s^-1</Unit>
+                  <Abbreviation>LRGHR</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>196</Number>
+                  <Name>Deep Convective Heating Rate</Name>
+                  <Unit>K * s^-1</Unit>
+                  <Abbreviation>CNVHR</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>197</Number>
+                  <Name>Total Downward Heat Flux at Surface</Name>
+                  <Unit>W * m^-2</Unit>
+                  <Abbreviation>THFLX</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>198</Number>
+                  <Name>Temperature Tendency by All Physics</Name>
+                  <Unit>K * s^-1</Unit>
+                  <Abbreviation>TTDIA</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>199</Number>
+                  <Name>Temperature Tendency by Non-radiation Physics</Name>
+                  <Unit>K * s^-1</Unit>
+                  <Abbreviation>TTPHY</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>200</Number>
+                  <Name>Standard Dev. of IR Temp. over 1x1 deg. area</Name>
+                  <Unit>K</Unit>
+                  <Abbreviation>TSD1D</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>201</Number>
+                  <Name>Shallow Convective Heating Rate</Name>
+                  <Unit>K * s^-1</Unit>
+                  <Abbreviation>SHAHR</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>202</Number>
+                  <Name>Vertical Diffusion Heating rate</Name>
+                  <Unit>K * s^-1</Unit>
+                  <Abbreviation>VDFHR</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>203</Number>
+                  <Name>Potential Temperature at Top of Viscous Sublayer</Name>
+                  <Unit>K</Unit>
+                  <Abbreviation>THZ0</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>204</Number>
+                  <Name>Tropical Cyclone Heat Potential</Name>
+                  <Unit>J * m^-2 * K</Unit>
+                  <Abbreviation>TCHP</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>255</Number>
+                  <Name>MISSING</Name>
+                  <Unit></Unit>
+                  <Abbreviation></Abbreviation>
+                </Parameter>
+              </Parameters>
+            </ParameterCategory>
+
+            <ParameterCategory>
+              <CategoryId>1</CategoryId>
+              <CategoryName>Moisture</CategoryName>
+              <Parameters>
+                <Parameter>
+                  <Number>0</Number>
+                  <Name>Specific Humidity</Name>
+                  <Unit>kg per kg</Unit>
+                  <Abbreviation>SPFH</Abbreviation>
+                </Parameter>
+              </Parameters>
+            </ParameterCategory>
+
+            <ParameterCategory>
+              <CategoryId>2</CategoryId>
+              <CategoryName>Momentum</CategoryName>
+              <Parameters>
+                <Parameter>
+                  <Number>0</Number>
+                  <Name>Wind direction (from which blowing)</Name>
+                  <Unit>deg true</Unit>
+                  <Abbreviation>WDIR</Abbreviation>
+                </Parameter>
+              </Parameters>
+            </ParameterCategory>
+
+            <ParameterCategory>
+              <CategoryId>3</CategoryId>
+              <CategoryName>Mass</CategoryName>
+              <Parameters>
+                <Parameter>
+                  <Number>0</Number>
+                  <Name>Pressure</Name>
+                  <Unit>Pa</Unit>
+                  <Abbreviation>PRES</Abbreviation>
+                </Parameter>
+              </Parameters>
+            </ParameterCategory>
+
+            <ParameterCategory>
+              <CategoryId>4</CategoryId>
+              <CategoryName>Short-Wave Radiation</CategoryName>
+              <Parameters>
+                <Parameter>
+                  <Number>0</Number>
+                  <Name>Net Short-Wave Radiation Flux (Surface)</Name>
+                  <Unit>W * m^-2</Unit>
+                  <Abbreviation>NSWRS</Abbreviation>
+                </Parameter>
+              </Parameters>
+            </ParameterCategory>
+
+            <ParameterCategory>
+              <CategoryId>5</CategoryId>
+              <CategoryName>Long-Wave Radiation</CategoryName>
+              <Parameters>
+                <Parameter>
+                  <Number>0</Number>
+                  <Name>Net Long-Wave Radiation Flux (Surface)*</Name>
+                  <Unit>W * m^-2</Unit>
+                  <Abbreviation>NLWRS</Abbreviation>
+                </Parameter>
+              </Parameters>
+            </ParameterCategory>
+
+            <ParameterCategory>
+              <CategoryId>6</CategoryId>
+              <CategoryName>Cloud</CategoryName>
+              <Parameters>
+                <Parameter>
+                  <Number>0</Number>
+                  <Name>Cloud Ice</Name>
+                  <Unit>kg * m^-2</Unit>
+                  <Abbreviation>CICE</Abbreviation>
+                </Parameter>
+              </Parameters>
+            </ParameterCategory>
+
+
+            <ParameterCategory>
+              <CategoryId>7</CategoryId>
+              <CategoryName>Thermodynamic Stability indicies</CategoryName>
+                <Parameters>
+                <Parameter>
+                  <Number>0</Number>
+                  <Name>Parcel Lifted Index (to 500 hPa)</Name>
+                  <Unit>K</Unit>
+                  <Abbreviation>PLI</Abbreviation>
+                </Parameter>
+              </Parameters>
+            </ParameterCategory>
+
+
+            <ParameterCategory>
+              <CategoryId>8</CategoryId>
+              <CategoryName>Kinematic Stability indicies</CategoryName>
+              <Parameters>
+              </Parameters>
+            </ParameterCategory>
+     
+   
+          <ParameterCategory>
+            <CategoryId>9</CategoryId>
+            <CategoryName>Temperature Probabilities</CategoryName>
+            <Parameters>
+            </Parameters>
+          </ParameterCategory>
+    
+          <ParameterCategory>
+            <CategoryId>10</CategoryId>
+            <CategoryName>Moisture Probabilities</CategoryName>
+            <Parameters>
+            </Parameters>
+          </ParameterCategory>
+ 
+          <ParameterCategory>
+            <CategoryId>11</CategoryId>
+            <CategoryName>Momentum Probabilities</CategoryName>
+            <Parameters>
+            </Parameters>
+          </ParameterCategory>
+
+          <ParameterCategory>
+            <CategoryId>12</CategoryId>
+            <CategoryName>Mass Probabilities</CategoryName>
+            <Parameters>
+            </Parameters>
+          </ParameterCategory>
+
+            <ParameterCategory>
+              <CategoryId>13</CategoryId>
+              <CategoryName>Aerosols</CategoryName>
+              <Parameters>
+              </Parameters>
+            </ParameterCategory>
+
+            <ParameterCategory>
+              <CategoryId>14</CategoryId>
+              <CategoryName>Trace gases</CategoryName>
+              <Parameters>
+              </Parameters>
+            </ParameterCategory>
+
+            <ParameterCategory>
+              <CategoryId>15</CategoryId>
+              <CategoryName>Radar</CategoryName>
+              <Parameters>
+              </Parameters>
+            </ParameterCategory>
+            
+            <ParameterCategory>
+              <CategoryId>16</CategoryId>
+              <CategoryName>Forecast Radar Imagery</CategoryName>
+              <Parameters>
+              </Parameters>
+            </ParameterCategory>
+
+            <ParameterCategory>
+              <CategoryId>17</CategoryId>
+              <CategoryName>Electrodynamics</CategoryName>
+              <Parameters>
+              </Parameters>
+            </ParameterCategory>
+
+            <ParameterCategory>
+              <CategoryId>18</CategoryId>
+              <CategoryName>Nuclear/radiology</CategoryName>
+              <Parameters>
+              </Parameters>
+            </ParameterCategory>
+
+            <ParameterCategory>
+              <CategoryId>19</CategoryId>
+              <CategoryName>Physical atmospheric properties</CategoryName>
+              <Parameters>
+              </Parameters>
+            </ParameterCategory>
+
+
+            <ParameterCategory>
+              <CategoryId>20</CategoryId>
+              <CategoryName>Atmospheric chemical Constituents</CategoryName>
+              <Parameters>
+              </Parameters>
+            </ParameterCategory>
+
+            <ParameterCategory>
+              <CategoryId>190</CategoryId>
+              <CategoryName>CCITT IA5 string</CategoryName>
+              <Parameters>
+              </Parameters>
+            </ParameterCategory>
+
+            <ParameterCategory>
+              <CategoryId>191</CategoryId>
+              <CategoryName>Miscellaneous</CategoryName>
+              <Parameters>
+              </Parameters>
+            </ParameterCategory>
+
+            <ParameterCategory>
+              <CategoryId>192</CategoryId>
+              <CategoryName>Covariance</CategoryName>
+              <Parameters>
+              </Parameters>
+            </ParameterCategory>
+
+            <ParameterCategory>
+              <CategoryId>255</CategoryId>
+              <CategoryName>Missing</CategoryName>
+              <Parameters>
+              </Parameters>
+            </ParameterCategory>
+
+          </ParameterCategories>
+          
+        </ParameterTable>
+      </ParameterTables>
+    </Discipline>
+
+    <Discipline>
+      <DisciplineId>1</DisciplineId>
+      <DisciplineName>Hydrological Products</DisciplineName>
+      <ParameterTables>
+        <ParameterTable>
+          <Version>14</Version>
+          <ParameterCategories>
+            <ParameterCategory>
+              <CategoryId>0</CategoryId>
+              <CategoryName>Hydrology basic product</CategoryName>
+              <Parameters>
+              </Parameters>
+            </ParameterCategory>
+            <ParameterCategory>
+              <CategoryId>1</CategoryId>
+              <CategoryName>Hydrology probabilities</CategoryName>
+              <Parameters>
+              </Parameters>
+            </ParameterCategory>
+            <ParameterCategory>
+              <CategoryId>2</CategoryId>
+              <CategoryName>Inland water and sediment properties</CategoryName>
+              <Parameters>
+              </Parameters>
+            </ParameterCategory>
+            <ParameterCategory>
+              <CategoryId>255</CategoryId>
+              <CategoryName>Missing</CategoryName>
+              <Parameters>
+              </Parameters>
+            </ParameterCategory>
+          </ParameterCategories>
+        </ParameterTable>
+      </ParameterTables>
+    </Discipline>
+
+
+
+  <Discipline>
+      <DisciplineId>2</DisciplineId>
+      <DisciplineName>Land Surface Products</DisciplineName>
+      <ParameterTables>
+        <ParameterTable>
+          <Version>14</Version>
+          <ParameterCategories>
+            <ParameterCategory>
+              <CategoryId>4</CategoryId>
+              <CategoryName>Fire Weather</CategoryName>
+              <Parameters>
+                <Parameter>
+                  <Number>0</Number>
+                  <Name>Fire Outlook</Name>
+                  <Unit>Special</Unit>
+                  <Abbreviation>FIREOLK</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>1</Number>
+                  <Name>Fire Outlook Due to Dry Thunderstorm</Name>
+                  <Unit>Special</Unit>
+                  <Abbreviation>FIREODT</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>2</Number>
+                  <Name>Haines Index</Name>
+                  <Unit>Numeric</Unit>
+                  <Abbreviation>HINDEX</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>3</Number>
+                  <Name>Fire Burned Area</Name>
+                  <Unit>Percent</Unit>
+                  <Abbreviation>FBAREA</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>4</Number>
+                  <Name>Fosberg Index</Name>
+                  <Unit>Numeric</Unit>
+                  <Abbreviation>FOSINDX</Abbreviation>
+                </Parameter>
+                <Parameter>
+                  <Number>255</Number>
+                  <Name>Missing</Name>
+                  <Unit></Unit>
+                  <Abbreviation></Abbreviation>
+                </Parameter>
+              </Parameters>
+            </ParameterCategory>
+          </ParameterCategories>
+        </ParameterTable>
+      </ParameterTables>
+    </Discipline>
+
+    <Discipline>
+      <DisciplineId>3</DisciplineId>
+      <DisciplineName>Space Products</DisciplineName>
+      <ParameterTables>
+        <ParameterTable>
+          <Version>14</Version>
+          <ParameterCategories>
+            <ParameterCategory>
+              <CategoryId>0</CategoryId>
+              <CategoryName>Image format products</CategoryName>
+              <Parameters>
+              </Parameters>
+            </ParameterCategory>
+            <ParameterCategory>
+              <CategoryId>1</CategoryId>
+              <CategoryName>Quantitative products</CategoryName>
+              <Parameters>
+              </Parameters>
+            </ParameterCategory>
+            <ParameterCategory>
+              <CategoryId>192</CategoryId>
+              <CategoryName>Forecast Satellite Imagery (Quantitative Units)</CategoryName>
+              <Parameters>
+              </Parameters>
+            </ParameterCategory>
+            <ParameterCategory>
+              <CategoryId>255</CategoryId>
+              <CategoryName>Missing</CategoryName>
+              <Parameters>
+              </Parameters>
+            </ParameterCategory>
+          </ParameterCategories>
+        </ParameterTable>
+      </ParameterTables>
+    </Discipline>
+
+
+    <Discipline>
+      <DisciplineId>4</DisciplineId>
+      <DisciplineName>Space Weather Products</DisciplineName>
+      <ParameterTables>
+        <ParameterTable>
+          <Version>14</Version>
+          <ParameterCategories>
+            <ParameterCategory>
+              <CategoryId>0</CategoryId>
+              <CategoryName>Temperature</CategoryName>
+              <Parameters>
+              </Parameters>
+            </ParameterCategory>
+            <ParameterCategory>
+              <CategoryId>1</CategoryId>
+              <CategoryName>Momentum</CategoryName>
+              <Parameters>
+              </Parameters>
+            </ParameterCategory>
+            <ParameterCategory>
+              <CategoryId>2</CategoryId>
+              <CategoryName>Charged Particle Mass and Number</CategoryName>
+              <Parameters>
+              </Parameters>
+            </ParameterCategory>
+            <ParameterCategory>
+              <CategoryId>255</CategoryId>
+              <CategoryName>Missing</CategoryName>
+              <Parameters>
+              </Parameters>
+            </ParameterCategory>
+          </ParameterCategories>
+        </ParameterTable>
+      </ParameterTables>
+    </Discipline>
+
+    <Discipline>
+      <DisciplineId>4</DisciplineId>
+      <DisciplineName>Oceanographic Products</DisciplineName>
+      <ParameterTables>
+        <ParameterTable>
+          <Version>14</Version>
+          <ParameterCategories>
+            <ParameterCategory>
+              <CategoryId>0</CategoryId>
+              <CategoryName>Waves</CategoryName>
+              <Parameters>
+              </Parameters>
+            </ParameterCategory>
+            <ParameterCategory>
+              <CategoryId>1</CategoryId>
+              <CategoryName>Currents</CategoryName>
+              <Parameters>
+              </Parameters>
+            </ParameterCategory>
+            <ParameterCategory>
+              <CategoryId>2</CategoryId>
+              <CategoryName>Ice</CategoryName>
+              <Parameters>
+              </Parameters>
+            </ParameterCategory>
+            <ParameterCategory>
+              <CategoryId>255</CategoryId>
+              <CategoryName>Missing</CategoryName>
+              <Parameters>
+              </Parameters>
+            </ParameterCategory>
+          </ParameterCategories>
+        </ParameterTable>
+      </ParameterTables>
+    </Discipline>
+
+  </Disciplines>
+ 
+</WMOTables>
