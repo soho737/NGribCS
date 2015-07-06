@@ -370,11 +370,12 @@ namespace NGribCS.Grib2
                 // This byte is reversed due to endianess, so the bit with the index 7 is actually bit 1
                 if (ba[6])
                 {
-                    return VerticalScanningMode.TopToBottom;
+                    return VerticalScanningMode.BottomToTop;
+        
                 }
                 else
                 {
-                    return VerticalScanningMode.BottomToTop;
+                    return VerticalScanningMode.TopToBottom;
                 }
             }
         }
@@ -387,11 +388,11 @@ namespace NGribCS.Grib2
 
                 if (ba[5])
                 {
-                    return ScanningConsecutivityMode.AdjacentPointsIDirectionConsecutive;
+                    return ScanningConsecutivityMode.AdjacentPointsJDirectionConsecutive;   
                 }
                 else
                 {
-                    return ScanningConsecutivityMode.AdjacentPointsJDirectionConsecutive;
+                    return ScanningConsecutivityMode.AdjacentPointsIDirectionConsecutive;
                 }
             }
         }

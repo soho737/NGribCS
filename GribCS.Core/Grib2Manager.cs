@@ -108,25 +108,111 @@ namespace NGribCS.grib2
             // Determine Scanning Mode
             BitArray ba = new BitArray(new byte[] {(Byte)gds.ScanMode});
             
-
-
-
-        
-
-            
             // Defining the array bounds
             float[,] fx = new float[gds.Nx, gds.Ny];
 
             int n = 0;
-            // This code is valid for all bits set to 0
-                for (int j = 0; j < gds.Ny;  j++)
+
+
+            // I am certain there is a more elegant way to to this but right now it has 35 degrees, so I am aiming for the simple solution
+            if (gds.ScanningDirection == ScanningDirectionMode.AdjacentRowsOppositeDirection)
+                throw new NotImplementedException("This scanning mode is not supported.");
+            
+            if (gds.ScanningConsecutivity == ScanningConsecutivityMode.AdjacentPointsIDirectionConsecutive)
+            {
+                if (gds.VerticalScanning == VerticalScanningMode.TopToBottom)
                 {
-                    for (int i = 0; i < gds.Nx; i++)
+                    for (int j = 0; j < gds.Ny; j++)
                     {
-                        fx[i, j] = rawdata[n];
-                        n++;
+                        if (gds.HorizontalScanning == HorizontalScanningMode.LeftToRight)
+                        {
+                            for (int i = 0; i < gds.Nx; i++)
+                            {
+                                fx[i, j] = rawdata[n];
+                                n++;
+                            }
+                        }
+                        else if (gds.HorizontalScanning == HorizontalScanningMode.RightToLeft)
+                        {
+                            for (int i = gds.Nx-1; i >= 0; i--)
+                            {
+                                fx[i, j] = rawdata[n];
+                                n++;
+                            }
+                        }
                     }
+                }
+                else if (gds.VerticalScanning == VerticalScanningMode.BottomToTop)
+                {
+                    for (int j = gds.Ny - 1; j >= 0; j--)
+                    {
+                        if (gds.HorizontalScanning == HorizontalScanningMode.LeftToRight)
+                        {
+                            for (int i = 0; i < gds.Nx; i++)
+                            {
+                                fx[i, j] = rawdata[n];
+                                n++;
+                            }
+                        }
+                        else if (gds.HorizontalScanning == HorizontalScanningMode.RightToLeft)
+                        {
+                            for (int i = gds.Nx - 1; i >= 0; i--)
+                            {
+                                fx[i, j] = rawdata[n];
+                                n++;
+                            }
+                        }
+                    }
+                }
             }
+            else if (gds.ScanningConsecutivity == ScanningConsecutivityMode.AdjacentPointsJDirectionConsecutive)
+            {
+                if (gds.HorizontalScanning == HorizontalScanningMode.LeftToRight)
+                {
+                    for (int i=0; i<gds.Nx; i++)
+                    {
+                        if (gds.VerticalScanning== VerticalScanningMode.TopToBottom)
+                        {
+                            for (int j = 0; j < gds.Ny; j++)
+                            {
+                                fx[i, j] = rawdata[n];
+                                n++;
+                            }
+                        }
+                        else if (gds.VerticalScanning == VerticalScanningMode.BottomToTop)
+                        {
+                            for (int j= gds.Ny -1; j >= 0; j--)
+                            {
+                                fx[i, j] = rawdata[n];
+                                n++;
+                            }
+                        }
+                    }
+                }
+                else if (gds.HorizontalScanning == HorizontalScanningMode.RightToLeft)
+                {
+                    for (int i = gds.Nx - 1; i>=0; i--)
+                    {
+                        if (gds.VerticalScanning == VerticalScanningMode.TopToBottom)
+                        {
+                            for (int j = 0; j < gds.Ny; j++)
+                            {
+                                fx[i, j] = rawdata[n];
+                                n++;
+                            }
+                        }
+                        else if (gds.VerticalScanning == VerticalScanningMode.BottomToTop)
+                        {
+                            for (int j = gds.Ny - 1; j >= 0; j--)
+                            {
+                                fx[i, j] = rawdata[n];
+                                n++;
+                            }
+                        }
+                    }
+                }
+            }
+
 
             return fx;
 
