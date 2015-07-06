@@ -108,57 +108,24 @@ namespace NGribCS.grib2
             // Determine Scanning Mode
             BitArray ba = new BitArray(new byte[] {(Byte)gds.ScanMode});
             
-            // This byte is reversed due to endianess, so the bit with the index 7 is actually bit 1
-            if (ba[7])
-            {
-                // Points of first row or column scan in the +i direction
-            }
-            else
-            {
-                // Points of first row or column scan in the -i direction
-            }
 
-            if (ba[6])
-            {
-                // Points of first row or column scan in the -j direction
-            }
-            else
-            {
-                //	Points of first row or column scan in the +j direction
-            }
 
-            if (ba[5])
-            {
-            	// Adjacent points in i direction are consecutive
-            }
-            else
-            {
-               // Adjacent points in j direction are consecutive
-            }
 
-            if (ba[4])
-            {
-               // All rows scan in the same direction
-            }
-            else
-            {
-               // Adjacent rows scan in the opposite direction
-            }
+        
 
             
             // Defining the array bounds
             float[,] fx = new float[gds.Nx, gds.Ny];
 
             int n = 0;
-            // Currently we are assuming we scan in +i and +j, we'll fix this later
-            for (int i = 0; i < gds.Nx;i++ )
-            {
-                for (int j = 0; j < gds.Ny; j++)
+            // This code is valid for all bits set to 0
+                for (int j = 0; j < gds.Ny;  j++)
                 {
-                    fx[i, j] = rawdata[n];
-                    n++;
-                }
-
+                    for (int i = 0; i < gds.Nx; i++)
+                    {
+                        fx[i, j] = rawdata[n];
+                        n++;
+                    }
             }
 
             return fx;

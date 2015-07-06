@@ -79,6 +79,10 @@ namespace NGribCS.Grib2
         int Resolution { get; }
         float Rotationangle { get; }
         int ScanMode { get; }
+        HorizontalScanningMode HorizontalScanning { get; }
+        VerticalScanningMode VerticalScanning { get; }
+        ScanningConsecutivityMode ScanningConsecutivity { get; }
+        ScanningDirectionMode ScanningDirection { get; }
         int Shape { get; }
         int Source { get; }
         float SpLat { get; }

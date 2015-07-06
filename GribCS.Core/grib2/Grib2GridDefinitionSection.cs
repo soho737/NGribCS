@@ -25,17 +25,21 @@ using NGribCS.Helpers;
  * along with GribCS.  If not, see <http://www.gnu.org/licenses/>.
 */
 using System;
+using System.Collections;
 using System.Runtime.InteropServices;
 
 namespace NGribCS.Grib2
 {
-	
+
+    public enum HorizontalScanningMode { LeftToRight, RightToLeft};
+    public enum VerticalScanningMode { TopToBottom, BottomToTop}
+    public enum ScanningConsecutivityMode { AdjacentPointsIDirectionConsecutive, AdjacentPointsJDirectionConsecutive}
+    public enum ScanningDirectionMode { AllRowsSameDirection, AdjacentRowsOppositeDirection}
+
 	/// <summary> A class that represents the grid definition section (GDS) of a GRIB product.
 	/// 
 	/// </summary>
-    [GuidAttribute("AD0E0D06-1230-4762-A73B-E6E35989BC2D")]
-    [ClassInterface(ClassInterfaceType.None)]
-	public sealed class Grib2GridDefinitionSection : NGribCS.Grib2.IGrib2GridDefinitionSection
+	public class Grib2GridDefinitionSection : NGribCS.Grib2.IGrib2GridDefinitionSection
 	{
 		/// <summary> source of grid definition.</summary>
 		/// <returns> source
@@ -336,6 +340,79 @@ namespace NGribCS.Grib2
 			}
 			
 		}
+
+
+        public HorizontalScanningMode HorizontalScanning
+        {
+            get
+            {
+                BitArray ba = new BitArray(new byte[] { (Byte)this.ScanMode });
+
+                // This byte is reversed due to endianess, so the bit with the index 7 is actually bit 1
+                if (ba[7])
+                {
+                    return HorizontalScanningMode.RightToLeft;
+                }
+                else
+                {
+                    return HorizontalScanningMode.LeftToRight;
+                }
+            }
+        }
+
+
+        public VerticalScanningMode VerticalScanning
+        {
+            get
+            {
+                BitArray ba = new BitArray(new byte[] { (Byte)this.ScanMode });
+
+                // This byte is reversed due to endianess, so the bit with the index 7 is actually bit 1
+                if (ba[6])
+                {
+                    return VerticalScanningMode.TopToBottom;
+                }
+                else
+                {
+                    return VerticalScanningMode.BottomToTop;
+                }
+            }
+        }
+
+        public ScanningConsecutivityMode ScanningConsecutivity
+        {
+            get
+            {
+                BitArray ba = new BitArray(new byte[] { (Byte)this.ScanMode });
+
+                if (ba[5])
+                {
+                    return ScanningConsecutivityMode.AdjacentPointsIDirectionConsecutive;
+                }
+                else
+                {
+                    return ScanningConsecutivityMode.AdjacentPointsJDirectionConsecutive;
+                }
+            }
+        }
+
+      public ScanningDirectionMode ScanningDirection
+        {
+          get
+            {
+                BitArray ba = new BitArray(new byte[] { (Byte)this.ScanMode });
+
+                if (ba[4])
+                {
+                    return ScanningDirectionMode.AdjacentRowsOppositeDirection;
+                }
+                else
+                {
+                    return ScanningDirectionMode.AllRowsSameDirection;
+                }
+            }
+        }
+
 		/// <summary> .</summary>
 		/// <returns> Latin1 as a float
 		/// 

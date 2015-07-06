@@ -549,8 +549,8 @@ namespace NGribCS.Grib2
 			//System.out.println( "DS countL=" + countL );
 			
 			// [zz +1 ]-nn get X2 values and add X1[ i ] + X2
-		
-	
+
+            countL += drs.LengthLastGroup;
             data = new float[countL];
 
 			//System.out.println( "DS countL=" + countL + " dataPoints=" +
