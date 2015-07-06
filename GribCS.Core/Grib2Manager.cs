@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,8 @@ namespace NGribCS.grib2
 {
     public class Grib2Manager : IDisposable
     {
+
+
 
         private bool _inMemoryProcessing = false;
 
@@ -217,6 +220,67 @@ namespace NGribCS.grib2
             return fx;
 
         }
+
+        public PointF[,] GetCoordinateGrid(InventoryItem iv)
+        {
+
+
+            Grib2GridDefinitionSection gds = GetGDS(iv);
+            PointF[,] coordinateGrid = new PointF[gds.Nx, gds.Ny];
+
+            
+            //if (gds.Gdtn == 0) //LatLon
+            //{ 
+
+            // L2R
+            // Lo1 = 0
+            // Lo2 = 90
+            // Dx = 1
+
+            // R2L
+            // Lo1 = 90
+            // Lo2 = 0
+            // Dx = -1 // Ist das dann negativ?
+
+
+            // x=0
+            // SOLL: 0
+
+            // x=1
+            // Soll: 1
+
+
+            for (int x = 0; x < gds.Nx; x++)
+                for (int y = 0; y < gds.Ny; y++)
+                {
+                    float xval = float.NaN;
+                    if (gds.HorizontalScanning == HorizontalScanningMode.LeftToRight)
+                        xval = gds.Lo1 + gds.Dx * x;
+                    else if (gds.HorizontalScanning == HorizontalScanningMode.RightToLeft)
+                    {
+                        throw new Exception("This needs verification if the code works correctly");
+                        xval = gds.Lo2 + gds.Dx * x;
+                    }
+                    float yval = float.NaN;
+                    if (gds.VerticalScanning == VerticalScanningMode.TopToBottom)
+                        yval = gds.La1 - gds.Dy * y;
+                    else if (gds.VerticalScanning == VerticalScanningMode.BottomToTop)
+                    {
+                        yval = gds.La2 + gds.Dy * y;
+                        //throw new Exception("This needs verification if the code works correctly");
+                    }
+
+                    coordinateGrid[x, y] = new PointF(xval, yval);
+
+                }
+
+            return coordinateGrid;
+            //}
+
+            //throw new NotSupportedException("Other templates than Lat/Lon (0) are not supported right now");
+        }
+
+
 
         public Grib2GridDefinitionSection GetGDS(InventoryItem i)
         {

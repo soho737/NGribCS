@@ -9,3 +9,4 @@ C:\Users\Karsten\Documents\GitHub\NGribCS\NGribCS.WinformsTester\obj\Debug\NGrib
 C:\Users\Karsten\Documents\GitHub\NGribCS\NGribCS.WinformsTester\obj\Debug\NGribCS.WinformsTester.csproj.GenerateResource.Cache
 C:\Users\Karsten\Documents\GitHub\NGribCS\NGribCS.WinformsTester\obj\Debug\NGribCS.WinformsTester.exe
 C:\Users\Karsten\Documents\GitHub\NGribCS\NGribCS.WinformsTester\obj\Debug\NGribCS.WinformsTester.pdb
+C:\Users\Karsten\Documents\GitHub\NGribCS\NGribCS.WinformsTester\bin\Debug\JpcDecoder.dll

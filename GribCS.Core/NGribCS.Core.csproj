@@ -137,6 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Grib1Manager.cs" />
     <Compile Include="grib1\Grib1BinaryDataSection.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -222,6 +223,7 @@
     <Compile Include="grib2\Tables\Parameter.cs" />
     <Compile Include="grib2\Tables\ParameterCategory.cs" />
     <Compile Include="grib2\Tables\TableDispatcher.cs" />
+    <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Helpers\GribNumbers.cs" />
     <Compile Include="Helpers\Jpeg2000Decoder.cs" />
     <Compile Include="Helpers\NotSupportedException.cs" />
