@@ -40,7 +40,7 @@ namespace NGribCS.Grib2
         string ProductStatusName { get; }
         int ProductType { get; }
         string ProductTypeName { get; }
-        string ReferenceTime { get; }
+        DateTime ReferenceTime { get; }
         int SignificanceOfRT { get; }
         string SignificanceOfRTName { get; }
         int Subcenter_id { get; }

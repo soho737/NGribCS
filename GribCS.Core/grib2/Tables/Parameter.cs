@@ -32,7 +32,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace NGribCS.GribCS.grib2.Tables
+namespace NGribCS.grib2.Tables
 {
     public class ParameterDefinition
     {
@@ -50,6 +50,11 @@ namespace NGribCS.GribCS.grib2.Tables
             Name = pName;
             Abbreviation = pAbbr;
             Unit = pUnit;
+        }
+
+        public override string ToString()
+        {
+            return "P:" + Id + " - " + Abbreviation + " - "  + Name + " (" + Unit + ")";
         }
     }
 }

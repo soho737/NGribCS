@@ -1,4 +1,5 @@
-﻿using NGribCS.grib2.Tables;
+﻿using NGribCS.grib2;
+using NGribCS.grib2.Tables;
 using NGribCS.GribCS.grib2.Tables;
 /*
  * This file is part of GribCS.
@@ -33,16 +34,14 @@ namespace NGribCS.Grib2
     [GuidAttribute("C087C92F-F772-43d3-9713-EF57CE1BDAB8")]
     public interface IGrib2Product
     {
-        Discipline Discipline { get; }
+        Grib2ProductId ProductIdentification { get; }
         string GDSkey { get; }
         long getGdsOffset();
         long getPdsOffset();
         IGrib2IdentificationSection ID { get; }
         IGrib2ProductDefinitionSection PDS { get; }
-        string ReferenceTime { get; }
+        DateTime ReferenceTime { get; }
 
-        ParamCategory ParameterCategory { get; }
-
-        ParameterDefinition Parameter { get; }
+ 
     }
 }

@@ -1,5 +1,4 @@
 C:\Users\Karsten\Documents\GitHub\NGribCS\GribCS.Core\bin\debug\gribcs.dll
 C:\Users\Karsten\Documents\GitHub\NGribCS\GribCS.Core\bin\debug\gribcs.pdb
-C:\Users\Karsten\Documents\GitHub\NGribCS\GribCS.Core\obj\Debug\NGribCS.Core.csprojResolveAssemblyReference.cache
 C:\Users\Karsten\Documents\GitHub\NGribCS\GribCS.Core\obj\Debug\gribcs.dll
 C:\Users\Karsten\Documents\GitHub\NGribCS\GribCS.Core\obj\Debug\gribcs.pdb

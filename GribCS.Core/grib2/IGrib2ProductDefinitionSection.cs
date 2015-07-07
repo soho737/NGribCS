@@ -1,4 +1,5 @@
-﻿/*
+﻿using NGribCS.grib2;
+/*
  * This file is part of GribCS.
  * This code is based on an automatic conversion of JGRIB Beta 7 
  * (http://jgrib.sourceforge.net/) from Java to C#.
@@ -28,27 +29,23 @@ using System.Runtime.InteropServices;
 
 namespace NGribCS.Grib2
 {
-    [GuidAttribute("3637A68B-2D2A-4cff-9431-61537D6DD924")]
     public interface IGrib2ProductDefinitionSection
     {
         int AnalysisGenProcess { get; }
         int BackGenProcess { get; }
         int Coordinates { get; }
         int ForecastTime { get; }
+        int TypeGenProcess { get; }
         string getProductDefinitionName();
-        string getTimeRangeUnitName();
+        TimeRangeUnits TimeRangeUnit { get; }
         int HoursAfter { get; }
         int MinutesAfter { get; }
         int ParameterCategory { get; }
         int ParameterNumber { get; }
         int ProductDefinition { get; }
-        int TimeRangeUnit { get; }
-        int TypeFirstFixedSurface { get; }
-        string TypeFirstFixedSurfaceName { get; }
-        int TypeGenProcess { get; }
-        int TypeSecondFixedSurface { get; }
-        string TypeSecondFixedSurfaceName { get; }
-        float ValueFirstFixedSurface { get; }
-        float ValueSecondFixedSurface { get; }
+        int TimeRangeUnitCode { get; }
+
+        Grib2SurfaceDefinition SurfaceDefinition { get; }
+  
     }
 }

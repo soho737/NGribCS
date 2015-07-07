@@ -47,5 +47,10 @@ namespace NGribCS.grib2.Tables
             DisciplineName = pName;
         }
 
+        public override string ToString()
+        {
+            return "D:" + DisciplineId.ToString() + " - " + DisciplineName;
+        }
+
     }
 }

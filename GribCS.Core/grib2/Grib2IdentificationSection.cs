@@ -282,11 +282,11 @@ namespace NGribCS.Grib2
 		/// <summary> return reference time of product.</summary>
 		/// <returns> referenceTime
 		/// </returns>
-		public System.String ReferenceTime
+		public System.DateTime ReferenceTime
 		{
 			get
 			{
-				return referenceTime.ToString();
+                return referenceTime;
 			}
 			
 		}
@@ -435,7 +435,7 @@ namespace NGribCS.Grib2
 		//UPGRADE_NOTE: Final was removed from the declaration of 'significanceOfRT '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
 		private int significanceOfRT;
 		//UPGRADE_NOTE: Final was removed from the declaration of 'referenceTime '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
-		private System.String referenceTime;
+		private DateTime referenceTime;
 
         private System.DateTime refTime;
 		//UPGRADE_NOTE: Final was removed from the declaration of 'baseTime '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
@@ -501,7 +501,7 @@ namespace NGribCS.Grib2
 
                 refTime = new DateTime(year, month, day, hour, minute, second, DateTimeKind.Utc);
                 baseTime = refTime;
-                referenceTime = refTime.ToString(dateFormat);
+                referenceTime = refTime;
 			}
 			
 			productStatus = raf.ReadByte();

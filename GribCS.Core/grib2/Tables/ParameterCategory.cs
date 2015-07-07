@@ -32,7 +32,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace NGribCS.GribCS.grib2.Tables
+namespace NGribCS.grib2.Tables
 {
     public class ParamCategory
     {
@@ -43,6 +43,11 @@ namespace NGribCS.GribCS.grib2.Tables
         {
             Name = pName;
             Id = pId;
+        }
+
+        public override string ToString()
+        {
+            return "C:" + Id.ToString() + " - " + Name;
         }
     }
 }

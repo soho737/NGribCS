@@ -1,4 +1,4 @@
-/*
+                                                                                                      /*
  * This file is part of GribCS.
  * This code is based on an automatic conversion of JGRIB Beta 7 
  * (http://jgrib.sourceforge.net/) from Java to C#.
@@ -24,6 +24,7 @@
  * along with GribCS.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+using NGribCS.grib2;
 using NGribCS.grib2.Tables;
 using NGribCS.GribCS.grib2.Tables;
 /// <summary> Grib2Product.java</summary>
@@ -35,31 +36,67 @@ using System.Runtime.InteropServices;
 namespace NGribCS.Grib2
 {
 	
+
+
 	/// <summary> Class which has all the necessary information about
 	/// a record in a Grib2 File to extract the data.
 	/// </summary>
-    [GuidAttribute("50EE0598-9C02-4aa0-B622-C1A8B2FD37C7")]
-    [ClassInterface(ClassInterfaceType.None)]
 	public sealed class Grib2Product : NGribCS.Grib2.IGrib2Product
 	{
-		/// <summary> Discipline number for this record.</summary>
-		/// <returns> discipline
-		/// </returns>
-		public Discipline Discipline
-		{
-			get
-			{
-				return discipline;
-			}
-			
-		}
+
+        private Grib2ProductId _productIdentification;
+        
+        public Grib2ProductId ProductIdentification
+        {
+            get
+            {
+                return _productIdentification;
+            }
+        }
+
+        public DateTime ValidTime
+        {
+            get
+            {
+
+                switch (pds.TimeRangeUnit)
+                {
+                    case TimeRangeUnits.Century:
+                        return referenceTime.AddYears(100 * pds.ForecastTime);
+                    case TimeRangeUnits.Day:
+                        return referenceTime.AddDays(pds.ForecastTime);
+                    case TimeRangeUnits.Decade:
+                        return referenceTime.AddYears(10 * pds.ForecastTime);
+                    case TimeRangeUnits.Hour:
+                        return referenceTime.AddHours(pds.ForecastTime);
+                    case TimeRangeUnits.Month:
+                        return referenceTime.AddMonths(pds.ForecastTime);
+                    case TimeRangeUnits.Normal:
+                        return referenceTime.AddYears(30 * pds.ForecastTime);
+                    case TimeRangeUnits.Seconds:
+                        return referenceTime.AddSeconds(pds.ForecastTime);
+                    case TimeRangeUnits.SixHours:
+                        return referenceTime.AddHours(6 * pds.ForecastTime);
+                    case TimeRangeUnits.ThreeHours:
+                        return referenceTime.AddHours(3 * pds.ForecastTime);
+                    case TimeRangeUnits.TwelveHours:
+                        return referenceTime.AddHours(12 * pds.ForecastTime);
+                    case TimeRangeUnits.Year:
+                        return referenceTime.AddYears(pds.ForecastTime);
+                    default:
+                        throw new NotImplementedException();
+                }
+            }
+        }
+        //}
+		
 
      
 
 		/// <summary> Reference time for this product.</summary>
 		/// <returns> referenceTime
 		/// </returns>
-		public System.String ReferenceTime
+		public DateTime ReferenceTime
 		{
 			get
 			{
@@ -69,19 +106,6 @@ namespace NGribCS.Grib2
 		}
 
 
-        public ParamCategory ParameterCategory
-        {
-            get { return parameterCategory; }
-        }
-
-
-        public ParameterDefinition Parameter
-        {
-            get
-            {
-                return parameter;
-            }
-        }
 		/// <summary> GDSkey is a MD5 checksum of the GDS for this record.</summary>
 		/// <returns> gdsKey
 		/// </returns>
@@ -128,7 +152,7 @@ namespace NGribCS.Grib2
 
         private Discipline discipline;
 		//UPGRADE_NOTE: Final was removed from the declaration of 'referenceTime '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
-		private System.String referenceTime;
+		private DateTime referenceTime;
 		private Grib2IdentificationSection id = null;
 		//UPGRADE_NOTE: Final was removed from the declaration of 'gdsKey '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
 		private System.String gdsKey;
@@ -174,6 +198,7 @@ namespace NGribCS.Grib2
             parameterCategory = Grib2Resolver.ResolveParameterCategory(this.disciplineId, this.ID.Center_id, this.ID.Master_table_version, this.ID.Local_table_version, this.PDS.ParameterCategory);
             parameter = Grib2Resolver.ResolveParameter(this.disciplineId, this.ID.Center_id, this.ID.Master_table_version, this.ID.Local_table_version, this.PDS.ParameterCategory, this.PDS.ParameterNumber);
 
+            this._productIdentification = new Grib2ProductId(discipline, parameterCategory, parameter);
             
 		}
 		

@@ -21,7 +21,16 @@ namespace NGribCS.grib2
 
         private int sourcecount = 0;
 
-      
+        private Inventory _grib2Inventory;
+
+        public Inventory Inventory
+        {
+            get
+            {
+                return _grib2Inventory;
+            }
+
+        }
 
         /// <summary>
         /// Initializes a new instance of the Grib2Manager from a grib file
@@ -32,6 +41,7 @@ namespace NGribCS.grib2
             _inMemoryProcessing = pInMemoryProcessing;
             _StreamDictionary = new Dictionary<int, Stream>();
             _Grib2Inputs = new Dictionary<int, Grib2Input>();
+            _grib2Inventory = new Inventory(new List<InventoryItem>() { });
         }
 
 
@@ -60,7 +70,10 @@ namespace NGribCS.grib2
                 _StreamDictionary.Add(sourcecount, _sourceStream);
                 _Grib2Inputs.Add(sourcecount, g2i);
 
-                
+                // RebuildInventory
+                _grib2Inventory = new Inventory(getInventory());
+
+                sourcecount++;
             }
             catch(Exception Ex)
             {
@@ -73,7 +86,7 @@ namespace NGribCS.grib2
         }
 
 
-        public List<InventoryItem> GetInventory()
+        private List<InventoryItem> getInventory()
         {
             List<InventoryItem> iv =new List<InventoryItem>();
             foreach (int key in _Grib2Inputs.Keys)
@@ -279,7 +292,6 @@ namespace NGribCS.grib2
 
             //throw new NotSupportedException("Other templates than Lat/Lon (0) are not supported right now");
         }
-
 
 
         public Grib2GridDefinitionSection GetGDS(InventoryItem i)
