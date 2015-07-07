@@ -179,10 +179,15 @@ namespace NGribCS.Grib2
         {
             get
             {
-                return null;
+                // Here we will save some memory and only create this on demand
+                if (surfaceDefinition == null)
+                    surfaceDefinition = new Grib2SurfaceDefinition(typeFirstFixedSurface, firstFixedSurfaceValue, typeSecondFixedSurface, secondFixedSurfaceValue);
+
+                return surfaceDefinition;
             }
         }
 
+        private Grib2SurfaceDefinition surfaceDefinition;
      
 
         /// <summary> Length in bytes of this PDS.</summary>

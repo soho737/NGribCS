@@ -55,8 +55,31 @@ namespace NGribCS.grib2
 
      
     
+        public Grib2SurfaceDefinition(int pTypeFirstFixedSurface, float pValFirstFixedSurface, int pTypeSecondFixedSurface, float pValSecondFixedSurface)
+        {
+            TypeFirstFixedSurface = pTypeFirstFixedSurface;
+            ValueFirstFixedSurface = pValFirstFixedSurface;
+            TypeSecondFixedSurface = pTypeSecondFixedSurface;
+            ValueSecondFixedSurface = pValSecondFixedSurface;
+        }
 
+        public override string ToString()
+        {
+            return String.Format("First fixed surface: {0}, {1} {4} / Second fixed surface {2}, {3} {5}", TypeFirstFixedSurfaceName, ValueFirstFixedSurface.ToString(), TypeSecondFixedSurfaceName, ValueSecondFixedSurface.ToString(), getTypeSurfaceUnit(TypeFirstFixedSurface), getTypeSurfaceUnit(TypeSecondFixedSurface));
+        }
+        public override int GetHashCode()
+        {
+            return this.ToString().GetHashCode();
+        }
 
+        public override bool Equals(object obj)
+        {
+            if (obj is Grib2SurfaceDefinition)
+                if (obj.ToString().Equals(this.ToString()))
+                    return true;
+
+            return false;
+        }
 
         /// <summary> type of vertical coordinate: Name
         /// code table 4.5.

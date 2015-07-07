@@ -219,7 +219,6 @@
     <Compile Include="grib2\IGrib2SurfaceDefinition.cs" />
     <Compile Include="grib2\Inventory.cs" />
     <Compile Include="grib2\InventoryItem.cs" />
-    <Compile Include="grib2\InventoryProduct.cs" />
     <Compile Include="grib2\Tables\Discipline.cs" />
     <Compile Include="grib2\Tables\Grib2Resolver.cs" />
     <Compile Include="grib2\Tables\WMO\WMOResolver.cs" />

@@ -97,11 +97,17 @@ namespace NGribCS.WinformsTester
                 StringBuilder info = new StringBuilder();
                 info.Append(pid.Parameter.ToString() + Environment.NewLine + "Found " + ivs.Count.ToString() + " record(s).");
 
-                IEnumerable<DateTime> vTimes = ivs.Select(x => x.Product.ValidTime).Distinct();
+                IEnumerable<DateTime> vTimes = g2m.Inventory.GetAllValidTimesForProduct(pid.Discipline.DisciplineId, pid.Category.Id, pid.Parameter.Id);
                 info.Append(Environment.NewLine + "Valid time(s):");
 
                 foreach (DateTime dt in vTimes)
                     info.Append(Environment.NewLine + dt.ToString());
+
+
+                IEnumerable<Grib2SurfaceDefinition> Surfaces = g2m.Inventory.GetAllSurfacesForProduct(pid.Discipline.DisciplineId, pid.Category.Id, pid.Parameter.Id);
+                foreach (Grib2SurfaceDefinition gs in Surfaces)
+                    info.Append(Environment.NewLine + gs.ToString());
+
 
                 textBox1.Text = info.ToString();
 
