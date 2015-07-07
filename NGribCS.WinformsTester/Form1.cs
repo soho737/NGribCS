@@ -91,6 +91,8 @@ namespace NGribCS.WinformsTester
         {
             if (treeView1.SelectedNode != null && treeView1.SelectedNode.Tag is Grib2ProductId)
             {
+                treeView2.Nodes.Clear();
+
                 Grib2ProductId pid = treeView1.SelectedNode.Tag as Grib2ProductId;
                 List<InventoryItem> ivs = g2m.Inventory.GetAllRecordsForProduct(pid.Discipline.DisciplineId, pid.Category.Id, pid.Parameter.Id);
 
@@ -106,9 +108,22 @@ namespace NGribCS.WinformsTester
 
                 IEnumerable<Grib2SurfaceDefinition> Surfaces = g2m.Inventory.GetAllSurfacesForProduct(pid.Discipline.DisciplineId, pid.Category.Id, pid.Parameter.Id);
                 foreach (Grib2SurfaceDefinition gs in Surfaces)
+                {
                     info.Append(Environment.NewLine + gs.ToString());
 
+                    if (!treeView2.Nodes.ContainsKey(gs.ToString())) ;
+                         treeView2.Nodes.Add(gs.ToString(),gs.ToString());
 
+                     List<InventoryItem> records = g2m.Inventory.GetAllValidTimesForProductAndSurface(pid.Discipline.DisciplineId, pid.Category.Id, pid.Parameter.Id, gs);
+                    foreach (InventoryItem record in records)
+                    {
+                        TreeNode tn = new TreeNode(record.Product.ValidTime.ToString());
+                        tn.Tag = record;
+                        treeView2.Nodes[gs.ToString()].Nodes.Add(tn);
+                    }
+                }
+
+                treeView2.ExpandAll();
                 textBox1.Text = info.ToString();
 
             }
@@ -116,102 +131,61 @@ namespace NGribCS.WinformsTester
                  textBox1.Text = "No parameter node selected";
         }
 
-
-
-
-
-
-
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click_1(object sender, EventArgs e)
         {
-            
-            Grib2Manager g2m = new Grib2Manager(false);
-           // g2m.AddFile(@"e:\gribdata.grb2");
+            // Plotting
+            if (treeView2.SelectedNode != null && treeView2.SelectedNode.Tag != null && treeView2.SelectedNode.Tag is InventoryItem)
+            {
+                InventoryItem target = treeView2.SelectedNode.Tag as InventoryItem;
 
-            g2m.AddFile(@"e:\gfs.t12z.pgrb2.1p00.f000");
+
+                Grib2GridDefinitionSection gds = g2m.GetGDS(target);
+
+                float[,] fx = g2m.GetGriddedData(target);
+                //PointF[,] cg = g2m.GetCoordinateGrid(target);
+
+               
+                float min = fx.Min();
+                float max = fx.Max();
+
+                float delta = max - min;
+                float step = 255 / delta;
 
 
-            coreTest(g2m);
-        
+
+                System.Drawing.Bitmap bmp = new Bitmap(gds.Nx, gds.Ny);
+
+                for (int x = 0; x < gds.Nx; x++)
+                    for (int y = 0; y < gds.Ny; y++)
+                    {
+                        float check = fx[x, y];
+                        Color c = GetColor(min, max, check);
+                        bmp.SetPixel(x, y, c);
+                    }
+         
+
+                pictureBox1.Image = bmp;
+            }
         }
 
 
-        private void coreTest(Grib2Manager g2m, int pNum=306)
+        Color GetColor(float rangeStart /*Complete Blue*/, float rangeEnd /*Complete Red*/, float actualValue)
         {
-            List<InventoryItem> iv = g2m.Inventory.InventoryItems;
+            if (rangeStart >= rangeEnd) return Color.Magenta;
 
-            int rn = 0;
-            foreach (InventoryItem ivi in iv)
-            {
+            float max = rangeEnd - rangeStart; // make the scale start from 0
+            float value = actualValue - rangeStart; // adjust the value accordingly
 
-                Console.WriteLine(rn + " / " + ivi.Product.ProductIdentification.Discipline.DisciplineId + " - " + ivi.Product.ProductIdentification.Category.Id.ToString() + " - " + ivi.Product.ProductIdentification.Parameter.Id.ToString() + " - " + ivi.Product.ProductIdentification.Parameter.Abbreviation);
-                rn++;
-            }
+            float red = (255 * value) / max; // calculate green (the closer the value is to max, the greener it gets)
+            float blue = 255 - red; // set red as inverse of green
 
-
-            IGrib2Product pro = g2m.GetProduct(iv[pNum]);
-            IGrib2Record rec = g2m.GetRecord(iv[pNum]);
-
-
-
-            Grib2GridDefinitionSection gds = g2m.GetGDS(iv[pNum]);
-
-            float[,] fx = g2m.GetGriddedData(iv[pNum]);
-            PointF[,] cg = g2m.GetCoordinateGrid(iv[pNum]);
-
-            float min = fx.Min();
-            float max = fx.Max();
-
-            float delta = max - min;
-            float step = 255 / delta;
-
-
-
-            System.Drawing.Bitmap bmp = new Bitmap(gds.Nx, gds.Ny);
-
-            for (int x = 0; x < gds.Nx; x++)
-                for (int y = 0; y < gds.Ny; y++)
-                {
-                    float check = fx[x, y];
-                    Color c = Color.FromArgb(255, (int)(255-step*(max-check)), (int)(255-step* (max - check)));
-                    bmp.SetPixel(x, y,c);
-                }
-            /////////////
-
-           // pictureBox1.Image = bmp;
-
+            return Color.FromArgb(255, (byte)red, 0, (byte)blue);
+         
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-           
-            Grib2Manager g2m = new Grib2Manager(true);
-           // 
-
-            g2m.AddFile(@"e:\gfs.t12z.pgrb2.0p25.f000");
-
-
-            coreTest(g2m);
-        
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            Grib2Manager g2m = new Grib2Manager(true);
-            g2m.AddFile(@"e:\gribdata.grb2");
-
-
-            coreTest(g2m, 47);
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            Grib2Manager g2m = new Grib2Manager(true);
-            g2m.AddFile(@"e:\gribdata.grb2");
-
-            Inventory inv = g2m.Inventory;
-            //List<Grib2ProductId> = inv.GetDisctinctProducts();
-
+            pictureBox1.Image = null;
         }
 
 

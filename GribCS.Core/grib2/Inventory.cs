@@ -48,5 +48,9 @@ namespace NGribCS.grib2
             return ivs.Select(x => x.Product.PDS.SurfaceDefinition).Distinct();
         }
 
+        public List<InventoryItem> GetAllValidTimesForProductAndSurface(int pDiscipline, int pCategory, int pParameter, Grib2SurfaceDefinition pSurface)
+        {
+            return GetAllRecordsForProduct(pDiscipline, pCategory, pParameter).Where(x => x.Product.PDS.SurfaceDefinition.Equals(pSurface)).ToList();
+        }
     }
 }

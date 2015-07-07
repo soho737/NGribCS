@@ -56,5 +56,18 @@ namespace NGribCS.grib2.Tables
         {
             return "P:" + Id + " - " + Abbreviation + " - "  + Name + " (" + Unit + ")";
         }
+
+        public override int GetHashCode()
+        {
+            return ToString().GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is ParameterDefinition && this.ToString().Equals(obj.ToString()))
+                return true;
+
+            return false;
+        }
     }
 }

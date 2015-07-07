@@ -144,7 +144,10 @@ namespace NGribCS.grib2
                         {
                             for (int i = 0; i < gds.Nx; i++)
                             {
-                                fx[i, j] = rawdata[n];
+                            
+                                    fx[i, j] = rawdata[n];
+                               
+
                                 n++;
                             }
                         }

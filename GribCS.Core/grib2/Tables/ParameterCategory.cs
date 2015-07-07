@@ -49,5 +49,10 @@ namespace NGribCS.grib2.Tables
         {
             return "C:" + Id.ToString() + " - " + Name;
         }
+
+        public override int GetHashCode()
+        {
+            return this.ToString().GetHashCode();
+        }
     }
 }

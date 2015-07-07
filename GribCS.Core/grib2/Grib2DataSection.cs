@@ -120,12 +120,12 @@ namespace NGribCS.Grib2
 			else if (dtn == 2)
 			{
 				// 2:Grid point data - complex packing
-				complexUnpacking(raf, gds, drs);
+				complexUnpacking(raf, gds, drs, bms);
 			}
 			else if (dtn == 3)
 			{
 				// 3: complex packing with spatial differencing
-				complexUnpackingWithSpatial(raf, gds, drs);
+				complexUnpackingWithSpatial(raf, gds, drs, bms);
 			}
 			else if (dtn == 40 || dtn == 40000)
 			{
@@ -147,6 +147,9 @@ namespace NGribCS.Grib2
 		//UPGRADE_TODO: Class 'java.io.RandomAccessFile' was converted to 'System.IO.FileStream' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaioRandomAccessFile'"
 		private void  simpleUnpacking(System.IO.Stream raf, Grib2GridDefinitionSection gds, Grib2DataRepresentationSection drs, Grib2BitMapSection bms)
 		{
+            if (bms.BitMapIndicator != 255 && bms.BitMapIndicator != 0)
+                throw new NotImplementedException("Simple unpacking with a bitmap indicator other than 0 or 255 is currently not supported");
+
 			int dtn = drs.DataTemplateNumber;
 			//System.out.println( "DS dtn=" + dtn );
 			
@@ -230,8 +233,11 @@ namespace NGribCS.Grib2
 		/// </param>
 		/// <throws>  IOException </throws>
 		//UPGRADE_TODO: Class 'java.io.RandomAccessFile' was converted to 'System.IO.FileStream' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaioRandomAccessFile'"
-		private void  complexUnpacking(System.IO.Stream raf, Grib2GridDefinitionSection gds, Grib2DataRepresentationSection drs)
+		private void  complexUnpacking(System.IO.Stream raf, Grib2GridDefinitionSection gds, Grib2DataRepresentationSection drs, Grib2BitMapSection bms)
 		{
+            if (bms.BitMapIndicator != 255)
+                throw new NotImplementedException("Complex unpacking with a bitmap is currently not supported");
+
 			int mvm = drs.MissingValueManagement;
 			//System.out.println( "DS mvm=" + mvm );
 			
@@ -426,8 +432,10 @@ namespace NGribCS.Grib2
 		/// </param>
 		/// <throws>  IOException </throws>
 		//UPGRADE_TODO: Class 'java.io.RandomAccessFile' was converted to 'System.IO.FileStream' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaioRandomAccessFile'"
-		private void  complexUnpackingWithSpatial(System.IO.Stream raf, Grib2GridDefinitionSection gds, Grib2DataRepresentationSection drs)
+		private void  complexUnpackingWithSpatial(System.IO.Stream raf, Grib2GridDefinitionSection gds, Grib2DataRepresentationSection drs, Grib2BitMapSection bms)
 		{
+            if (bms.BitMapIndicator != 255)
+                throw new NotImplementedException("Complex unpacking with spatial and a bitmap is currently not supported");
 
              /*
              * 0 - No explicit missing values included within the data values
@@ -551,8 +559,10 @@ namespace NGribCS.Grib2
 			// [zz +1 ]-nn get X2 values and add X1[ i ] + X2
 
             countL += drs.LengthLastGroup;
-            data = new float[countL];
 
+
+                data = new float[countL];
+       
 			//System.out.println( "DS countL=" + countL + " dataPoints=" +
 			//gds.getNumberPoints() );
 			// used to check missing values when X2 is packed with all 1's
@@ -562,7 +572,6 @@ namespace NGribCS.Grib2
 			{
 				//bitsmv1[ i ] = ( bitsmv1[ i -1 ] +1 ) *2 -1;
 				//bitsmv2[ i ] = ( bitsmv2[ i -1 ] +2 ) *2 -2;
-				//UPGRADE_WARNING: Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1042'"
 				bitsmv1[i] = (int) System.Math.Pow((double) 2, (double) i) - 1;
 				//bitsmv2[ i ] = (int) java.lang.Math.pow( (double)2, (double)i +1) -2;
 				//System.out.println( "DS bitsmv1[ "+ i +" ] =" + bitsmv1[ i ] );
@@ -573,25 +582,23 @@ namespace NGribCS.Grib2
 			int X2;
 			bitPos = 0;
 			bitBuf = 0;
+
+
 			for (int i = 0; i < numGroups - 1; i++)
 			{
-				//System.out.println( "DS pmv=" + pmv );
-				//System.out.println( "DS count=" + count );
-				//System.out.println( "DS L[ "+ i +" ]=" + L[ i ] );
-				//System.out.println( "DS numBitsEncodingEachGroup[ "+ i +" ]=" + numBitsEncodingEachGroup[ i ] );
-				//System.out.println( "DS X1[ "+ i +" ]=" + X1[ i ] );
-				//System.out.println( "DS cumlative L[i] =" + (count + L[ i ]) );
 				for (int j = 0; j < L[i]; j++)
 				{
+                   
+
 					if (numBitsEncodingEachGroup[i] == 0)
-					{
+					{                       
 						if (missingValManagement == 0)
 						{
-							// X2 = 0
+							// X2 = 0                 
 							data[count++] = X1[i];
 						}
 						else if (missingValManagement == 1)
-						{
+						{                     
 							data[count++] = primaryMissingValue;
 						}
 					}
@@ -630,6 +637,8 @@ namespace NGribCS.Grib2
 			//System.out.println( "DS last=" + last );
 			for (int j = 0; j < last; j++)
 			{
+               
+
 				// last group
 				if (numBitsEncodingEachGroup[numGroups - 1] == 0)
 				{
@@ -854,6 +863,8 @@ namespace NGribCS.Grib2
 		//UPGRADE_TODO: Class 'java.io.RandomAccessFile' was converted to 'System.IO.FileStream' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaioRandomAccessFile'"
 		private void  jpeg2000Unpacking(System.IO.Stream raf, Grib2GridDefinitionSection gds, Grib2DataRepresentationSection drs, Grib2BitMapSection bms)
 		{
+            if (bms.BitMapIndicator != 255 && bms.BitMapIndicator != 0)
+                throw new NotImplementedException("jpeg2000 unpacking with a bitmap indicator other than 0 or 255 is currently not supported");
 			// 6-xx  jpeg2000 data block to decode
 			
 			// dataPoints are number of points encoded, it could be less than the

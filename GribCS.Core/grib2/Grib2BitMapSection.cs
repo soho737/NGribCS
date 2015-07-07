@@ -78,6 +78,15 @@ namespace NGribCS.Grib2
 		/// <summary> The bit map.</summary>
 		private bool[] bitmap = null;
 		
+
+        public int BitMapIndicator
+        {
+            get
+            {
+                return bitMapIndicator;
+            }
+        }
+
 		// *** constructors *******************************************************
 		
 		/// <summary> Constructs a <tt>Grib2BitMapSection</tt> object from a byteBuffer.
