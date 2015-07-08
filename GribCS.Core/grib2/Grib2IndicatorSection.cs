@@ -61,7 +61,7 @@ namespace NGribCS.Grib2
 			}
 			
 		}
-		/// <summary> Discipline - GRIB Master Table Name.</summary>
+		/// <summary> Discipline - GRIB Master Table GridTemplateName.</summary>
 		/// <returns> disciplineName
 		/// </returns>
 		public System.String DisciplineName

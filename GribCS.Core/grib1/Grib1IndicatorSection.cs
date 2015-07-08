@@ -162,8 +162,8 @@ namespace NGribCS.Grib1
 		
 		// --Commented out by Inspection START (12/5/05 3:52 PM):
 		//   /**
-		//    * Discipline - GRIB Master Table Name.
-		//    * @return return Discipline Name as String
+		//    * Discipline - GRIB Master Table GridTemplateName.
+		//    * @return return Discipline GridTemplateName as String
 		//    */
 		//   public final String getDisciplineName()
 		//   {

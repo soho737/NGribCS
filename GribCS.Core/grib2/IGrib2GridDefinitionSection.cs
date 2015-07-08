@@ -32,16 +32,16 @@ namespace NGribCS.Grib2
     public interface IGrib2GridDefinitionSection
     {
         float Altitude { get; }
-        int Angle { get; }
+        int BasicAngleOfLatLon { get; }
         string CheckSum { get; }
         float Dstart { get; }
         float Dx { get; }
         float Dy { get; }
         float EarthRadius { get; }
         float Factor { get; }
-        int Gdtn { get; }
+        int GridDefinitionTemplateNumber { get; }
         string getShapeName();
-        int IolonCode { get; }
+        int InterpretationOfListOfNumbersCode { get; }
         InterpretationOfListOfNumbersMode IoLonMode { get; }
         float J { get; }
         float K { get; }
@@ -63,15 +63,15 @@ namespace NGribCS.Grib2
         int N { get; }
         int N2 { get; }
         int N3 { get; }
-        string Name { get; }
+        string GridTemplateName { get; }
         float Nb { get; }
         int Nd { get; }
         int Ni { get; }
         float Nr { get; }
-        int NumberPoints { get; }
+        int NumberOfDataPoints { get; }
         int Nx { get; }
         int Ny { get; }
-        int Olon { get; }
+        int NumOctetsForOptionalListOfNumbers { get; }
         int Order { get; }
         float PoleLat { get; }
         float PoleLon { get; }
@@ -85,10 +85,10 @@ namespace NGribCS.Grib2
         ScanningConsecutivityMode ScanningConsecutivity { get; }
         ScanningDirectionMode ScanningDirection { get; }
         int Shape { get; }
-        int Source { get; }
+        int SourceOfGridDefinition { get; }
         float SpLat { get; }
         float SpLon { get; }
-        int Subdivisionsangle { get; }
+        int UnitOfBasicAngle { get; }
         float Xo { get; }
         float Xp { get; }
         float Yo { get; }

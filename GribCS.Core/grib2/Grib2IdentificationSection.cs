@@ -57,8 +57,8 @@ namespace NGribCS.Grib2
 			}
 			
 		}
-		/// <summary> Name of Identification of center.</summary>
-		/// <returns> center Identification Name
+		/// <summary> GridTemplateName of Identification of center.</summary>
+		/// <returns> center Identification GridTemplateName
 		/// </returns>
 		public System.String Center_idName
 		{
@@ -255,7 +255,7 @@ namespace NGribCS.Grib2
 			
 		}
 		/// <summary> Model Run/Analysis/Reference time.</summary>
-		/// <returns> significanceOfRT Name
+		/// <returns> significanceOfRT GridTemplateName
 		/// </returns>
 		public System.String SignificanceOfRTName
 		{

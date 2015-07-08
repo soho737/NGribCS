@@ -180,8 +180,8 @@ namespace NGribCS.Grib2
 			float EE = (float) System.Math.Pow((double) 2.0, (double) E);
 			//System.out.println( "DS EE=" + EE );
 			
-			int numberPoints = gds.NumberPoints;
-			//System.out.println( "DS GDS NumberPoints=" +  gds.getNumberPoints() );
+			int numberPoints = gds.NumberOfDataPoints;
+			//System.out.println( "DS GDS NumberOfDataPoints=" +  gds.getNumberPoints() );
 			data = new float[numberPoints];
 			
 			bool[] bitmap = bms.Bitmap;
@@ -926,8 +926,8 @@ namespace NGribCS.Grib2
                 // TODO Error handling
             }
 
-			int numberPoints = gds.NumberPoints;
-			//System.out.println( "DS GDS NumberPoints=" +  gds.getNumberPoints() );
+			int numberPoints = gds.NumberOfDataPoints;
+			//System.out.println( "DS GDS NumberOfDataPoints=" +  gds.getNumberPoints() );
 			data = new float[numberPoints];
 			bool[] bitmap = bms.Bitmap;
 			

@@ -74,7 +74,7 @@ using System.Runtime.CompilerServices;
 //       (1) If the KeyName can be found in the CSP, that key is used.
 //       (2) If the KeyName does not exist and the KeyFile does exist, the key 
 //           in the KeyFile is installed into the CSP and used.
-//   (*) In order to create a KeyFile, you can use the sn.exe (Strong Name) utility.
+//   (*) In order to create a KeyFile, you can use the sn.exe (Strong GridTemplateName) utility.
 //       When specifying the KeyFile, the location of the KeyFile should be
 //       relative to the project output directory which is
 //       %Project Directory%\obj\<configuration>. For example, if your KeyFile is

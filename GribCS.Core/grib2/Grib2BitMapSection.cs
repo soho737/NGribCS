@@ -120,8 +120,8 @@ namespace NGribCS.Grib2
 			SupportClass.ReadInput(raf, data, 0, data.Length);
 			
 			// create new bit map, octet 4 contains number of unused bits at the end
-			this.bitmap = new bool[gds.NumberPoints];
-			//System.out.println( "BMS GDS NumberPoints = " + gds.getNumberPoints() );
+			this.bitmap = new bool[gds.NumberOfDataPoints];
+			//System.out.println( "BMS GDS NumberOfDataPoints = " + gds.getNumberPoints() );
 			//System.out.println( "BMS bitmap.lengthOfSection = " + this.bitmap.lengthOfSection );
 			
 			// fill bit map

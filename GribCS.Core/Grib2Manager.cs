@@ -86,7 +86,7 @@ namespace NGribCS.Grib2
         /// <summary>
         /// Loads and inventarizes a grib2-File
         /// </summary>
-        /// <param gridTemplateName="pFileName">Name of the file that should be loaded</param>
+        /// <param gridTemplateName="pFileName">GridTemplateName of the file that should be loaded</param>
         public void LoadGrib2File(string pFileName)
         {
             Stream _sourceStream;
@@ -288,7 +288,7 @@ namespace NGribCS.Grib2
 
             Grib2GridDefinitionSection gds = GetGDS(iv);
 
-            if (gds.Gdtn == 0)
+            if (gds.GridDefinitionTemplateNumber == 0)
             {
                 PointF[,] coordinateGrid = new PointF[gds.Nx, gds.Ny];
 

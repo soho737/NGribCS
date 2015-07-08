@@ -37,6 +37,8 @@
  * 07 Aug 2015 - kk - Introduced enumerators for the scanning direction
  * 08 Aug 2015 - kk - Renamed private variables to increased code readibility, other readibility enhancements
  * 08 Aug 2015 - kk - Checksum calculation fixed
+ * 08 Aug 2015 - kk - Introduced enumerator for InterpretationOfListOfNumbers
+ * 08 Aug 2015 - kk - Throw an exception if list of numbers is used, as this is ignored by the classic gribcs code and thus not supported right now
  * 
  */
 
@@ -60,7 +62,7 @@ namespace NGribCS.Grib2
 		/// <summary> sourceOfGridDefinition of grid definition.</summary>
 		/// <returns> sourceOfGridDefinition
 		/// </returns>
-		public int Source
+		public int SourceOfGridDefinition
 		{
 			get
 			{
@@ -71,7 +73,7 @@ namespace NGribCS.Grib2
 		/// <summary> number of data points .</summary>
 		/// <returns> numberOfDataPoints
 		/// </returns>
-		public int NumberPoints
+		public int NumberOfDataPoints
 		{
 			get
 			{
@@ -82,7 +84,7 @@ namespace NGribCS.Grib2
 		/// <summary> optional list of numbers .</summary>
 		/// <returns> numOctetsForOptionalListOfNumbers
 		/// </returns>
-		public int Olon
+		public int NumOctetsForOptionalListOfNumbers
 		{
 			get
 			{
@@ -93,7 +95,7 @@ namespace NGribCS.Grib2
 		/// <summary> iterpretation of optional list of numbers .</summary>
 		/// <returns> interpretationOfListOfNumbersCode
 		/// </returns>
-		public int IolonCode
+		public int InterpretationOfListOfNumbersCode
 		{
 			get
 			{
@@ -106,13 +108,13 @@ namespace NGribCS.Grib2
         {
             get
             {
-                return (InterpretationOfListOfNumbersMode)this.IolonCode;
+                return (InterpretationOfListOfNumbersMode)this.InterpretationOfListOfNumbersCode;
             }
         }
 		/// <summary> Grid Definition Template Number .</summary>
 		/// <returns> gridDefinitionTemplateNumber
 		/// </returns>
-		public int Gdtn
+		public int GridDefinitionTemplateNumber
 		{
 			get
 			{
@@ -123,7 +125,7 @@ namespace NGribCS.Grib2
 		/// <summary> Grid gridTemplateName .</summary>
 		/// <returns> gridName
 		/// </returns>
-		public System.String Name
+		public System.String GridTemplateName
 		{
 			get
 			{
@@ -206,10 +208,10 @@ namespace NGribCS.Grib2
 			
 		}
 		/// <summary> .</summary>
-		/// <returns> Angle as a int
+		/// <returns> BasicAngleOfLatLon as a int
 		/// 
 		/// </returns>
-		public int Angle
+		public int BasicAngleOfLatLon
 		{
 			get
 			{
@@ -218,10 +220,10 @@ namespace NGribCS.Grib2
 			
 		}
 		/// <summary> .</summary>
-		/// <returns> Subdivisionsangle as a int
+		/// <returns> UnitOfBasicAngle as a int
 		/// 
 		/// </returns>
-		public int Subdivisionsangle
+		public int UnitOfBasicAngle
 		{
 			get
 			{
@@ -942,7 +944,7 @@ namespace NGribCS.Grib2
 			
 			numberOfSection = gribStream.ReadByte(); // This is numberOfSection 3
 			
-            // Source of Grid Definition (Code Table 3.0 and Note 1)
+            // SourceOfGridDefinition of Grid Definition (Code Table 3.0 and Note 1)
 			sourceOfGridDefinition = gribStream.ReadByte();
 			
 			numberOfDataPoints = GribNumbers.int4(gribStream);

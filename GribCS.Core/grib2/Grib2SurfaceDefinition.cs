@@ -81,7 +81,7 @@ namespace NGribCS.Grib2
             return false;
         }
 
-        /// <summary> type of vertical coordinate: Name
+        /// <summary> type of vertical coordinate: GridTemplateName
         /// code table 4.5.
         /// </summary>
         /// <param gridTemplateName="id">
@@ -210,7 +210,7 @@ namespace NGribCS.Grib2
             }
         } // end getTypeSurfaceName
 
-        /// <summary> type of vertical coordinate: short Name
+        /// <summary> type of vertical coordinate: short GridTemplateName
         /// derived from code table 4.5.
         /// </summary>
         /// <param gridTemplateName="id">

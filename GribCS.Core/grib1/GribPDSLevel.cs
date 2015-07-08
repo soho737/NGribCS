@@ -53,7 +53,7 @@ namespace NGribCS.Grib1
 			}
 			
 		}
-		/// <summary> Name of this level.</summary>
+		/// <summary> GridTemplateName of this level.</summary>
 		/// <returns> gridTemplateName as String
 		/// </returns>
 		public System.String Name
@@ -93,7 +93,7 @@ namespace NGribCS.Grib1
 		//UPGRADE_NOTE: Final was removed from the declaration of 'index '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
 		private int index;
 		
-		/// <summary> Name of the vertical coordinate/level.
+		/// <summary> GridTemplateName of the vertical coordinate/level.
 		/// 
 		/// </summary>
 		private System.String name = null;
@@ -443,7 +443,7 @@ namespace NGribCS.Grib1
 			}
 		} // end GribPDSLevel
 		
-		/// <summary> type of vertical coordinate: Description or short Name
+		/// <summary> type of vertical coordinate: Description or short GridTemplateName
 		/// derived from  ON388 - TABLE 3.
 		/// </summary>
 		/// <param gridTemplateName="id">

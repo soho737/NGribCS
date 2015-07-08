@@ -750,8 +750,8 @@ namespace NGribCS.Grib1
 		{
 			return bms_exists;
 		}
-		/// <summary> Name of Identification of center .</summary>
-		/// <returns> Center Name as String
+		/// <summary> GridTemplateName of Identification of center .</summary>
+		/// <returns> Center GridTemplateName as String
 		/// </returns>
 		public System.String getCenter_idName()
 		{

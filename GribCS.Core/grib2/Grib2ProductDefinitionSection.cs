@@ -579,7 +579,7 @@ namespace NGribCS.Grib2
         //   }
         // --Commented out by Inspection STOP (11/21/05 2:24 PM)
 
-        /// <summary> product Definition  Name.</summary>
+        /// <summary> product Definition  GridTemplateName.</summary>
         /// <returns> ProductDefinitionName
         /// </returns>
         public System.String getProductDefinitionName()
@@ -587,7 +587,7 @@ namespace NGribCS.Grib2
             return getProductDefinitionName(productDefinition);
         }
 
-        /// <summary> productDefinition  Name.
+        /// <summary> productDefinition  GridTemplateName.
         /// from code table 4.0.
         /// </summary>
         /// <param gridTemplateName="productDefinition">
