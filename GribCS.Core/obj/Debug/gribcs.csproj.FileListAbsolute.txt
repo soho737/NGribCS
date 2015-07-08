@@ -1,5 +1,0 @@
-C:\Users\Karsten\Desktop\GribCS Fork\GribCS\bin\debug\gribcs.dll
-C:\Users\Karsten\Desktop\GribCS Fork\GribCS\bin\debug\gribcs.pdb
-C:\Users\Karsten\Desktop\GribCS Fork\GribCS\obj\Debug\gribcs.csprojResolveAssemblyReference.cache
-C:\Users\Karsten\Desktop\GribCS Fork\GribCS\obj\Debug\gribcs.dll
-C:\Users\Karsten\Desktop\GribCS Fork\GribCS\obj\Debug\gribcs.pdb
