@@ -1,9 +1,0 @@
-C:\Users\Karsten\Desktop\GribCS Fork\GribCS\bin\debug\gribcs.dll
-C:\Users\Karsten\Desktop\GribCS Fork\GribCS\bin\debug\gribcs.pdb
-C:\Users\Karsten\Desktop\GribCS Fork\GribCS\obj\Debug\gribcs.dll
-C:\Users\Karsten\Desktop\GribCS Fork\GribCS\obj\Debug\gribcs.pdb
-C:\Users\Karsten\Documents\GitHub\NGribCS\GribCS\bin\debug\gribcs.dll
-C:\Users\Karsten\Documents\GitHub\NGribCS\GribCS\bin\debug\gribcs.pdb
-C:\Users\Karsten\Documents\GitHub\NGribCS\GribCS\obj\Debug\gribcs.dll
-C:\Users\Karsten\Documents\GitHub\NGribCS\GribCS\obj\Debug\gribcs.pdb
-C:\Users\Karsten\Documents\GitHub\NGribCS\GribCS\obj\Debug\NGribCS.csprojResolveAssemblyReference.cache
