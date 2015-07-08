@@ -9,7 +9,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JpcDecoder", "JpcDecoder\Jp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NGribCS.Core", "GribCS.Core\NGribCS.Core.csproj", "{FF512132-E6AE-4A88-8240-BC2BD1864569}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NGribCS.SampleApplication", "NGribCS.WinformsTester\NGribCS.SampleApplication.csproj", "{C41FD86A-ADA5-4F9D-8317-F9090DEEAAFE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NGribCS.SampleApplication", "NGribCS.SampleApplication\NGribCS.SampleApplication.csproj", "{C41FD86A-ADA5-4F9D-8317-F9090DEEAAFE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

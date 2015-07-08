@@ -1,4 +1,4 @@
-﻿Build started 07.07.2015 18:02:05.
+﻿Build started 08.07.2015 19:37:00.
      1>Project "C:\Users\Karsten\Documents\GitHub\NGribCS\jasper\msvc\libjasper.vcxproj" on node 3 (Build target(s)).
      1>Lib:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:".\Debug\libjasper.lib" /NOLOGO .\Debug/jas_cm.obj
@@ -56,4 +56,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.34
+Time Elapsed 00:00:01.05
