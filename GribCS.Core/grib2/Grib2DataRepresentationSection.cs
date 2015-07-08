@@ -43,10 +43,10 @@ namespace NGribCS.Grib2
 			primaryMissingValue = GribNumbers.UNDEFINED;
 			secondaryMissingValue = GribNumbers.UNDEFINED;
 		}
-		/// <summary> Get the byte length of the Section DRS section.
+		/// <summary> Get the byte lengthOfSection of the Section DRS numberOfSection.
 		/// 
 		/// </summary>
-		/// <returns> length in bytes of Section DRS section
+		/// <returns> lengthOfSection in bytes of Section DRS numberOfSection
 		/// </returns>
 		public int Length
 		{
@@ -56,10 +56,10 @@ namespace NGribCS.Grib2
 			}
 			
 		}
-		/// <summary> Get the number of dataPoints in DS section.
+		/// <summary> Get the number of dataPoints in DS numberOfSection.
 		/// 
 		/// </summary>
-		/// <returns> number of dataPoints in DS section
+		/// <returns> number of dataPoints in DS numberOfSection
 		/// </returns>
 		public int DataPoints
 		{
@@ -272,7 +272,7 @@ namespace NGribCS.Grib2
 			
 		}
 		/// <summary> Number of bits used for the scaled group lengths (after subtraction of 
-		/// the reference value given in octets 38-41 and division by the length 
+		/// the reference value given in octets 38-41 and division by the lengthOfSection 
 		/// increment given in octet 42).
 		/// </summary>
 		/// <returns> BitsScaledGroupLength
@@ -311,12 +311,12 @@ namespace NGribCS.Grib2
 			
 		}
 		
-		/// <summary> Length in bytes of DataRepresentationSection section.</summary>
-		//UPGRADE_NOTE: Final was removed from the declaration of 'length '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
+		/// <summary> Length in bytes of DataRepresentationSection numberOfSection.</summary>
+		//UPGRADE_NOTE: Final was removed from the declaration of 'lengthOfSection '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
 		private int length;
 		
-		/// <summary> Number of this section, should be 5.</summary>
-		//UPGRADE_NOTE: Final was removed from the declaration of 'section '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
+		/// <summary> Number of this numberOfSection, should be 5.</summary>
+		//UPGRADE_NOTE: Final was removed from the declaration of 'numberOfSection '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
 		private int section;
 		
 		/// <summary> Number of Data points.</summary>
@@ -383,7 +383,7 @@ namespace NGribCS.Grib2
 		private int lengthLastGroup;
 		
 		/// <summary> Number of bits used for the scaled group lengths (after subtraction of 
-		/// the reference value given in octets 38-41 and division by the length 
+		/// the reference value given in octets 38-41 and division by the lengthOfSection 
 		/// increment given in octet 42).
 		/// </summary>
 		private int bitsScaledGroupLength;
@@ -399,10 +399,10 @@ namespace NGribCS.Grib2
 		
 		// *** constructors *******************************************************
 		
-		/// <summary> Constructs a <tt>Grib2DataRepresentationSection</tt> object from a raf.
+		/// <summary> Constructs a <tt>Grib2DataRepresentationSection</tt> object from a gribStream.
 		/// 
 		/// </summary>
-		/// <param name="raf">RandomAccessFile with Section DRS content
+		/// <param gridTemplateName="gribStream">RandomAccessFile with Section DRS content
 		/// </param>
 		/// <throws>  IOException  if stream contains no valid GRIB file </throws>
 		//UPGRADE_TODO: Class 'java.io.RandomAccessFile' was converted to 'System.IO.FileStream' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaioRandomAccessFile'"
@@ -411,10 +411,10 @@ namespace NGribCS.Grib2
 			InitBlock();
 			// octets 1-4 (Length of DRS)
 			length = GribNumbers.int4(raf);
-			//System.out.println( "DRS length=" + length );
+			//System.out.println( "DRS lengthOfSection=" + lengthOfSection );
 			
 			section = raf.ReadByte();
-			//System.out.println( "DRS is 5 section=" + section );
+			//System.out.println( "DRS is 5 numberOfSection=" + numberOfSection );
 			
 			dataPoints = GribNumbers.int4(raf);
 			//System.out.println( "DRS dataPoints=" + dataPoints );

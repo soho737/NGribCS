@@ -53,7 +53,7 @@ namespace NGribCS.Grib1
 			//   */
 			//   public static final int getLength()
 			//   {
-			//      return length;
+			//      return lengthOfSection;
 			//   }
 			// --Commented out by Inspection STOP (11/17/05 1:32 PM)
 			
@@ -73,7 +73,7 @@ namespace NGribCS.Grib1
 		/// <summary> Constructs a <tt>Grib1EndSection</tt> object from a byteBuffer.
 		/// 
 		/// </summary>
-		/// <param name="raf">RandomAccessFile with EndSection content
+		/// <param gridTemplateName="gribStream">RandomAccessFile with EndSection content
 		/// 
 		/// </param>
 		//UPGRADE_TODO: Class 'java.io.RandomAccessFile' was converted to 'System.IO.FileStream' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaioRandomAccessFile'"
@@ -89,7 +89,7 @@ namespace NGribCS.Grib1
 				if (c == '7')
 				{
 					match += 1;
-					//System.out.println( "seekEnd raf.Position=" + raf.Position );
+					//System.out.println( "seekEnd gribStream.Position=" + gribStream.Position );
 				}
 				else
 				{

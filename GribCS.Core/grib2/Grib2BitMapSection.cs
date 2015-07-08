@@ -63,12 +63,12 @@ namespace NGribCS.Grib2
 			
 		}
 		
-		/// <summary> Length in bytes of BitMapSection section.</summary>
-		//UPGRADE_NOTE: Final was removed from the declaration of 'length '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
+		/// <summary> Length in bytes of BitMapSection numberOfSection.</summary>
+		//UPGRADE_NOTE: Final was removed from the declaration of 'lengthOfSection '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
 		private int length;
 		
-		/// <summary> Number of this section, should be 6.</summary>
-		//UPGRADE_NOTE: Final was removed from the declaration of 'section '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
+		/// <summary> Number of this numberOfSection, should be 6.</summary>
+		//UPGRADE_NOTE: Final was removed from the declaration of 'numberOfSection '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
 		private int section;
 		
 		/// <summary> Bit-map indicator (see Code Table 6.0 and Note (1))</summary>
@@ -92,9 +92,9 @@ namespace NGribCS.Grib2
 		/// <summary> Constructs a <tt>Grib2BitMapSection</tt> object from a byteBuffer.
 		/// 
 		/// </summary>
-		/// <param name="raf">RandomAccessFile with Section BMS content
+		/// <param gridTemplateName="gribStream">RandomAccessFile with Section BMS content
 		/// </param>
-		/// <param name="gds">Grib2GridDefinitionSection
+		/// <param gridTemplateName="gds">Grib2GridDefinitionSection
 		/// </param>
 		/// <throws>  IOException  if stream contains no valid GRIB file </throws>
 		//UPGRADE_TODO: Class 'java.io.RandomAccessFile' was converted to 'System.IO.FileStream' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaioRandomAccessFile'"
@@ -104,10 +104,10 @@ namespace NGribCS.Grib2
 			
 			// octets 1-4 (Length of BMS)
 			length = GribNumbers.int4(raf);
-			//System.out.println( "BMS length=" + length );
+			//System.out.println( "BMS lengthOfSection=" + lengthOfSection );
 			
 			section = raf.ReadByte();
-			//System.out.println( "BMS is 6, section=" + section );
+			//System.out.println( "BMS is 6, numberOfSection=" + numberOfSection );
 			
 			bitMapIndicator = raf.ReadByte();
 			//System.out.println( "BMS bitMapIndicator=" + bitMapIndicator );
@@ -122,7 +122,7 @@ namespace NGribCS.Grib2
 			// create new bit map, octet 4 contains number of unused bits at the end
 			this.bitmap = new bool[gds.NumberPoints];
 			//System.out.println( "BMS GDS NumberPoints = " + gds.getNumberPoints() );
-			//System.out.println( "BMS bitmap.length = " + this.bitmap.length );
+			//System.out.println( "BMS bitmap.lengthOfSection = " + this.bitmap.lengthOfSection );
 			
 			// fill bit map
 			for (int i = 0; i < this.bitmap.Length; i++)
@@ -131,13 +131,13 @@ namespace NGribCS.Grib2
 		
 		// --Commented out by Inspection START (12/8/05 1:12 PM):
 		//   /**
-		//    * Get the byte length of the BitMapSection section.
+		//    * Get the byte lengthOfSection of the BitMapSection numberOfSection.
 		//    *
-		//    * @return length in bytes of BitMapSection section
+		//    * @return lengthOfSection in bytes of BitMapSection numberOfSection
 		//    */
 		//   public final int getLength()
 		//   {
-		//      return length;
+		//      return lengthOfSection;
 		//   }
 		// --Commented out by Inspection STOP (12/8/05 1:12 PM)
 	}

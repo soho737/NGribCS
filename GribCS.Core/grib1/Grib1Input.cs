@@ -51,7 +51,7 @@ namespace NGribCS.Grib1
 					return 0; // not valid Grib file
 				}
 				//  Read Section 0 Indicator Section to get Edition number
-				Grib1IndicatorSection is_Renamed = new Grib1IndicatorSection(raf); // section 0
+				Grib1IndicatorSection is_Renamed = new Grib1IndicatorSection(raf); // numberOfSection 0
 				return is_Renamed.GribEdition;
 			}
 			// end getEdition
@@ -113,7 +113,7 @@ namespace NGribCS.Grib1
         }
 
 		/*
-		* raf for grib file
+		* gribStream for grib file
 		*/
 		private System.IO.Stream raf = null;
 		
@@ -123,7 +123,7 @@ namespace NGribCS.Grib1
 		private System.String header = "GRIB";
 		
 		/*
-		* stores records of Grib file, records consist of objects for each section.
+		* stores records of Grib file, records consist of objects for each numberOfSection.
 		* there are 5 sections to a Grib1 record.
 		*/
 		//UPGRADE_NOTE: Final was removed from the declaration of 'records '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
@@ -146,10 +146,10 @@ namespace NGribCS.Grib1
 		
 		// *** constructors *******************************************************
 		
-		/// <summary> Constructs a <tt>Grib1Input</tt> object from a raf.
+		/// <summary> Constructs a <tt>Grib1Input</tt> object from a gribStream.
 		/// 
 		/// </summary>
-		/// <param name="raf">with GRIB content
+		/// <param gridTemplateName="gribStream">with GRIB content
 		/// 
 		/// </param>
 		//UPGRADE_TODO: Class 'java.io.RandomAccessFile' was converted to 'System.IO.FileStream' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaioRandomAccessFile'"
@@ -166,9 +166,9 @@ namespace NGribCS.Grib1
 		/// create an index or dump the metadata contents.
 		/// 
 		/// </summary>
-		/// <param name="getProducts">products have enough information for data extractions
+		/// <param gridTemplateName="getProducts">products have enough information for data extractions
 		/// </param>
-		/// <param name="oneRecord">returns after processing one record in the Grib file
+		/// <param gridTemplateName="oneRecord">returns after processing one record in the Grib file
 		/// </param>
 		/// <throws>  NotSupportedException </throws>
 		public void  scan(bool getProducts, bool oneRecord)
@@ -181,14 +181,14 @@ namespace NGribCS.Grib1
 			Grib1GridDefinitionSection gds = null;
             long startOffset = -1;
 			
-			//System.out.println("file position =" + raf.Position); 
+			//System.out.println("file position =" + gribStream.Position); 
 			while (raf.Position < raf.Length)
 			{
                 if (seekHeader(raf, raf.Length, out startOffset))
 				{
 					// Read Section 0 Indicator Section
 					Grib1IndicatorSection is_Renamed = new Grib1IndicatorSection(raf);
-					//System.out.println( "Grib record length=" + is.getGribLength());
+					//System.out.println( "Grib record lengthOfSection=" + is.getGribLength());
 					// EOR (EndOfRecord) calculated so skipping data sections is faster
 					long EOR = raf.Position + is_Renamed.GribLength - is_Renamed.Length;
 					
@@ -215,7 +215,7 @@ namespace NGribCS.Grib1
 					if (pds.Center == 98)
 					{
 						// check for ecmwf offset by 1 bug
-						int length = (int)GribNumbers.uint3(raf); // should be length of BMS
+						int length = (int)GribNumbers.uint3(raf); // should be lengthOfSection of BMS
 						if ((length + raf.Position) < EOR)
 						{
 							dataOffset = raf.Position - 3; // ok
@@ -231,7 +231,7 @@ namespace NGribCS.Grib1
 					}
 					// position filePointer to EndOfRecord
 					raf.Seek(EOR, System.IO.SeekOrigin.Begin);
-					//System.out.println("file offset = " + raf.Position);
+					//System.out.println("file offset = " + gribStream.Position);
 					
 					// assume scan ok
 					if (getProducts)
@@ -256,9 +256,9 @@ namespace NGribCS.Grib1
 						return ;
 					}
 				} // end if seekHeader
-				//System.out.println( "raf.Position=" + raf.Position);
-				//System.out.println( "raf.Length=" + raf.Length );
-			} // end while raf.Position < raf.Length
+				//System.out.println( "gribStream.Position=" + gribStream.Position);
+				//System.out.println( "gribStream.Length=" + gribStream.Length );
+			} // end while gribStream.Position < gribStream.Length
 			//System.out.println("GribInput: processed in " +
 			//   (System.currentTimeMillis()- start) + " milliseconds");
 			checkGDSkeys(gds, gdsCounter);

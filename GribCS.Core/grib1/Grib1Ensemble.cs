@@ -68,9 +68,9 @@ namespace NGribCS.Grib1
 		private sbyte[] cm = null;
 		
 		/// <summary> Creates an ensemble object for the product PDS.</summary>
-		/// <param name="raf">RandomAccessFile.
+		/// <param gridTemplateName="gribStream">RandomAccessFile.
 		/// </param>
-		/// <param name="parameterNumber">
+		/// <param gridTemplateName="parameterNumber">
 		/// </param>
 		/// <throws>  IOException </throws>
 		//UPGRADE_TODO: Class 'java.io.RandomAccessFile' was converted to 'System.IO.FileStream' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaioRandomAccessFile'"

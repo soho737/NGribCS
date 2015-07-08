@@ -47,11 +47,11 @@ namespace NGribCS.Grib2
 			}
 			
 		}
-		/// <summary> Length in bytes of DataSection section.</summary>
+		/// <summary> Length in bytes of DataSection numberOfSection.</summary>
 		private int length;
 		
-		/// <summary> Number of this section, should be 7.</summary>
-		//UPGRADE_NOTE: Final was removed from the declaration of 'section '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
+		/// <summary> Number of this numberOfSection, should be 7.</summary>
+		//UPGRADE_NOTE: Final was removed from the declaration of 'numberOfSection '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
 		private int section;
 		
 		/// <summary> Data Array used to return unpacked values.</summary>
@@ -64,49 +64,49 @@ namespace NGribCS.Grib2
 		private int bitPos = 0;
 		private int scanMode;
 		private int count; // raw data count
-		private int Xlength; // length of the x axis
+		private int Xlength; // lengthOfSection of the x axis
 		
 		// *** constructors *******************************************************
 		
 		/// <summary> Constructor for a Grib2 Data Section.</summary>
-		/// <param name="getData">
+		/// <param gridTemplateName="getData">
 		/// </param>
-		/// <param name="raf">
+		/// <param gridTemplateName="gribStream">
 		/// </param>
-		/// <param name="gds">
+		/// <param gridTemplateName="gds">
 		/// </param>
-		/// <param name="drs">
+		/// <param gridTemplateName="drs">
 		/// </param>
-		/// <param name="bms">
+		/// <param gridTemplateName="bms">
 		/// </param>
 		/// <throws>  IOException </throws>
 		//UPGRADE_TODO: Class 'java.io.RandomAccessFile' was converted to 'System.IO.FileStream' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaioRandomAccessFile'"
 		public Grib2DataSection(bool getData, System.IO.Stream raf, Grib2GridDefinitionSection gds, Grib2DataRepresentationSection drs, Grib2BitMapSection bms)
 		{
-			//System.out.println( "raf.FilePointer=" + raf.FilePointer() );
+			//System.out.println( "gribStream.FilePointer=" + gribStream.FilePointer() );
 			// octets 1-4 (Length of DS)
 			length = GribNumbers.int4(raf);
-			//System.out.println( "DS length=" + length );
-			//System.out.println( "DS calculated end=" + ( raf.getFilePointer() + length -4 ));
-			// octet 5  section 7
+			//System.out.println( "DS lengthOfSection=" + lengthOfSection );
+			//System.out.println( "DS calculated end=" + ( gribStream.getFilePointer() + lengthOfSection -4 ));
+			// octet 5  numberOfSection 7
 			section = raf.ReadByte();
-			//System.out.println( "DS is 7, section=" + section );
+			//System.out.println( "DS is 7, numberOfSection=" + numberOfSection );
 			if (!getData)
 			{
 				// skip data read
-				//System.out.println( "raf.position before reposition="+raf.getFilePointer());
-				//System.out.println( "raf.length=" + raf.length() );
-				// sanity check for erronous descriptorSpatial length
+				//System.out.println( "gribStream.position before reposition="+gribStream.getFilePointer());
+				//System.out.println( "gribStream.lengthOfSection=" + gribStream.lengthOfSection() );
+				// sanity check for erronous descriptorSpatial lengthOfSection
 				if (length > 0 && length < raf.Length)
 				{
 					SupportClass.Skip(raf, length - 5);
-					//System.out.println( "raf.skipBytes = " + (length -5) );
+					//System.out.println( "gribStream.skipBytes = " + (lengthOfSection -5) );
 				}
 				else
 				{
-					length = 5; // only read length and section
+					length = 5; // only read lengthOfSection and numberOfSection
 				}
-				//System.out.println( "raf.position after skip=" + raf.getFilePointer() );
+				//System.out.println( "gribStream.position after skip=" + gribStream.getFilePointer() );
 				return ;
 			}
 			int dtn = drs.DataTemplateNumber;
@@ -135,13 +135,13 @@ namespace NGribCS.Grib2
 		} // end Grib2DataSection
 		
 		/// <summary> simple Unpacking method for Grib2 data.</summary>
-		/// <param name="raf">
+		/// <param gridTemplateName="gribStream">
 		/// </param>
-		/// <param name="gds">
+		/// <param gridTemplateName="gds">
 		/// </param>
-		/// <param name="drs">
+		/// <param gridTemplateName="drs">
 		/// </param>
-		/// <param name="bms">
+		/// <param gridTemplateName="bms">
 		/// </param>
 		/// <throws>  IOException </throws>
 		//UPGRADE_TODO: Class 'java.io.RandomAccessFile' was converted to 'System.IO.FileStream' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaioRandomAccessFile'"
@@ -160,7 +160,7 @@ namespace NGribCS.Grib2
 				return ;
 			}
 			// dataPoints are number of points encoded, it could be less than the
-			// numberPoints in the grid record if bitMap is used, otherwise equal
+			// numberOfDataPoints in the grid record if bitMap is used, otherwise equal
 			int dataPoints = drs.DataPoints;
 			//System.out.println( "DS DRS dataPoints=" + drs.getDataPoints() );
 			float pmv = drs.PrimaryMissingValue;
@@ -225,11 +225,11 @@ namespace NGribCS.Grib2
 		} // end simpleUnpacking
 		
 		/// <summary> complex unpacking of Grib2 data.</summary>
-		/// <param name="raf">
+		/// <param gridTemplateName="gribStream">
 		/// </param>
-		/// <param name="gds">
+		/// <param gridTemplateName="gds">
 		/// </param>
-		/// <param name="drs">
+		/// <param gridTemplateName="drs">
 		/// </param>
 		/// <throws>  IOException </throws>
 		//UPGRADE_TODO: Class 'java.io.RandomAccessFile' was converted to 'System.IO.FileStream' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaioRandomAccessFile'"
@@ -420,15 +420,15 @@ namespace NGribCS.Grib2
 			} // end for j
 			scanMode = gds.ScanMode;
 			scanningModeCheck();
-			//System.out.println( "DS true end =" + raf.position() );
+			//System.out.println( "DS true end =" + gribStream.position() );
 		} // end complexUnpacking
 		
 		/// <summary> complex unpacking method for spatial data.</summary>
-		/// <param name="raf">
+		/// <param gridTemplateName="gribStream">
 		/// </param>
-		/// <param name="gds">
+		/// <param gridTemplateName="gds">
 		/// </param>
-		/// <param name="drs">
+		/// <param gridTemplateName="drs">
 		/// </param>
 		/// <throws>  IOException </throws>
 		//UPGRADE_TODO: Class 'java.io.RandomAccessFile' was converted to 'System.IO.FileStream' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaioRandomAccessFile'"
@@ -457,7 +457,7 @@ namespace NGribCS.Grib2
             // 2 - Second-Order Spatial Differencing
 			int orderSpatial = drs.OrderSpatial;
 
-            // Number of octets required in the data section to specify extra descriptors needed for spatial differencing
+            // Number of octets required in the data numberOfSection to specify extra descriptors needed for spatial differencing
 			int descriptorSpatial = drs.DescriptorSpatial;
 			//System.out.println( "DS orderSpatial=" + orderSpatial +" descriptorSpatial =" + descriptorSpatial );
 			bitPos = 0;
@@ -848,17 +848,17 @@ namespace NGribCS.Grib2
 			}
 			scanMode = gds.ScanMode;
 			scanningModeCheck();
-			//System.out.println( "DS true end =" + raf.position() );
+			//System.out.println( "DS true end =" + gribStream.position() );
 		} // end complexUnpackingWithSpatial
 		
 		/// <summary> Jpeg2000 unpacking method for Grib2 data.</summary>
-		/// <param name="raf">
+		/// <param gridTemplateName="gribStream">
 		/// </param>
-		/// <param name="gds">
+		/// <param gridTemplateName="gds">
 		/// </param>
-		/// <param name="drs">
+		/// <param gridTemplateName="drs">
 		/// </param>
-		/// <param name="bms">bit-map section object
+		/// <param gridTemplateName="bms">bit-map numberOfSection object
 		/// </param>
 		//UPGRADE_TODO: Class 'java.io.RandomAccessFile' was converted to 'System.IO.FileStream' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaioRandomAccessFile'"
 		private void  jpeg2000Unpacking(System.IO.Stream raf, Grib2GridDefinitionSection gds, Grib2DataRepresentationSection drs, Grib2BitMapSection bms)
@@ -868,10 +868,10 @@ namespace NGribCS.Grib2
 			// 6-xx  jpeg2000 data block to decode
 			
 			// dataPoints are number of points encoded, it could be less than the
-			// numberPoints in the grid record if bitMap is used, otherwise equal
+			// numberOfDataPoints in the grid record if bitMap is used, otherwise equal
 			int dataPoints = drs.DataPoints;
 			//System.out.println( "DS DRS dataPoints=" + drs.getDataPoints() );
-			//System.out.println( "DS length=" + length );
+			//System.out.println( "DS lengthOfSection=" + lengthOfSection );
 			
 			float pmv = drs.PrimaryMissingValue;
 			//System.out.println( "DS pmv=" + pmv );
@@ -908,7 +908,7 @@ namespace NGribCS.Grib2
 				//argv[ 5 ] = "-verbose" ;
 				//argv[ 6 ] = "-debug" ;
 				g2j = new Grib2JpegDecoder(argv);
-				g2j.decode(raf, length - 5);
+				g2j.decode(gribStream, lengthOfSection - 5);
 			}
              */
 
@@ -943,7 +943,7 @@ namespace NGribCS.Grib2
 				}
 				else
 				{
-					//System.out.println( "DS jpeg data length ="+ g2j.data.length );
+					//System.out.println( "DS jpeg data lengthOfSection ="+ g2j.data.lengthOfSection );
 					// record has missing bitmap
 					if (values.Length != numberPoints)
 					{
@@ -978,12 +978,12 @@ namespace NGribCS.Grib2
 		
 		
 		/// <summary> Convert bits (numberOfBits) to Unsigned Int .</summary>
-		/// <param name="numberOfBits">the number of bits to convert to int
+		/// <param gridTemplateName="numberOfBits">the number of bits to convert to int
 		/// </param>
-		/// <param name="raf">
+		/// <param gridTemplateName="gribStream">
 		/// </param>
 		/// <throws>  IOException </throws>
-		/// <returns> int of DataSections section
+		/// <returns> int of DataSections numberOfSection
 		/// </returns>
 		//UPGRADE_TODO: Class 'java.io.RandomAccessFile' was converted to 'System.IO.FileStream' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaioRandomAccessFile'"
 		private int bits2UInt(int nb, System.IO.Stream raf)
@@ -1079,23 +1079,23 @@ namespace NGribCS.Grib2
 		
 		// --Commented out by Inspection START (11/21/05 11:16 AM):
 		//   /**
-		//    * Get the byte length of the DataSectionS section.
+		//    * Get the byte lengthOfSection of the DataSectionS numberOfSection.
 		//    *
-		//    * @return length in bytes of DataSectionS section
+		//    * @return lengthOfSection in bytes of DataSectionS numberOfSection
 		//    */
 		//   public final int getLength()
 		//   {
-		//      return length;
+		//      return lengthOfSection;
 		//   }
 		// --Commented out by Inspection STOP (11/21/05 11:16 AM)
 		
 		// --Commented out by Inspection START (11/21/05 11:16 AM):
 		//   /**
-		//    * Number of this section, should be 7
+		//    * Number of this numberOfSection, should be 7
 		//    */
 		//   public final int getSection()
 		//   {
-		//      return section;
+		//      return numberOfSection;
 		//   }
 		// --Commented out by Inspection STOP (11/21/05 11:16 AM)
 	}

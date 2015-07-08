@@ -54,7 +54,7 @@ namespace NGribCS.Grib1
 			
 		}
 		/// <summary> Name of this level.</summary>
-		/// <returns> name as String
+		/// <returns> gridTemplateName as String
 		/// </returns>
 		public System.String Name
 		{
@@ -108,11 +108,11 @@ namespace NGribCS.Grib1
 		/// Implements tables 3 and 3a.
 		/// 
 		/// </summary>
-		/// <param name="pds10">part 1 of level code index
+		/// <param gridTemplateName="pds10">part 1 of level code index
 		/// </param>
-		/// <param name="pds11">part 2 of level code
+		/// <param gridTemplateName="pds11">part 2 of level code
 		/// </param>
-		/// <param name="pds12">part 3 of level code
+		/// <param gridTemplateName="pds12">part 3 of level code
 		/// 
 		/// </param>
 		public GribPDSLevel(int pds10, int pds11, int pds12)
@@ -446,7 +446,7 @@ namespace NGribCS.Grib1
 		/// <summary> type of vertical coordinate: Description or short Name
 		/// derived from  ON388 - TABLE 3.
 		/// </summary>
-		/// <param name="id">
+		/// <param gridTemplateName="id">
 		/// </param>
 		/// <returns> level description as String
 		/// </returns>
@@ -591,10 +591,10 @@ namespace NGribCS.Grib1
 			}
 		}
 		
-		/// <summary> short name of level.</summary>
-		/// <param name="id">
+		/// <summary> short gridTemplateName of level.</summary>
+		/// <param gridTemplateName="id">
 		/// </param>
-		/// <returns> name of level
+		/// <returns> gridTemplateName of level
 		/// </returns>
 		static public System.String getNameShort(int id)
 		{
@@ -738,7 +738,7 @@ namespace NGribCS.Grib1
 		/// <summary> type of vertical coordinate: units
 		/// derived from  ON388 - TABLE 3.
 		/// </summary>
-		/// <param name="id">units number
+		/// <param gridTemplateName="id">units number
 		/// </param>
 		/// <returns> unit as String
 		/// </returns>

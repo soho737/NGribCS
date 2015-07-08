@@ -45,7 +45,7 @@ namespace NGribCS.Helpers
 		/// <summary> Construct a new Exception with message <tt>msg</tt>.
 		/// 
 		/// </summary>
-		/// <param name="msg">error message
+		/// <param gridTemplateName="msg">error message
 		/// </param>
 		public NoValidGribException(System.String msg):base(msg)
 		{

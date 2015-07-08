@@ -35,7 +35,7 @@ namespace NGribCS.Helpers
 	
 	/// <summary> Class which represents a parameter from a PDS parameter table.
 	/// A parameter consists of a discipline( ie Meteorological_products), 
-	/// a Category( ie Temperature ) and a number that refers to a name( ie Temperature),
+	/// a Category( ie Temperature ) and a number that refers to a gridTemplateName( ie Temperature),
 	/// Description( ie Temperature at 2 meters), and Units( ie K ).
 	/// see <a href="../../Parameters.txt">Parameters.txt</a>
 	/// </summary>
@@ -47,7 +47,7 @@ namespace NGribCS.Helpers
 		/// <returns> number
 		/// </returns>
 		/// <summary> sets number of parameter.</summary>
-		/// <param name="number">of parameter
+		/// <param gridTemplateName="number">of parameter
 		/// </param>
 		public int Number
 		{
@@ -63,11 +63,11 @@ namespace NGribCS.Helpers
 			
 		}
 		//UPGRADE_NOTE: Respective javadoc comments were merged.  It should be changed in order to comply with .NET documentation conventions. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1199'"
-		/// <summary> name of parameter.</summary>
-		/// <returns> name
+		/// <summary> gridTemplateName of parameter.</summary>
+		/// <returns> gridTemplateName
 		/// </returns>
-		/// <summary> sets name of parameter.</summary>
-		/// <param name="name"> of parameter
+		/// <summary> sets gridTemplateName of parameter.</summary>
+		/// <param gridTemplateName="gridTemplateName"> of parameter
 		/// </param>
 		public System.String Name
 		{
@@ -89,7 +89,7 @@ namespace NGribCS.Helpers
 		/// <returns> description
 		/// </returns>
 		/// <summary> sets description of parameter.</summary>
-		/// <param name="description">of parameter
+		/// <param gridTemplateName="description">of parameter
 		/// </param>
 		public System.String Description
 		{
@@ -109,7 +109,7 @@ namespace NGribCS.Helpers
 		/// <returns> unit
 		/// </returns>
 		/// <summary> sets unit of parameter.</summary>
-		/// <param name="unit">of parameter
+		/// <param gridTemplateName="unit">of parameter
 		/// </param>
 		public System.String Unit
 		{
@@ -126,7 +126,7 @@ namespace NGribCS.Helpers
 		}
 		/// <summary> parameter number.</summary>
 		private int number;
-		/// <summary> name of parameter.</summary>
+		/// <summary> gridTemplateName of parameter.</summary>
 		private System.String name;
 		/// <summary> description of parameter.</summary>
 		private System.String description;
@@ -143,13 +143,13 @@ namespace NGribCS.Helpers
 		}
 		
 		/// <summary> constructor.</summary>
-		/// <param name="number">
+		/// <param gridTemplateName="number">
 		/// </param>
-		/// <param name="name">
+		/// <param gridTemplateName="gridTemplateName">
 		/// </param>
-		/// <param name="description">
+		/// <param gridTemplateName="description">
 		/// </param>
-		/// <param name="unit">of parameter
+		/// <param gridTemplateName="unit">of parameter
 		/// </param>
 		public Parameter(int number, System.String name, System.String description, System.String unit)
 		{

@@ -10,7 +10,7 @@
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param gridTemplateName="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -43,6 +43,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.runTestFunctionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.testFunctionAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -77,7 +79,8 @@
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.resetGrib2ManagerToolStripMenuItem,
-            this.addNewFileToolStripMenuItem});
+            this.addNewFileToolStripMenuItem,
+            this.runTestFunctionsToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -231,6 +234,21 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // runTestFunctionsToolStripMenuItem
+            // 
+            this.runTestFunctionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.testFunctionAToolStripMenuItem});
+            this.runTestFunctionsToolStripMenuItem.Name = "runTestFunctionsToolStripMenuItem";
+            this.runTestFunctionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.runTestFunctionsToolStripMenuItem.Text = "Run Test Functions";
+            // 
+            // testFunctionAToolStripMenuItem
+            // 
+            this.testFunctionAToolStripMenuItem.Name = "testFunctionAToolStripMenuItem";
+            this.testFunctionAToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.testFunctionAToolStripMenuItem.Text = "Test Function A";
+            this.testFunctionAToolStripMenuItem.Click += new System.EventHandler(this.testFunctionAToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -283,6 +301,8 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ToolStripMenuItem runTestFunctionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem testFunctionAToolStripMenuItem;
 
     }
 }

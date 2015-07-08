@@ -114,15 +114,15 @@ namespace NGribCS.Grib1
 		//UPGRADE_NOTE: Final was removed from the declaration of 'header '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
 		private System.String header;
 		
-		/// <summary> The indicator section.</summary>
+		/// <summary> The indicator numberOfSection.</summary>
 		//UPGRADE_NOTE: Final was removed from the declaration of 'is '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
 		private Grib1IndicatorSection is_Renamed;
 		
-		/// <summary> The product definition section.</summary>
+		/// <summary> The product definition numberOfSection.</summary>
 		//UPGRADE_NOTE: Final was removed from the declaration of 'pds '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
 		private Grib1ProductDefinitionSection pds;
 		
-		/// <summary> The grid definition section.</summary>
+		/// <summary> The grid definition numberOfSection.</summary>
 		//UPGRADE_NOTE: Final was removed from the declaration of 'gds '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
 		private Grib1GridDefinitionSection gds;
 		
@@ -139,17 +139,17 @@ namespace NGribCS.Grib1
 		private long endRecordOffset = - 1;
 		
 		/// <summary> Constructor.</summary>
-		/// <param name="hdr">record header 
+		/// <param gridTemplateName="hdr">record header 
 		/// </param>
-		/// <param name="aIs">IS section
+		/// <param gridTemplateName="aIs">IS numberOfSection
 		/// </param>
-		/// <param name="aPds">PDS section
+		/// <param gridTemplateName="aPds">PDS numberOfSection
 		/// </param>
-		/// <param name="aGds">GDS section
+		/// <param gridTemplateName="aGds">GDS numberOfSection
 		/// </param>
-		/// <param name="offset">to the BMS/BDS section of file
+		/// <param gridTemplateName="offset">to the BMS/BDS numberOfSection of file
 		/// </param>
-		/// <param name="recOffset">to the EndOfRecord
+		/// <param gridTemplateName="recOffset">to the EndOfRecord
 		/// </param>
 		public Grib1Record(System.String hdr, Grib1IndicatorSection aIs, Grib1ProductDefinitionSection aPds, Grib1GridDefinitionSection aGds, long offset, long recOffset)
 		{

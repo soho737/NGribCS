@@ -54,7 +54,7 @@ namespace NGribCS.Grib2
 			//   */
 			//   public final int getLength()
 			//   {
-			//      return length;
+			//      return lengthOfSection;
 			//   }
 			// --Commented out by Inspection STOP (11/21/05 12:32 PM)
 			
@@ -74,10 +74,10 @@ namespace NGribCS.Grib2
 		/// <summary> Constructs a <tt>Grib2EndSection</tt> object from a byteBuffer.
 		/// 
 		/// </summary>
-		/// <param name="raf">RandomAccessFile with EndSection content
+		/// <param gridTemplateName="gribStream">RandomAccessFile with EndSection content
 		/// 
 		/// </param>
-		/// <throws>  IOException  if raf contains no valid GRIB record </throws>
+		/// <throws>  IOException  if gribStream contains no valid GRIB record </throws>
 		//UPGRADE_TODO: Class 'java.io.RandomAccessFile' was converted to 'System.IO.FileStream' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaioRandomAccessFile'"
 		public Grib2EndSection(System.IO.Stream raf)
 		{
@@ -91,7 +91,7 @@ namespace NGribCS.Grib2
 				if (c == '7')
 				{
 					match += 1;
-					//System.out.println( "seekEnd raf.getFilePointer()=" + raf.getFilePointer() );
+					//System.out.println( "seekEnd gribStream.getFilePointer()=" + gribStream.getFilePointer() );
 				}
 				else
 				{

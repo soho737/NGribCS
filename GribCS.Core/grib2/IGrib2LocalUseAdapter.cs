@@ -34,30 +34,30 @@ namespace NGribCS.Grib2
         /// <summary>
         /// Connects this adapter to a Grib2LocalUseSection object
         /// </summary>
-        /// <param name="source">Grib2LocalUseSection object</param>
+        /// <param gridTemplateName="sourceOfGridDefinition">Grib2LocalUseSection object</param>
         void Connect(IGrib2LocalUseSection source);
 
         /// <summary>
-        /// Reads a string using the specified encoding from the local use section buffer
+        /// Reads a string using the specified encoding from the local use numberOfSection buffer
         /// </summary>
-        /// <param name="startByte">Byte index to start at</param>
-        /// <param name="byteCount">No of bytes to read</param>
-        /// <param name="encoding">The encoding to use</param>
+        /// <param gridTemplateName="startByte">Byte index to start at</param>
+        /// <param gridTemplateName="byteCount">No of bytes to read</param>
+        /// <param gridTemplateName="encoding">The encoding to use</param>
         /// <returns></returns>
         string ReadString(int startByte, int byteCount, System.Text.Encoding encoding);
 
         /// <summary>
-        /// Reads a Int32 from the local use section
+        /// Reads a Int32 from the local use numberOfSection
         /// </summary>
-        /// <param name="startByte">Byte index to start at</param>
+        /// <param gridTemplateName="startByte">Byte index to start at</param>
         /// <returns></returns>
         int ReadInt32(int startByte);
 
         /// <summary>
-        /// Reads a byte array from the local use section
+        /// Reads a byte array from the local use numberOfSection
         /// </summary>
-        /// <param name="startByte">Byte index to start at</param>
-        /// <param name="byteCount">No of bytes to read</param>
+        /// <param gridTemplateName="startByte">Byte index to start at</param>
+        /// <param gridTemplateName="byteCount">No of bytes to read</param>
         /// <returns></returns>
         byte[] ReadBytes(int startByte, int byteCount);
     }

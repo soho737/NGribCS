@@ -40,7 +40,7 @@ using NGribCS.Helpers;
 namespace NGribCS.Grib1
 {
 	
-	/// <summary> A class representing the product definition section (PDS) of a GRIB record.
+	/// <summary> A class representing the product definition numberOfSection (PDS) of a GRIB record.
 	/// 
 	/// </summary>
     [GuidAttribute("0EF5A055-F22B-4982-93DC-6E3D05579FF9")]
@@ -154,10 +154,10 @@ namespace NGribCS.Grib1
 			}
 			
 		}
-		/// <summary> Get the name of the unit of the parameter.
+		/// <summary> Get the gridTemplateName of the unit of the parameter.
 		/// 
 		/// </summary>
-		/// <returns> name of the unit of the parameter
+		/// <returns> gridTemplateName of the unit of the parameter
 		/// </returns>
 		public System.String Unit
 		{
@@ -167,10 +167,10 @@ namespace NGribCS.Grib1
 			}
 			
 		}
-		/// <summary> Get the name for the type of level for forecast/analysis.
+		/// <summary> Get the gridTemplateName for the type of level for forecast/analysis.
 		/// 
 		/// </summary>
-		/// <returns> name of level (height or pressure)
+		/// <returns> gridTemplateName of level (height or pressure)
 		/// </returns>
 		public System.String LevelName
 		{
@@ -183,7 +183,7 @@ namespace NGribCS.Grib1
 		/// <summary> Get the numeric value for this level.
 		/// 
 		/// </summary>
-		/// <returns> name of level (height or pressure)
+		/// <returns> gridTemplateName of level (height or pressure)
 		/// </returns>
 		public int LevelType
 		{
@@ -196,7 +196,7 @@ namespace NGribCS.Grib1
 		/// <summary> Get the numeric value for this level.
 		/// 
 		/// </summary>
-		/// <returns> name of level (height or pressure)
+		/// <returns> gridTemplateName of level (height or pressure)
 		/// </returns>
 		public int LevelValue1
 		{
@@ -210,7 +210,7 @@ namespace NGribCS.Grib1
 		/// <summary> Get value 2 (if it exists) for this level.
 		/// 
 		/// </summary>
-		/// <returns> name of level (height or pressure)
+		/// <returns> gridTemplateName of level (height or pressure)
 		/// </returns>
 		public int LevelValue2
 		{
@@ -351,7 +351,7 @@ namespace NGribCS.Grib1
 			}
 			
 		}
-		/// <summary> PDS length did not correspond with read .</summary>
+		/// <summary> PDS lengthOfSection did not correspond with read .</summary>
 		/// <returns> lengthErr
 		/// </returns>
 		public bool LengthErr
@@ -384,7 +384,7 @@ namespace NGribCS.Grib1
 		//UPGRADE_ISSUE: Class 'java.text.SimpleDateFormat' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javatextSimpleDateFormat'"
         private static System.Globalization.DateTimeFormatInfo dateFormat;
 		/// <summary> Length in bytes of this PDS.</summary>
-		//UPGRADE_NOTE: Final was removed from the declaration of 'length '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
+		//UPGRADE_NOTE: Final was removed from the declaration of 'lengthOfSection '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
 		private int length;
 		
 		/// <summary> Exponent of decimal scale.</summary>
@@ -462,7 +462,7 @@ namespace NGribCS.Grib1
 		/// <summary> ensemble products have more information.</summary>
 		private Grib1Ensemble epds = null;
 		
-		/// <summary>  PDS length not equal to number bytes read.</summary>
+		/// <summary>  PDS lengthOfSection not equal to number bytes read.</summary>
 		//UPGRADE_NOTE: Final was removed from the declaration of 'lengthErr '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
 		private bool lengthErr = false;
 
@@ -475,19 +475,19 @@ namespace NGribCS.Grib1
 		
 		// *** constructors *******************************************************
 		
-		/// <summary> Constructs a <tt>Grib1ProductDefinitionSection</tt> object from a raf.
+		/// <summary> Constructs a <tt>Grib1ProductDefinitionSection</tt> object from a gribStream.
 		/// 
 		/// </summary>
-		/// <param name="raf">with PDS content
+		/// <param gridTemplateName="gribStream">with PDS content
 		/// 
 		/// </param>
-		/// <throws>  NotSupportedException  if raf contains no valid GRIB file </throws>
+		/// <throws>  NotSupportedException  if gribStream contains no valid GRIB file </throws>
 		//UPGRADE_TODO: Class 'java.io.RandomAccessFile' was converted to 'System.IO.FileStream' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaioRandomAccessFile'"
 		public Grib1ProductDefinitionSection(System.IO.Stream raf)
 		{
-			// octets 1-3 PDS length
+			// octets 1-3 PDS lengthOfSection
             length = (int)GribNumbers.uint3(raf);
-			//System.out.println( "PDS length = " + length );
+			//System.out.println( "PDS lengthOfSection = " + lengthOfSection );
 			
 			// Paramter table octet 4
 			table_version = raf.ReadByte();
@@ -504,7 +504,7 @@ namespace NGribCS.Grib1
 			//octet 8 (flag for presence of GDS and BMS)
 			int exists = raf.ReadByte();
             //BKSystem.IO.BitStream s = new BKSystem.IO.BitStream(8);
-//            s.WriteByte((byte)raf.ReadByte());
+//            s.WriteByte((byte)gribStream.ReadByte());
 //            s.Position = 0;
 //            sbyte exists;
 //            s.Read(out exists);
@@ -711,7 +711,7 @@ namespace NGribCS.Grib1
             }
 			else if (length != 28)
 			{   
-                // check if all bytes read in section
+                // check if all bytes read in numberOfSection
                 //lengthErr = true;
                 int extra;
                 for (int i = 29; i <= length; i++)
@@ -721,13 +721,13 @@ namespace NGribCS.Grib1
 		
 		// --Commented out by Inspection START (11/9/05 10:19 AM):
 		//   /**
-		//    * Get the byte length of this section.
+		//    * Get the byte lengthOfSection of this numberOfSection.
 		//    *
-		//    * @return length in bytes of this section
+		//    * @return lengthOfSection in bytes of this numberOfSection
 		//    */
 		//   public int getLength()
 		//   {
-		//      return length;
+		//      return lengthOfSection;
 		//   }
 		// --Commented out by Inspection STOP (11/9/05 10:19 AM)
 		
@@ -910,7 +910,7 @@ namespace NGribCS.Grib1
 		} // end getCenter_idName
 		
 		/// <summary> SubCenter as String.</summary>
-		/// <param name="center">
+		/// <param gridTemplateName="center">
 		/// </param>
 		/// <returns> subCenter
 		/// </returns>
@@ -958,10 +958,10 @@ namespace NGribCS.Grib1
 			return getCenter_idName(center);
 		}
 		
-		/// <summary>  ProductDefinition name.</summary>
-		/// <param name="type">
+		/// <summary>  ProductDefinition gridTemplateName.</summary>
+		/// <param gridTemplateName="type">
 		/// </param>
-		/// <returns>  name of ProductDefinition
+		/// <returns>  gridTemplateName of ProductDefinition
 		/// </returns>
 		public static System.String getProductDefinitionName(int type)
 		{

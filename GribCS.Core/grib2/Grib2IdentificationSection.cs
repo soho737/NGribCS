@@ -39,7 +39,7 @@ namespace NGribCS.Grib2
 {
 	
 	
-	/// <summary> A class representing the IdentificationSection section 1 of a GRIB record.
+	/// <summary> A class representing the IdentificationSection numberOfSection 1 of a GRIB record.
 	/// 
 	/// </summary>
     [GuidAttribute("5CFB4168-FB81-4c74-8700-6E8E2373E1AF")]
@@ -315,7 +315,7 @@ namespace NGribCS.Grib2
 			
 		}
 		/// <summary> productStatusName.</summary>
-		/// <returns> productStatus name
+		/// <returns> productStatus gridTemplateName
 		/// </returns>
 		public System.String ProductStatusName
 		{
@@ -350,8 +350,8 @@ namespace NGribCS.Grib2
 			}
 			
 		}
-		/// <summary> Product type name.</summary>
-		/// <returns> productType name
+		/// <summary> Product type gridTemplateName.</summary>
+		/// <returns> productType gridTemplateName
 		/// </returns>
 		public System.String ProductTypeName
 		{
@@ -408,11 +408,11 @@ namespace NGribCS.Grib2
 		private static System.Globalization.DateTimeFormatInfo dateFormat;
 		
 		/// <summary> Length in bytes of this IdentificationSection.</summary>
-		//UPGRADE_NOTE: Final was removed from the declaration of 'length '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
+		//UPGRADE_NOTE: Final was removed from the declaration of 'lengthOfSection '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
 		private int length;
 		
-		/// <summary> Number of this section, should be 1.</summary>
-		//UPGRADE_NOTE: Final was removed from the declaration of 'section '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
+		/// <summary> Number of this numberOfSection, should be 1.</summary>
+		//UPGRADE_NOTE: Final was removed from the declaration of 'numberOfSection '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
 		private int section;
 		
 		/// <summary> Identification of center.</summary>
@@ -455,20 +455,20 @@ namespace NGribCS.Grib2
 		/// <summary> Constructs a <tt>Grib2IdentificationSection</tt> object from a RandomAccessFile.
 		/// 
 		/// </summary>
-		/// <param name="raf">RandomAccessFile with Section 1 content
+		/// <param gridTemplateName="gribStream">RandomAccessFile with Section 1 content
 		/// 
 		/// </param>
-		/// <throws>  IOException  if raf contains no valid GRIB file </throws>
+		/// <throws>  IOException  if gribStream contains no valid GRIB file </throws>
 		//UPGRADE_TODO: Class 'java.io.RandomAccessFile' was converted to 'System.IO.FileStream' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaioRandomAccessFile'"
 		public Grib2IdentificationSection(System.IO.Stream raf)
 		{
-			// section 1 octet 1-4 (length of section)
+			// numberOfSection 1 octet 1-4 (lengthOfSection of numberOfSection)
 			length = GribNumbers.int4(raf);
 			
-			//System.out.println( "IdentificationSection1 length=" + length );
+			//System.out.println( "IdentificationSection1 lengthOfSection=" + lengthOfSection );
 			
 			section = raf.ReadByte();
-			//System.out.println( "Section number=" + section );
+			//System.out.println( "Section number=" + numberOfSection );
 			
 			// Center  octet 6-7
 			center_id = GribNumbers.int2(raf);
@@ -514,23 +514,23 @@ namespace NGribCS.Grib2
 		
 		// --Commented out by Inspection START (11/21/05 12:42 PM):
 		//   /**
-		//    * Get the byte length of this section.
+		//    * Get the byte lengthOfSection of this numberOfSection.
 		//    *
-		//    * @return length in bytes of this section
+		//    * @return lengthOfSection in bytes of this numberOfSection
 		//    */
 		//   public final int getLength()
 		//   {
-		//      return length;
+		//      return lengthOfSection;
 		//   }
 		// --Commented out by Inspection STOP (11/21/05 12:42 PM)
 		
 		// --Commented out by Inspection START (11/21/05 12:42 PM):
 		//   /**
-		//    * Number of this section, should be 1
+		//    * Number of this numberOfSection, should be 1
 		//    */
 		//   public final int getSection()
 		//   {
-		//      return section;
+		//      return numberOfSection;
 		//   }
 		// --Commented out by Inspection STOP (11/21/05 12:42 PM)
 		static Grib2IdentificationSection()

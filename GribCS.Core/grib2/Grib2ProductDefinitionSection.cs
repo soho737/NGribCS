@@ -40,7 +40,7 @@ namespace NGribCS.Grib2
     public enum TimeRangeUnits { Hour = 1, Day = 2, Month = 3, Year = 4, Decade = 5, Normal = 6, Century = 7, ThreeHours = 10, SixHours=11, TwelveHours=12, Seconds = 13};
 
 
-	/// <summary> A class representing the product definition section (PDS) of a GRIB product.</summary>
+	/// <summary> A class representing the product definition numberOfSection (PDS) of a GRIB product.</summary>
     [GuidAttribute("BE2D595F-73CE-4600-8FD5-46A6F50D27A4")]
     [ClassInterface(ClassInterfaceType.None)]
     public sealed class Grib2ProductDefinitionSection : NGribCS.Grib2.IGrib2ProductDefinitionSection
@@ -191,11 +191,11 @@ namespace NGribCS.Grib2
      
 
         /// <summary> Length in bytes of this PDS.</summary>
-        //UPGRADE_NOTE: Final was removed from the declaration of 'length '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
+        //UPGRADE_NOTE: Final was removed from the declaration of 'lengthOfSection '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
         private int length;
 
-        /// <summary> Number of this section, should be 4.</summary>
-        //UPGRADE_NOTE: Final was removed from the declaration of 'section '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
+        /// <summary> Number of this numberOfSection, should be 4.</summary>
+        //UPGRADE_NOTE: Final was removed from the declaration of 'numberOfSection '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
         private int section;
 
         /// <summary> Number of this coordinates.</summary>
@@ -254,23 +254,23 @@ namespace NGribCS.Grib2
         // *** constructors *******************************************************
 
 
-        /// <summary> Constructs a Grib2ProductDefinitionSection  object from a raf.
+        /// <summary> Constructs a Grib2ProductDefinitionSection  object from a gribStream.
         /// 
         /// </summary>
-        /// <param name="raf">RandomAccessFile with PDS content
+        /// <param gridTemplateName="gribStream">RandomAccessFile with PDS content
         /// 
         /// </param>
-        /// <throws>  IOException  if raf contains no valid GRIB file </throws>
+        /// <throws>  IOException  if gribStream contains no valid GRIB file </throws>
         //UPGRADE_TODO: Class 'java.io.RandomAccessFile' was converted to 'System.IO.FileStream' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaioRandomAccessFile'"
         public Grib2ProductDefinitionSection(System.IO.Stream raf, int pCenterId = 0, int pMasterTableVersion = 0, int pLocalTableVersion = 0)
         {
             // octets 1-4 (Length of PDS)
             length = GribNumbers.int4(raf);
-            //System.out.println( "PDS length=" + length );
+            //System.out.println( "PDS lengthOfSection=" + lengthOfSection );
 
             // octet 5
             section = raf.ReadByte();
-            //System.out.println( "PDS is 4, section=" + section );
+            //System.out.println( "PDS is 4, numberOfSection=" + numberOfSection );
 
             // octet 6-7
             coordinates = GribNumbers.int2(raf);
@@ -463,10 +463,10 @@ namespace NGribCS.Grib2
                             int lengthTR = GribNumbers.int4(raf);
                             //System.out.println( "PDS lengthTR=" + lengthTR ) ;
 
-                            //int indicatorSF = raf.read();
+                            //int indicatorSF = gribStream.read();
                             //System.out.println( "PDS indicatorSF=" + indicatorSF ) ;
 
-                            //int incrementSF = GribNumbers.int4( raf );
+                            //int incrementSF = GribNumbers.int4( gribStream );
                             //System.out.println( "PDS incrementSF=" + incrementSF ) ;
                         }
                         break;
@@ -541,7 +541,7 @@ namespace NGribCS.Grib2
                         parameterNumber = raf.ReadByte();
                         //System.out.println( "PDS parameterNumber=" + parameterNumber );
 
-                        //numberOfChars = GribNumbers.int4( raf );
+                        //numberOfChars = GribNumbers.int4( gribStream );
                         //System.out.println( "PDS numberOfChars=" + 
                         //numberOfChars );
                         break;
@@ -559,23 +559,23 @@ namespace NGribCS.Grib2
 
         // --Commented out by Inspection START (11/21/05 2:24 PM):
         //   /**
-        //    * Get the byte length of this section.
+        //    * Get the byte lengthOfSection of this numberOfSection.
         //    *
-        //    * @return length in bytes of this section
+        //    * @return lengthOfSection in bytes of this numberOfSection
         //    */
         //   public final int getLength()
         //   {
-        //      return length;
+        //      return lengthOfSection;
         //   }
         // --Commented out by Inspection STOP (11/21/05 2:24 PM)
 
         // --Commented out by Inspection START (11/21/05 2:24 PM):
         //   /**
-        //    * Number of this section, should be 4
+        //    * Number of this numberOfSection, should be 4
         //    */
         //   public final int getSection()
         //   {
-        //      return section;
+        //      return numberOfSection;
         //   }
         // --Commented out by Inspection STOP (11/21/05 2:24 PM)
 
@@ -590,7 +590,7 @@ namespace NGribCS.Grib2
         /// <summary> productDefinition  Name.
         /// from code table 4.0.
         /// </summary>
-        /// <param name="productDefinition">
+        /// <param gridTemplateName="productDefinition">
         /// </param>
         /// <returns> ProductDefinitionName
         /// </returns>

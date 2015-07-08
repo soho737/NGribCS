@@ -166,19 +166,19 @@ namespace NGribCS.Grib2
 		// --Commented out by Inspection STOP (11/16/05 2:14 PM)
 		
 		/// <summary> Constructor.</summary>
-		/// <param name="header">
+		/// <param gridTemplateName="header">
 		/// </param>
-		/// <param name="is">
+		/// <param gridTemplateName="is">
 		/// </param>
-		/// <param name="id">
+		/// <param gridTemplateName="id">
 		/// </param>
-		/// <param name="gdsKey">
+		/// <param gridTemplateName="gdsKey">
 		/// </param>
-		/// <param name="pds">
+		/// <param gridTemplateName="pds">
 		/// </param>
-		/// <param name="GdsOffset">
+		/// <param gridTemplateName="GdsOffset">
 		/// </param>
-		/// <param name="PdsOffset">PDS offset in Grib file
+		/// <param gridTemplateName="PdsOffset">PDS offset in Grib file
 		/// </param>
 		public Grib2Product(System.String header, Grib2IndicatorSection is_Renamed, Grib2IdentificationSection id, System.String gdsKey, Grib2ProductDefinitionSection pds, long GdsOffset, long PdsOffset)
 		{

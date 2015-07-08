@@ -227,6 +227,7 @@
     <Compile Include="Grib2\Tables\Parameter.cs" />
     <Compile Include="Grib2\Tables\ParameterCategory.cs" />
     <Compile Include="Grib2\Tables\TableDispatcher.cs" />
+    <Compile Include="Helpers\CRC32.cs" />
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Helpers\GribException.cs" />
     <Compile Include="Helpers\GribNotSupportedException.cs" />

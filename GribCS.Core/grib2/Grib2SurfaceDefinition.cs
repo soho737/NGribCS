@@ -84,7 +84,7 @@ namespace NGribCS.Grib2
         /// <summary> type of vertical coordinate: Name
         /// code table 4.5.
         /// </summary>
-        /// <param name="id">
+        /// <param gridTemplateName="id">
         /// </param>
         /// <returns> SurfaceName
         /// </returns>
@@ -213,7 +213,7 @@ namespace NGribCS.Grib2
         /// <summary> type of vertical coordinate: short Name
         /// derived from code table 4.5.
         /// </summary>
-        /// <param name="id">
+        /// <param gridTemplateName="id">
         /// </param>
         /// <returns> SurfaceNameShort
         /// </returns>
@@ -341,7 +341,7 @@ namespace NGribCS.Grib2
         /// <summary> type of vertical coordinate: Units.
         /// code table 4.5.
         /// </summary>
-        /// <param name="id">
+        /// <param gridTemplateName="id">
         /// </param>
         /// <returns> surfaceUnit
         /// </returns>

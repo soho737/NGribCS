@@ -46,7 +46,7 @@ namespace NGribCS.Helpers
 		/// <summary> Convert 2 bytes into a signed integer.
 		/// 
 		/// </summary>
-		/// <param name="raf">*
+		/// <param gridTemplateName="gribStream">*
 		/// </param>
 		/// <returns> integer value
 		/// </returns>
@@ -54,7 +54,7 @@ namespace NGribCS.Helpers
 		//UPGRADE_TODO: Class 'java.io.RandomAccessFile' was converted to 'System.IO.Stream' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaioRandomAccessFile'"
 		public static int int2(System.IO.Stream raf)
 		{
-            //byte[] bytes = ReadBytes(raf, 2);
+            //byte[] bytes = ReadBytes(gribStream, 2);
             //return (int)BitConverter.ToInt16(bytes, 0);
 
             int a = raf.ReadByte();
@@ -70,14 +70,14 @@ namespace NGribCS.Helpers
 		/// <summary> Convert 3 bytes into a signed integer.
 		/// 
 		/// </summary>
-		/// <param name="raf">*
+		/// <param gridTemplateName="gribStream">*
 		/// </param>
 		/// <returns> integer value
 		/// </returns>
 		/// <throws>  IOException </throws>
 		public static int int3(System.IO.Stream raf)
 		{
-//            byte[] bytes = ReadBytes(raf, 3);
+//            byte[] bytes = ReadBytes(gribStream, 3);
 //            byte[] fourBytes = new byte[4];
 //            bytes.CopyTo(fourBytes, 0);
 //            fourBytes[3] = 0;
@@ -93,14 +93,14 @@ namespace NGribCS.Helpers
 		/// <summary> Convert 4 bytes into a signed integer.
 		/// 
 		/// </summary>
-		/// <param name="raf">*
+		/// <param gridTemplateName="gribStream">*
 		/// </param>
 		/// <returns> integer value
 		/// </returns>
 		/// <throws>  IOException </throws>
 		public static int int4(System.IO.Stream raf)
 		{
-            //byte[] bytes = ReadBytes(raf, 4);
+            //byte[] bytes = ReadBytes(gribStream, 4);
             //int i1 = BitConverter.ToInt32(bytes, 0);
 
             int a = raf.ReadByte();
@@ -120,14 +120,14 @@ namespace NGribCS.Helpers
 		/// <summary> Convert 2 bytes into an unsigned integer.
 		/// 
 		/// </summary>
-		/// <param name="raf">*
+		/// <param gridTemplateName="gribStream">*
 		/// </param>
 		/// <returns> integer value
 		/// </returns>
 		/// <throws>  IOException </throws>
         public static int uint2(System.IO.Stream raf)
 		{
-            //byte[] bytes = ReadBytes(raf, 2);
+            //byte[] bytes = ReadBytes(gribStream, 2);
             //return (uint)BitConverter.ToUInt16(bytes, 0); 
 
             int a = raf.ReadByte();
@@ -138,14 +138,14 @@ namespace NGribCS.Helpers
 		/// <summary> Convert 3 bytes into an unsigned integer.
 		/// 
 		/// </summary>
-		/// <param name="raf">*
+		/// <param gridTemplateName="gribStream">*
 		/// </param>
 		/// <returns> integer
 		/// </returns>
 		/// <throws>  IOException </throws>
 		public static int uint3(System.IO.Stream raf)
 		{
-//            byte[] bytes = ReadBytes(raf, 3);
+//            byte[] bytes = ReadBytes(gribStream, 3);
 //            byte[] fourBytes = new byte[4];
 //            bytes.CopyTo(fourBytes, 0);
 //            fourBytes[3] = 0;
@@ -161,7 +161,7 @@ namespace NGribCS.Helpers
         /// <summary> Convert 4 bytes into a float.
         /// 
         /// </summary>
-        /// <param name="raf">FileStream to read from
+        /// <param gridTemplateName="gribStream">FileStream to read from
         /// </param>
         /// <returns> float
         /// </returns>
@@ -194,7 +194,7 @@ namespace NGribCS.Helpers
 		/// <summary> Convert 8 bytes into a signed long.
 		/// 
 		/// </summary>
-		/// <param name="raf">RandomAccessFile
+		/// <param gridTemplateName="gribStream">RandomAccessFile
 		/// 
 		/// </param>
 		/// <returns> long value

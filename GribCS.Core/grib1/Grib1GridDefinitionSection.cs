@@ -31,7 +31,7 @@ using NGribCS.Helpers;
 namespace NGribCS.Grib1
 {
 	
-	/// <summary> A class that represents the grid definition section (GDS) of a GRIB record.</summary>
+	/// <summary> A class that represents the grid definition numberOfSection (GDS) of a GRIB record.</summary>
     [GuidAttribute("EAF24808-2923-4813-9B5B-C9AC6861A2B7")]
     [ClassInterface(ClassInterfaceType.None)]
 	public class Grib1GridDefinitionSection : NGribCS.Grib1.IGrib1GridDefinitionSection
@@ -394,7 +394,7 @@ namespace NGribCS.Grib1
 			}
 			
 		}
-		/// <summary> Length in bytes of this section.</summary>
+		/// <summary> Length in bytes of this numberOfSection.</summary>
 		private int length;
 		
 		/// <summary>  P(V|L).
@@ -412,7 +412,7 @@ namespace NGribCS.Grib1
 		/// <summary> Type of grid (See table 6)ie 1 == Mercator Projection Grid.</summary>
 		protected internal int type;
 		
-		/// <summary> Grid name.</summary>
+		/// <summary> Grid gridTemplateName.</summary>
 		protected internal System.String name = "";
 		
 		/// <summary> Number of grid columns. (Also Ni).</summary>
@@ -483,13 +483,13 @@ namespace NGribCS.Grib1
 		{
 		}
 		
-		/// <summary> Constructs a <tt>Grib1GridDefinitionSection</tt> object from a raf.
+		/// <summary> Constructs a <tt>Grib1GridDefinitionSection</tt> object from a gribStream.
 		/// 
 		/// </summary>
-		/// <param name="raf">RandomAccessFile with GDS content
+		/// <param gridTemplateName="gribStream">RandomAccessFile with GDS content
 		/// 
 		/// </param>
-		/// <throws>  NoValidGribException  if raf contains no valid GRIB info </throws>
+		/// <throws>  NoValidGribException  if gribStream contains no valid GRIB info </throws>
 		//UPGRADE_TODO: Class 'java.io.RandomAccessFile' was converted to 'System.IO.FileStream' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaioRandomAccessFile'"
 		public Grib1GridDefinitionSection(System.IO.Stream raf)
 		{
@@ -503,23 +503,23 @@ namespace NGribCS.Grib1
 				SupportClass.Skip(raf, - 2);
                 length = (int)GribNumbers.uint3(raf);
 			}
-			//System.out.println( "GDS length = " + length );
+			//System.out.println( "GDS lengthOfSection = " + lengthOfSection );
 			
             // TODO Fix Checksum stuff
-			// get byte array for this gds, then reset raf to same position
+			// get byte array for this gds, then reset gribStream to same position
 			// calculate checksum for this gds via the byte array
 			/*
-            long mark = raf.Position;
-			sbyte[] dst = new sbyte[length - 3];
-			SupportClass.ReadInput(raf, dst, 0, dst.Length);
-			raf.Seek(mark, System.IO.SeekOrigin.Begin);
+            long mark = gribStream.Position;
+			sbyte[] dst = new sbyte[lengthOfSection - 3];
+			SupportClass.ReadInput(gribStream, dst, 0, dst.Length);
+			gribStream.Seek(mark, System.IO.SeekOrigin.Begin);
 			//UPGRADE_ISSUE: Class 'java.util.zip.CRC32' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javautilzipCRC32'"
 			//UPGRADE_ISSUE: Constructor 'java.util.zip.CRC32.CRC32' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javautilzipCRC32'"
-			CRC32 cs = new CRC32();
+			CRC32 crc32Util = new CRC32();
 			//UPGRADE_ISSUE: Method 'java.util.zip.CRC32.update' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javautilzipCRC32'"
-			cs.update(dst);
+			crc32Util.update(dst);
 			//UPGRADE_ISSUE: Method 'java.util.zip.CRC32.getValue' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javautilzipCRC32'"
-			checksum = System.Convert.ToString(cs.getValue());
+			checksum = System.Convert.ToString(crc32Util.getValue());
 			//System.out.println( "GDS checksum =" + checksum );
 			*/
 
@@ -598,7 +598,7 @@ namespace NGribCS.Grib1
 
                     if (length > 32)
                     {
-                        // getP_VorL(raf);
+                        // getP_VorL(gribStream);
                         // Vertical coordinates (NV) and thinned grids (PL) not supported - skip this
                         SupportClass.Skip(raf, length - 32 );
                     }
@@ -635,7 +635,7 @@ namespace NGribCS.Grib1
 					
 					if (length > 42)
                     {
-                        // getP_VorL(raf);
+                        // getP_VorL(gribStream);
                         // Vertical coordinates (NV) and thinned grids (PL) not supported - skip this
                         SupportClass.Skip(raf, length - 42);
                     }
@@ -648,10 +648,10 @@ namespace NGribCS.Grib1
 					// octets 18-20 (Lov - Orientation of the grid - east lon parallel to y axis)
 					lov = GribNumbers.int3(raf) / 1000.0;
 					
-					// octets 21-23 (Dx - the X-direction grid length) See Note 2 of Table D
+					// octets 21-23 (Dx - the X-direction grid lengthOfSection) See Note 2 of Table D
 					dx = GribNumbers.int3(raf);
 					
-					// octets 24-26 (Dy - the Y-direction grid length) See Note 2 of Table D
+					// octets 24-26 (Dy - the Y-direction grid lengthOfSection) See Note 2 of Table D
 					dy = GribNumbers.int3(raf);
 					
 					// octets 27 (Projection Center flag) See Note 5 of Table D
@@ -677,7 +677,7 @@ namespace NGribCS.Grib1
 					
 					if (length > 42)
                     {
-                        // getP_VorL(raf);
+                        // getP_VorL(gribStream);
                         // Vertical coordinates (NV) and thinned grids (PL) not supported - skip this
                         SupportClass.Skip(raf, length - 42);
                     }
@@ -707,7 +707,7 @@ namespace NGribCS.Grib1
 					
 					if (length > 32)
                     {
-                        // getP_VorL(raf);
+                        // getP_VorL(gribStream);
                         // Vertical coordinates (NV) and thinned grids (PL) not supported - skip this
                         SupportClass.Skip(raf, length - 32);
                     }
@@ -724,7 +724,7 @@ namespace NGribCS.Grib1
 			//System.out.println( "scan=" + scan );
 			if ((scan & 63) != 0)
 				throw new NoValidGribException("GDS: This scanning mode (" + scan + ") is not supported.");
-		} // end Grib1GridDefinitionSection( raf )
+		} // end Grib1GridDefinitionSection( gribStream )
 		
 		//UPGRADE_TODO: Class 'java.io.RandomAccessFile' was converted to 'System.IO.FileStream' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaioRandomAccessFile'"
 		private void  getP_VorL(System.IO.Stream raf)
@@ -755,32 +755,32 @@ namespace NGribCS.Grib1
 		
 		// --Commented out by Inspection START (11/17/05 1:43 PM):
 		//   /**
-		//    * Get length in bytes of this section.
+		//    * Get lengthOfSection in bytes of this numberOfSection.
 		//    *
-		//    * @return length in bytes of this section
+		//    * @return lengthOfSection in bytes of this numberOfSection
 		//    */
 		//   public final int getLength()
 		//   {
-		//      return length;
+		//      return lengthOfSection;
 		//   }
 		// --Commented out by Inspection STOP (11/17/05 1:43 PM)
 		
-		/// <summary> Get Grid name.
+		/// <summary> Get Grid gridTemplateName.
 		/// 
 		/// </summary>
-		/// <returns> name
+		/// <returns> gridTemplateName
 		/// </returns>
 		public System.String getName()
 		{
 			return name;
 		}
 		
-		/// <summary> Get Grid name.
+		/// <summary> Get Grid gridTemplateName.
 		/// 
 		/// </summary>
-		/// <param name="type">
+		/// <param gridTemplateName="type">
 		/// </param>
-		/// <returns> name
+		/// <returns> gridTemplateName
 		/// </returns>
 		static public System.String getName(int type)
 		{
@@ -839,7 +839,7 @@ namespace NGribCS.Grib1
 			return "Unknown";
 		} // end getName
 		/// <summary> shape of grid.</summary>
-		/// <returns> grid shape name
+		/// <returns> grid shape gridTemplateName
 		/// </returns>
 		public System.String getShapeName()
 		{
@@ -847,9 +847,9 @@ namespace NGribCS.Grib1
 		}
 		
 		/// <summary> shape of grid.</summary>
-		/// <param name="code">grid shape code
+		/// <param gridTemplateName="code">grid shape code
 		/// </param>
-		/// <returns> String grid shape name
+		/// <returns> String grid shape gridTemplateName
 		/// </returns>
 		static public System.String getShapeName(int code)
 		{

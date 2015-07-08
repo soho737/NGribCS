@@ -28,14 +28,14 @@ using NGribCS;
 namespace NGribCS.Grib1
 {
 	
-	/// <summary> A class that represents a canned grid definition section (GDS) .</summary>
+	/// <summary> A class that represents a canned grid definition numberOfSection (GDS) .</summary>
 	
 	public sealed class Grib1Grid:Grib1GridDefinitionSection
 	{
 		/// <summary> Constructs a <tt>Grib1Grid</tt> object from a pds.
 		/// 
 		/// </summary>
-		/// <param name="pds">Grib1ProductDefinitionSection to formulate grib
+		/// <param gridTemplateName="pds">Grib1ProductDefinitionSection to formulate grib
 		/// 
 		/// </param>
 		public Grib1Grid(Grib1ProductDefinitionSection pds):base()

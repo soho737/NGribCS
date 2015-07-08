@@ -1,4 +1,39 @@
-﻿using NGribCS.Grib2;
+﻿/*
+ * This file is part of NGribCS.
+ * The project homepage is http://soho737.github.io/NGribCS
+ * 
+ *  
+ * NGribCS is a fork of GribCS found at http://sourceforge.net/projects/gribcs/ 
+ * 
+ * NGribCS is brought to you by Karsten Kaehler <ngribcs@kkaehler.net>
+ * 
+ * GribCS was made by
+ * Seaware AB, PO Box 1244, SE-131 28, Nacka Strand, Sweden, info@seaware.se.
+ * 
+ * GribCS itself is based on an automatic conversion of JGRIB Beta 7 
+ * (http://jgrib.sourceforge.net/) from Java to C#.
+ * 
+ * Java-code: Copyright 1997-2006 Unidata Program Center/University 
+ * Corporation for Atmospheric Research, P.O. Box 3000, Boulder, CO 80307,
+ * support@unidata.ucar.edu.
+ * 
+ * NGribCS is free software: you can redistribute it and/or modify it under 
+ * the terms of the GNU Lesser General Public License as published by the 
+ * Free Software Foundation, either version 3 of the License, or (at your 
+ * option) any later version.
+ * 
+ * NGribCS is distributed in the hope that it will be useful, but 
+ * WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser
+ * General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License 
+ * along with GribCS.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+using NGribCS.Grib2;
+using NGribCS.Helpers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -38,7 +73,7 @@ namespace NGribCS.Grib2
         /// <summary>
         /// Initializes a new instance of the Grib2Manager from a grib file
         /// </summary>
-        /// <param name="pInMemoryProcessing">Process the grib2-File in memory. This is significantly faster, but consumes more ressources</param>
+        /// <param gridTemplateName="pInMemoryProcessing">Process the grib2-File in memory. This is significantly faster, but consumes more ressources</param>
         public Grib2Manager(bool pInMemoryProcessing)
         {
             _inMemoryProcessing = pInMemoryProcessing;
@@ -51,7 +86,7 @@ namespace NGribCS.Grib2
         /// <summary>
         /// Loads and inventarizes a grib2-File
         /// </summary>
-        /// <param name="pFileName">Name of the file that should be loaded</param>
+        /// <param gridTemplateName="pFileName">Name of the file that should be loaded</param>
         public void LoadGrib2File(string pFileName)
         {
             Stream _sourceStream;
@@ -107,7 +142,7 @@ namespace NGribCS.Grib2
         /// Maybe you don't want to use this, unless you need to do something very specific or
         /// you encountered some mishap in NGribCS when using GetGriddedData
         /// </summary>
-        /// <param name="pInvItem">The InventoryItem for which the data should be retrieved</param>
+        /// <param gridTemplateName="pInvItem">The InventoryItem for which the data should be retrieved</param>
         /// <returns>A multidimensional array float[x,y], scanning direction as defined in the GDS</returns>
         public float[] GetRawData(InventoryItem pInvItem)
         {
@@ -121,7 +156,7 @@ namespace NGribCS.Grib2
         /// <summary>
         /// Returns a scanning corrected data grid for a given inventory item as a multidimensional float array
         /// </summary>
-        /// <param name="pInvItem">The InventoryItem for which the data should be retrieved</param>
+        /// <param gridTemplateName="pInvItem">The InventoryItem for which the data should be retrieved</param>
         /// <returns>A multidimensional array float[x,y], scanning is always left to right and top to bottom</returns>
         public float[,] GetGriddedData(InventoryItem iv)
         {
@@ -136,6 +171,9 @@ namespace NGribCS.Grib2
             float[,] fx = new float[gds.Nx, gds.Ny];
 
             int n = 0;
+
+            if (gds.IoLonMode != InterpretationOfListOfNumbersMode.NoAppendedList)
+                throw new GribNotSupportedException("Lists of optional numbers in the GDS are currently not supported");
 
 
             // I am certain there is a more elegant way to to this but right now it has 35 degrees, so I am aiming for the simple solution
@@ -248,42 +286,46 @@ namespace NGribCS.Grib2
         public PointF[,] GetCoordinateGrid(InventoryItem iv)
         {
 
-
             Grib2GridDefinitionSection gds = GetGDS(iv);
-            PointF[,] coordinateGrid = new PointF[gds.Nx, gds.Ny];
 
-            for (int x = 0; x < gds.Nx; x++)
-                for (int y = 0; y < gds.Ny; y++)
-                {
-                    float xval = float.NaN;
-                    if (gds.HorizontalScanning == HorizontalScanningMode.LeftToRight)
-                        xval = gds.Lo1 + gds.Dx * x;
-                    else if (gds.HorizontalScanning == HorizontalScanningMode.RightToLeft)
+            if (gds.Gdtn == 0)
+            {
+                PointF[,] coordinateGrid = new PointF[gds.Nx, gds.Ny];
+
+                for (int x = 0; x < gds.Nx; x++)
+                    for (int y = 0; y < gds.Ny; y++)
                     {
-                        xval = gds.Lo2 + gds.Dx * x;
+                        float xval = float.NaN;
+                        if (gds.HorizontalScanning == HorizontalScanningMode.LeftToRight)
+                            xval = gds.Lo1 + gds.Dx * x;
+                        else if (gds.HorizontalScanning == HorizontalScanningMode.RightToLeft)
+                        {
+                            xval = gds.Lo2 + gds.Dx * x;
+                        }
+                        float yval = float.NaN;
+                        if (gds.VerticalScanning == VerticalScanningMode.TopToBottom)
+                            yval = gds.La1 - gds.Dy * y;
+                        else if (gds.VerticalScanning == VerticalScanningMode.BottomToTop)
+                        {
+                            yval = gds.La2 + gds.Dy * y;
+                        }
+
+                        coordinateGrid[x, y] = new PointF(xval, yval);
+
                     }
-                    float yval = float.NaN;
-                    if (gds.VerticalScanning == VerticalScanningMode.TopToBottom)
-                        yval = gds.La1 - gds.Dy * y;
-                    else if (gds.VerticalScanning == VerticalScanningMode.BottomToTop)
-                    {
-                        yval = gds.La2 + gds.Dy * y;
-                    }
 
-                    coordinateGrid[x, y] = new PointF(xval, yval);
+                return coordinateGrid;
+            }
 
-                }
+            
 
-            return coordinateGrid;
-           
-
-            //throw new NotSupportedException("Other templates than Lat/Lon (0) are not supported right now");
+            throw new NotSupportedException("Other templates than Lat/Lon (0) are not supported right now");
         }
 
         /// <summary>
         /// Returns the Grid Definition Section (GDS) for a given InventoryItem
         /// </summary>
-        /// <param name="pInvItem">The InventoryItem for which the GDS should be retrieved</param>
+        /// <param gridTemplateName="pInvItem">The InventoryItem for which the GDS should be retrieved</param>
         /// <returns>Grid Definition Section (GDS) for given InventoryItem</returns>
         public Grib2GridDefinitionSection GetGDS(InventoryItem pInvItem)
         {
@@ -310,8 +352,8 @@ namespace NGribCS.Grib2
         /// <summary>
         /// Internal function to copy the file stream to a memory stream if InMemoryProcessing is enabled
         /// </summary>
-        /// <param name="input"></param>
-        /// <param name="output"></param>
+        /// <param gridTemplateName="input"></param>
+        /// <param gridTemplateName="output"></param>
         private static void copyStream(Stream input, Stream output)
         {
             byte[] buffer = new byte[32768];

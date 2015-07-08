@@ -43,10 +43,10 @@ namespace NGribCS.Grib1
     [ClassInterface(ClassInterfaceType.None)]
 	public sealed class Grib1IndicatorSection : NGribCS.Grib1.IGrib1IndicatorSection
 	{
-		/// <summary> Get the byte length of this GRIB record.
+		/// <summary> Get the byte lengthOfSection of this GRIB record.
 		/// 
 		/// </summary>
-		/// <returns> length in bytes of GRIB record
+		/// <returns> lengthOfSection in bytes of GRIB record
 		/// </returns>
 		public long GribLength
 		{
@@ -56,10 +56,10 @@ namespace NGribCS.Grib1
 			}
 			
 		}
-		/// <summary> Get the byte length of the IndicatorSection0 section.
+		/// <summary> Get the byte lengthOfSection of the IndicatorSection0 numberOfSection.
 		/// 
 		/// </summary>
-		/// <returns> length in bytes of IndicatorSection0 section
+		/// <returns> lengthOfSection in bytes of IndicatorSection0 numberOfSection
 		/// </returns>
 		public int Length
 		{
@@ -86,8 +86,8 @@ namespace NGribCS.Grib1
 		private long gribLength;
 		
 		/// <summary> Length in bytes of IndicatorSection.
-		/// Section length differs between GRIB editions 1 and 2
-		/// Currently only GRIB edition 1 supported - length is 16 octets/bytes.
+		/// Section lengthOfSection differs between GRIB editions 1 and 2
+		/// Currently only GRIB edition 1 supported - lengthOfSection is 16 octets/bytes.
 		/// </summary>
 		private int length;
 		
@@ -103,10 +103,10 @@ namespace NGribCS.Grib1
 		/// <summary> Constructs a <tt>Grib1IndicatorSection</tt> object from a byteBuffer.
 		/// 
 		/// </summary>
-		/// <param name="raf">RandomAccessFile with IndicatorSection content
+		/// <param gridTemplateName="gribStream">RandomAccessFile with IndicatorSection content
 		/// 
 		/// </param>
-		/// <throws>  NotSupportedException  if raf contains no valid GRIB file </throws>
+		/// <throws>  NotSupportedException  if gribStream contains no valid GRIB file </throws>
 		/// <throws>  IOException </throws>
 		//UPGRADE_TODO: Class 'java.io.RandomAccessFile' was converted to 'System.IO.FileStream' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaioRandomAccessFile'"
 		public Grib1IndicatorSection(System.IO.Stream raf)
@@ -125,7 +125,7 @@ namespace NGribCS.Grib1
 			//System.out.println( "edition=" + edition ) ;
 			if (edition == 1)
 			{
-				// length of GRIB record
+				// lengthOfSection of GRIB record
                 // Reset to beginning, then read 3 bytes
                 raf.Position = mark;
                 gribLength = (long)GribNumbers.uint3(raf);
@@ -136,7 +136,7 @@ namespace NGribCS.Grib1
 			}
 			else if (edition == 2)
 			{
-				// length of GRIB record
+				// lengthOfSection of GRIB record
 				discipline = data[2];
 				//System.out.println( "discipline=" + discipline) ;
                 gribLength = GribNumbers.int8(raf);

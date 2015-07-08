@@ -46,7 +46,7 @@ namespace NGribCS.Grib2
 		/// <summary> Constructs a  Grib2Data object for a RandomAccessFile.
 		/// 
 		/// </summary>
-		/// <param name="raf">ucar.unidata.io.RandomAccessFile with GRIB content
+		/// <param gridTemplateName="gribStream">ucar.unidata.io.RandomAccessFile with GRIB content
 		/// </param>
 		/// <throws>  NoValidGribException </throws>
 		//UPGRADE_TODO: Class 'java.io.RandomAccessFile' was converted to 'System.IO.FileStream' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaioRandomAccessFile'"
@@ -69,11 +69,11 @@ namespace NGribCS.Grib2
 		/// <summary> Reads the Grib data with a certain offsets in the file.
 		/// 
 		/// </summary>
-		/// <param name="GdsOffset">
+		/// <param gridTemplateName="GdsOffset">
 		/// </param>
-		/// <param name="PdsOffset">
+		/// <param gridTemplateName="PdsOffset">
 		/// </param>
-		/// <throws>  IOException  if raf does not contain a valid GRIB record. </throws>
+		/// <throws>  IOException  if gribStream does not contain a valid GRIB record. </throws>
 		/// <returns> float[]
 		/// </returns>
 		public float[] getData(long GdsOffset, long PdsOffset)
@@ -87,7 +87,7 @@ namespace NGribCS.Grib2
 			
 			raf.Seek(GdsOffset, System.IO.SeekOrigin.Begin);
 			
-			// Need section 3, 4, 5, 6, and 7 to read/interpet the data
+			// Need numberOfSection 3, 4, 5, 6, and 7 to read/interpet the data
 			Grib2GridDefinitionSection gds = new Grib2GridDefinitionSection(raf, false); // Section 3 no checksum
 			
 			raf.Seek(PdsOffset, System.IO.SeekOrigin.Begin); // could have more than one pds for a gds

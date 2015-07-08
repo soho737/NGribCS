@@ -1,22 +1,29 @@
-using NGribCS.Helpers;
+
 /*
- * This file is part of GribCS.
- * This code is based on an automatic conversion of JGRIB Beta 7 
- * (http://jgrib.sourceforge.net/) from Java to C#.
+ * This file is part of NGribCS.
+ * The project homepage is http://soho737.github.io/NGribCS
  * 
- * C# code: Copyright 2006-2010 Seaware AB, PO Box 1244, SE-131 28 
- * Nacka Strand, Sweden, info@seaware.se.
+ *  
+ * NGribCS is a fork of GribCS found at http://sourceforge.net/projects/gribcs/ 
+ * 
+ * NGribCS is brought to you by Karsten Kaehler <ngribcs@kkaehler.net>
+ * 
+ * GribCS was made by
+ * Seaware AB, PO Box 1244, SE-131 28, Nacka Strand, Sweden, info@seaware.se.
+ * 
+ * GribCS itself is based on an automatic conversion of JGRIB Beta 7 
+ * (http://jgrib.sourceforge.net/) from Java to C#.
  * 
  * Java-code: Copyright 1997-2006 Unidata Program Center/University 
  * Corporation for Atmospheric Research, P.O. Box 3000, Boulder, CO 80307,
  * support@unidata.ucar.edu.
  * 
- * GribCS is free software: you can redistribute it and/or modify it under 
+ * NGribCS is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU Lesser General Public License as published by the 
  * Free Software Foundation, either version 3 of the License, or (at your 
  * option) any later version.
  * 
- * GribCS is distributed in the hope that it will be useful, but 
+ * NGribCS is distributed in the hope that it will be useful, but 
  * WITHOUT ANY WARRANTY; without even the implied warranty of 
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser
  * General Public License for more details.
@@ -24,9 +31,20 @@ using NGribCS.Helpers;
  * You should have received a copy of the GNU Lesser General Public License 
  * along with GribCS.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+/* Changelog
+ * 
+ * 07 Aug 2015 - kk - Introduced enumerators for the scanning direction
+ * 08 Aug 2015 - kk - Renamed private variables to increased code readibility, other readibility enhancements
+ * 08 Aug 2015 - kk - Checksum calculation fixed
+ * 
+ */
+
+
 using System;
 using System.Collections;
 using System.Runtime.InteropServices;
+using NGribCS.Helpers;
 
 namespace NGribCS.Grib2
 {
@@ -35,75 +53,81 @@ namespace NGribCS.Grib2
     public enum VerticalScanningMode { TopToBottom, BottomToTop}
     public enum ScanningConsecutivityMode { AdjacentPointsIDirectionConsecutive, AdjacentPointsJDirectionConsecutive}
     public enum ScanningDirectionMode { AllRowsSameDirection, AdjacentRowsOppositeDirection}
-
-	/// <summary> A class that represents the grid definition section (GDS) of a GRIB product.
-	/// 
-	/// </summary>
+    public enum InterpretationOfListOfNumbersMode { NoAppendedList = 0,  Mode1 = 1, Mode2 = 2, Missing=255}
+	/// <summary> A class that represents the grid definition numberOfSection (GDS) of a GRIB product. </summary>
 	public class Grib2GridDefinitionSection : NGribCS.Grib2.IGrib2GridDefinitionSection
 	{
-		/// <summary> source of grid definition.</summary>
-		/// <returns> source
+		/// <summary> sourceOfGridDefinition of grid definition.</summary>
+		/// <returns> sourceOfGridDefinition
 		/// </returns>
 		public int Source
 		{
 			get
 			{
-				return source;
+				return sourceOfGridDefinition;
 			}
 			
 		}
 		/// <summary> number of data points .</summary>
-		/// <returns> numberPoints
+		/// <returns> numberOfDataPoints
 		/// </returns>
 		public int NumberPoints
 		{
 			get
 			{
-				return numberPoints;
+				return numberOfDataPoints;
 			}
 			
 		}
 		/// <summary> optional list of numbers .</summary>
-		/// <returns> olon
+		/// <returns> numOctetsForOptionalListOfNumbers
 		/// </returns>
 		public int Olon
 		{
 			get
 			{
-				return olon;
+				return numOctetsForOptionalListOfNumbers;
 			}
 			
 		}
 		/// <summary> iterpretation of optional list of numbers .</summary>
-		/// <returns> iolon
+		/// <returns> interpretationOfListOfNumbersCode
 		/// </returns>
-		public int Iolon
+		public int IolonCode
 		{
 			get
 			{
-				return iolon;
+				return interpretationOfListOfNumbersCode;
 			}
 			
 		}
+
+        public InterpretationOfListOfNumbersMode IoLonMode
+        {
+            get
+            {
+                return (InterpretationOfListOfNumbersMode)this.IolonCode;
+            }
+        }
 		/// <summary> Grid Definition Template Number .</summary>
-		/// <returns> gdtn
+		/// <returns> gridDefinitionTemplateNumber
 		/// </returns>
 		public int Gdtn
 		{
 			get
 			{
-				return gdtn;
+				return gridDefinitionTemplateNumber;
 			}
 			
 		}
-		/// <summary> Grid name .</summary>
+		/// <summary> Grid gridTemplateName .</summary>
 		/// <returns> gridName
 		/// </returns>
 		public System.String Name
 		{
 			get
 			{
-				return name;
+				return gridTemplateName;
 			}
 			
 		}
@@ -189,7 +213,7 @@ namespace NGribCS.Grib2
 		{
 			get
 			{
-				return angle;
+				return basicAngleOfLatLon;
 			}
 			
 		}
@@ -201,7 +225,7 @@ namespace NGribCS.Grib2
 		{
 			get
 			{
-				return subdivisionsangle;
+				return unitOfBasicAngle;
 			}
 			
 		}
@@ -786,43 +810,34 @@ namespace NGribCS.Grib2
 			}
 			
 		}
-		/// <summary>  scale factor for Lat/Lon variables in degrees.</summary>
-		//UPGRADE_WARNING: Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1042'"
+		
+        /// <summary>  scale factor for Lat/Lon variables in degrees.</summary>
 		private static float tenToNegSix = (float) SupportClass.Identity((1 / 1000000.0));
-		//UPGRADE_WARNING: Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1042'"
 		private static float tenToNegThree = (float) SupportClass.Identity((1 / 1000.0));
 		
-		/// <summary> Length in bytes of this section.</summary>
-		//UPGRADE_NOTE: Final was removed from the declaration of 'length '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
-		private int length;
+		/// <summary> Length in bytes of this numberOfSection.</summary>
+		private int lengthOfSection;
 		
-		/// <summary> section number should be 3.</summary>
-		//UPGRADE_NOTE: Final was removed from the declaration of 'section '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
-		private int section;
+		/// <summary> numberOfSection number should be 3.</summary>
+		private int numberOfSection;
 		
-		/// <summary> source of grid definition.</summary>
-		//UPGRADE_NOTE: Final was removed from the declaration of 'source '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
-		private int source;
+		/// <summary> sourceOfGridDefinition of grid definition.</summary>
+		private int sourceOfGridDefinition;
 		
 		/// <summary> number of data points.</summary>
-		//UPGRADE_NOTE: Final was removed from the declaration of 'numberPoints '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
-		private int numberPoints;
+		private int numberOfDataPoints;
 		
 		/// <summary> optional list of numbers.</summary>
-		//UPGRADE_NOTE: Final was removed from the declaration of 'olon '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
-		private int olon;
+		private int numOctetsForOptionalListOfNumbers;
 		
 		/// <summary> iterpretation of optional list of numbers.</summary>
-		//UPGRADE_NOTE: Final was removed from the declaration of 'iolon '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
-		private int iolon;
+		private int interpretationOfListOfNumbersCode;
 		
 		/// <summary> Grid Definition Template Number.</summary>
-		//UPGRADE_NOTE: Final was removed from the declaration of 'gdtn '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
-		private int gdtn;
+		private int gridDefinitionTemplateNumber;
 		
-		/// <summary> Grid name.</summary>
-		//UPGRADE_NOTE: Final was removed from the declaration of 'name '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
-		private System.String name;
+		/// <summary> Grid gridTemplateName.</summary>
+		private System.String gridTemplateName;
 		
 		/// <summary> grid definitions from template 3.</summary>
 		private int shape;
@@ -836,8 +851,8 @@ namespace NGribCS.Grib2
 		/// <summary> Number of grid rows. (Also Nj).</summary>
 		private int ny;
 		
-		private int angle;
-		private int subdivisionsangle;
+		private int basicAngleOfLatLon;
+		private int unitOfBasicAngle;
 		private float la1;
 		private float lo1;
 		private int resolution;
@@ -845,14 +860,11 @@ namespace NGribCS.Grib2
 		private float lo2;
 		private float lad;
 		private float lov;
-		/// <summary> x-distance between two grid points
-		/// can be delta-Lon or delta x.
-		/// </summary>
+		
+        /// <summary> x-distance between two grid points - can be delta-Lon or delta x.</summary>
 		private float dx;
 		
-		/// <summary> y-distance of two grid points
-		/// can be delta-Lat or delta y.
-		/// </summary>
+		/// <summary> y-distance of two grid points - can be delta-Lat or delta y.</summary>
 		private float dy;
 		
 		private int projectionCenter;
@@ -892,264 +904,233 @@ namespace NGribCS.Grib2
 		private System.String checksum = "";
 		// *** constructors *******************************************************
 		
-		/// <summary> Constructs a <tt>Grib2GridDefinitionSection</tt> object from a raf.
+		/// <summary> Constructs a <tt>Grib2GridDefinitionSection</tt> object from a gribStream.
 		/// 
 		/// </summary>
-		/// <param name="raf">RandomAccessFile
+		/// <param gridTemplateName="gribStream">RandomAccessFile
 		/// </param>
-		/// <param name="doCheckSum"> calculate the checksum
+		/// <param gridTemplateName="doCheckSum"> calculate the checksum
 		/// </param>
-		/// <throws>  IOException  if raf contains no valid GRIB product </throws>
-		//UPGRADE_TODO: Class 'java.io.RandomAccessFile' was converted to 'System.IO.FileStream' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaioRandomAccessFile'"
-		public Grib2GridDefinitionSection(System.IO.Stream raf, bool doCheckSum)
+		/// <throws>  IOException  if gribStream contains no valid GRIB product </throws>
+		public Grib2GridDefinitionSection(System.IO.Stream gribStream, bool doCheckSum)
 		{
-			int scalefactorradius = 0;
-			int scaledvalueradius = 0;
-			int scalefactormajor = 0;
-			int scaledvaluemajor = 0;
-			int scalefactorminor = 0;
-			int scaledvalueminor = 0;
+			int scaleFactorRadius = 0;
+			int scaledValueRadius = 0;
+			int scaleFactorMajor = 0;
+			int scaledValueMajor = 0;
+			int scaleFactorMinor = 0;
+			int scaledValueMinor = 0;
 			
 			// octets 1-4 (Length of GDS)
-			length = GribNumbers.int4(raf);
-			//System.out.println( "GDS length=" + length );
+			lengthOfSection = GribNumbers.int4(gribStream);
 			
-			if (doCheckSum)
-			{
-                /*
-				// get byte array for this gds, then reset raf to same position
-				// calculate checksum for this gds via the byte array
-				long mark = raf.Position;
-				sbyte[] dst = new sbyte[length - 4];
-				SupportClass.ReadInput(raf, dst, 0, dst.Length);
-				raf.Seek(mark, System.IO.SeekOrigin.Begin);
-				//UPGRADE_ISSUE: Class 'java.util.zip.CRC32' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javautilzipCRC32'"
-				//UPGRADE_ISSUE: Constructor 'java.util.zip.CRC32.CRC32' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javautilzipCRC32'"
-				CRC32 cs = new CRC32();
-				//UPGRADE_ISSUE: Method 'java.util.zip.CRC32.update' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javautilzipCRC32'"
-				cs.update(dst);
-				//UPGRADE_ISSUE: Method 'java.util.zip.CRC32.getValue' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javautilzipCRC32'"
-				checksum = System.Convert.ToString(cs.getValue());
-				//System.out.println( "GDS checksum =" + checksum );
-                */ 
-                // TODO Check this
-			}
+            if (doCheckSum)
+            {
+                
+                // get byte array for this gds, then reset gribStream to same position
+                // calculate checksum for this gds via the byte array
+                long mark = gribStream.Position;
+                sbyte[] dst = new sbyte[lengthOfSection - 4];
+                SupportClass.ReadInput(gribStream, dst, 0, dst.Length);
+                gribStream.Seek(mark, System.IO.SeekOrigin.Begin);
+               
+                CRC32 crc32Util = new CRC32();
+                byte[] unsigned = new byte[dst.Length];
+                Buffer.BlockCopy(dst,0, unsigned, 0, dst.Length);
+                checksum = System.Convert.ToBase64String(crc32Util.ComputeHash(unsigned));
+            }
 			
-			section = raf.ReadByte(); // This is section 3
-			//System.out.println( "GDS is 3, section=" + section );
+			numberOfSection = gribStream.ReadByte(); // This is numberOfSection 3
 			
-			source = raf.ReadByte();
-			//System.out.println( "GDS source=" + source );
+            // Source of Grid Definition (Code Table 3.0 and Note 1)
+			sourceOfGridDefinition = gribStream.ReadByte();
 			
-			numberPoints = GribNumbers.int4(raf);
-			//System.out.println( "GDS numberPoints=" + numberPoints );
+			numberOfDataPoints = GribNumbers.int4(gribStream);
 			
-			olon = raf.ReadByte();
-			//System.out.println( "GDS olon=" + olon );
+			numOctetsForOptionalListOfNumbers = gribStream.ReadByte();
+            
+            // We need to stop here if this value is other than 0 as this is not respected further downstream
+            // At octet 15 the Grid Definition Template starts until octet xx
+            // and at octet xx+1 until - nn (numOctetsForOptionalListOfNumbers) should be respected
+            if (numOctetsForOptionalListOfNumbers != 0)
+                throw new GribNotSupportedException("numOctetsForOptionalNumbers > 0 is not supported");
+
+
+
+            // See code Table 3.11
+			interpretationOfListOfNumbersCode = gribStream.ReadByte();
 			
-			iolon = raf.ReadByte();
-			//System.out.println( "GDS iolon=" + iolon );
+			gridDefinitionTemplateNumber = GribNumbers.int2(gribStream);
 			
-			gdtn = GribNumbers.int2(raf);
-			//System.out.println( "GDS gdtn=" + gdtn );
-			
-			name = getGridName(gdtn);
+			gridTemplateName = getGridName(gridDefinitionTemplateNumber);
 			
 			float ratio;
 			
-			switch (gdtn)
+			switch (gridDefinitionTemplateNumber)
 			{
 				
 				// Grid Definition Template Number
-				case 0: 
-				case 1: 
-				case 2: 
-				case 3:  // Latitude/Longitude Grid
-					shape = raf.ReadByte();
-					//System.out.println( "shape=" + shape );
-					scalefactorradius = raf.ReadByte();
-					scaledvalueradius = GribNumbers.int4(raf);
-					scalefactormajor = raf.ReadByte();
-					scaledvaluemajor = GribNumbers.int4(raf);
-					scalefactorminor = raf.ReadByte();
-					scaledvalueminor = GribNumbers.int4(raf);
-					nx = GribNumbers.int4(raf);
-					//System.out.println( "nx=" + nx);
-					ny = GribNumbers.int4(raf);
-					//System.out.println( "ny=" + ny);
-					angle = GribNumbers.int4(raf);
-					subdivisionsangle = GribNumbers.int4(raf);
-					if (angle == 0)
+                case 0: // Latitude/Longitud
+                case 1: // Rotated Latitude/Longitud
+                case 2: // Stretched Latitude/Longitud
+				case 3:  // Rotated and Stretched Latitude/Longitude Grid
+					shape = gribStream.ReadByte();
+					scaleFactorRadius = gribStream.ReadByte();
+					scaledValueRadius = GribNumbers.int4(gribStream);
+					scaleFactorMajor = gribStream.ReadByte();
+					scaledValueMajor = GribNumbers.int4(gribStream);
+					scaleFactorMinor = gribStream.ReadByte();
+					scaledValueMinor = GribNumbers.int4(gribStream);
+					nx = GribNumbers.int4(gribStream);
+					ny = GribNumbers.int4(gribStream);
+					basicAngleOfLatLon = GribNumbers.int4(gribStream);
+					unitOfBasicAngle = GribNumbers.int4(gribStream);
+					if (basicAngleOfLatLon == 0)
 					{
 						ratio = tenToNegSix;
 					}
 					else
 					{
-						ratio = angle / subdivisionsangle;
+						ratio = basicAngleOfLatLon / unitOfBasicAngle;
 					}
-					//System.out.println( "ratio =" + ratio );
-					la1 = (float) (GribNumbers.int4(raf) * ratio);
-					lo1 = (float) (GribNumbers.int4(raf) * ratio);
-					resolution = raf.ReadByte();
-					la2 = (float) (GribNumbers.int4(raf) * ratio);
-					lo2 = (float) (GribNumbers.int4(raf) * ratio);
-					dx = (float) (GribNumbers.int4(raf) * ratio);
-					dy = (float) (GribNumbers.int4(raf) * ratio);
-					scanMode = raf.ReadByte();
+					la1 = (float) (GribNumbers.int4(gribStream) * ratio);
+					lo1 = (float) (GribNumbers.int4(gribStream) * ratio);
+					resolution = gribStream.ReadByte();
+					la2 = (float) (GribNumbers.int4(gribStream) * ratio);
+					lo2 = (float) (GribNumbers.int4(gribStream) * ratio);
+					dx = (float) (GribNumbers.int4(gribStream) * ratio);
+					dy = (float) (GribNumbers.int4(gribStream) * ratio);
+					scanMode = gribStream.ReadByte();
 					
 					//  1, 2, and 3 needs checked
-					if (gdtn == 1)
+					if (gridDefinitionTemplateNumber == 1)
 					{
 						//Rotated Latitude/longitude
-						spLat = GribNumbers.int4(raf) * tenToNegSix;
-						spLon = GribNumbers.int4(raf) * tenToNegSix;
-                        rotationangle = GribNumbers.IEEEfloat4(raf);
+						spLat = GribNumbers.int4(gribStream) * tenToNegSix;
+						spLon = GribNumbers.int4(gribStream) * tenToNegSix;
+                        rotationangle = GribNumbers.IEEEfloat4(gribStream);
 					}
-					else if (gdtn == 2)
+					else if (gridDefinitionTemplateNumber == 2)
 					{
 						//Stretched Latitude/longitude
-						poleLat = GribNumbers.int4(raf) * tenToNegSix;
-						poleLon = GribNumbers.int4(raf) * tenToNegSix;
-						factor = GribNumbers.int4(raf);
+						poleLat = GribNumbers.int4(gribStream) * tenToNegSix;
+						poleLon = GribNumbers.int4(gribStream) * tenToNegSix;
+						factor = GribNumbers.int4(gribStream);
 					}
-					else if (gdtn == 3)
+					else if (gridDefinitionTemplateNumber == 3)
 					{
 						//Stretched and Rotated 
 						// Latitude/longitude
-						spLat = GribNumbers.int4(raf) * tenToNegSix;
-						spLon = GribNumbers.int4(raf) * tenToNegSix;
-                        rotationangle = GribNumbers.IEEEfloat4(raf);
-						poleLat = GribNumbers.int4(raf) * tenToNegSix;
-						poleLon = GribNumbers.int4(raf) * tenToNegSix;
-						factor = GribNumbers.int4(raf);
+						spLat = GribNumbers.int4(gribStream) * tenToNegSix;
+						spLon = GribNumbers.int4(gribStream) * tenToNegSix;
+                        rotationangle = GribNumbers.IEEEfloat4(gribStream);
+						poleLat = GribNumbers.int4(gribStream) * tenToNegSix;
+						poleLon = GribNumbers.int4(gribStream) * tenToNegSix;
+						factor = GribNumbers.int4(gribStream);
 					}
 					break;
 				
 				
 				case 10:  // Mercator
 					// la1, lo1, lad, la2, and lo2 need checked
-					shape = raf.ReadByte();
-					//System.out.println( "shape=" + shape );
-					scalefactorradius = raf.ReadByte();
-					scaledvalueradius = GribNumbers.int4(raf);
-					scalefactormajor = raf.ReadByte();
-					scaledvaluemajor = GribNumbers.int4(raf);
-					scalefactorminor = raf.ReadByte();
-					scaledvalueminor = GribNumbers.int4(raf);
-					nx = GribNumbers.int4(raf);
-					//System.out.println( "nx=" + nx);
-					ny = GribNumbers.int4(raf);
-					//System.out.println( "ny=" + ny);
-					la1 = GribNumbers.int4(raf) * tenToNegSix;
-					lo1 = GribNumbers.int4(raf) * tenToNegSix;
-					resolution = raf.ReadByte();
-					lad = GribNumbers.int4(raf) * tenToNegSix;
-					la2 = GribNumbers.int4(raf) * tenToNegSix;
-					lo2 = GribNumbers.int4(raf) * tenToNegSix;
-					scanMode = raf.ReadByte();
-					angle = GribNumbers.int4(raf);
-					dx = (float) (GribNumbers.int4(raf) * tenToNegThree);
-					dy = (float) (GribNumbers.int4(raf) * tenToNegThree);
+					shape = gribStream.ReadByte();
+					scaleFactorRadius = gribStream.ReadByte();
+					scaledValueRadius = GribNumbers.int4(gribStream);
+					scaleFactorMajor = gribStream.ReadByte();
+					scaledValueMajor = GribNumbers.int4(gribStream);
+					scaleFactorMinor = gribStream.ReadByte();
+					scaledValueMinor = GribNumbers.int4(gribStream);
+					nx = GribNumbers.int4(gribStream);
+					ny = GribNumbers.int4(gribStream);
+					la1 = GribNumbers.int4(gribStream) * tenToNegSix;
+					lo1 = GribNumbers.int4(gribStream) * tenToNegSix;
+					resolution = gribStream.ReadByte();
+					lad = GribNumbers.int4(gribStream) * tenToNegSix;
+					la2 = GribNumbers.int4(gribStream) * tenToNegSix;
+					lo2 = GribNumbers.int4(gribStream) * tenToNegSix;
+					scanMode = gribStream.ReadByte();
+					basicAngleOfLatLon = GribNumbers.int4(gribStream);
+					dx = (float) (GribNumbers.int4(gribStream) * tenToNegThree);
+					dy = (float) (GribNumbers.int4(gribStream) * tenToNegThree);
 					
 					break;
 				
 				
 				case 20:  // Polar stereographic projection
 					// la1, lo1, lad, and lov need checked
-					shape = raf.ReadByte();
-					//System.out.println( "shape=" + shape );
-					scalefactorradius = raf.ReadByte();
-					scaledvalueradius = GribNumbers.int4(raf);
-					scalefactormajor = raf.ReadByte();
-					scaledvaluemajor = GribNumbers.int4(raf);
-					scalefactorminor = raf.ReadByte();
-					scaledvalueminor = GribNumbers.int4(raf);
-					nx = GribNumbers.int4(raf);
-					//System.out.println( "nx=" + nx);
-					ny = GribNumbers.int4(raf);
-					//System.out.println( "ny=" + ny);
-					la1 = GribNumbers.int4(raf) * tenToNegSix;
-					lo1 = GribNumbers.int4(raf) * tenToNegSix;
-					resolution = raf.ReadByte();
-					lad = GribNumbers.int4(raf) * tenToNegSix;
-					lov = GribNumbers.int4(raf) * tenToNegSix;
-					dx = (float) (GribNumbers.int4(raf) * tenToNegThree);
-					dy = (float) (GribNumbers.int4(raf) * tenToNegThree);
-					projectionCenter = raf.ReadByte();
-					scanMode = raf.ReadByte();
+					shape = gribStream.ReadByte();
+					scaleFactorRadius = gribStream.ReadByte();
+					scaledValueRadius = GribNumbers.int4(gribStream);
+					scaleFactorMajor = gribStream.ReadByte();
+					scaledValueMajor = GribNumbers.int4(gribStream);
+					scaleFactorMinor = gribStream.ReadByte();
+					scaledValueMinor = GribNumbers.int4(gribStream);
+					nx = GribNumbers.int4(gribStream);
+					ny = GribNumbers.int4(gribStream);
+					la1 = GribNumbers.int4(gribStream) * tenToNegSix;
+					lo1 = GribNumbers.int4(gribStream) * tenToNegSix;
+					resolution = gribStream.ReadByte();
+					lad = GribNumbers.int4(gribStream) * tenToNegSix;
+					lov = GribNumbers.int4(gribStream) * tenToNegSix;
+					dx = (float) (GribNumbers.int4(gribStream) * tenToNegThree);
+					dy = (float) (GribNumbers.int4(gribStream) * tenToNegThree);
+					projectionCenter = gribStream.ReadByte();
+					scanMode = gribStream.ReadByte();
 					
 					break;
 				
 				
 				case 30:  // Lambert Conformal
-					shape = raf.ReadByte();
-					//System.out.println( "shape=" + shape );
-					scalefactorradius = raf.ReadByte();
-					scaledvalueradius = GribNumbers.int4(raf);
-					scalefactormajor = raf.ReadByte();
-					scaledvaluemajor = GribNumbers.int4(raf);
-					scalefactorminor = raf.ReadByte();
-					scaledvalueminor = GribNumbers.int4(raf);
-					nx = GribNumbers.int4(raf);
-					//System.out.println( "nx=" + nx);
-					ny = GribNumbers.int4(raf);
-					//System.out.println( "ny=" + ny);
-					la1 = (float) (GribNumbers.int4(raf) * tenToNegSix);
-					//System.out.println( "la1=" + la1 );
-					lo1 = (float) (GribNumbers.int4(raf) * tenToNegSix);
-					//System.out.println( "lo1=" + lo1);
-					resolution = raf.ReadByte();
-					lad = (float) (GribNumbers.int4(raf) * tenToNegSix);
-					lov = (float) (GribNumbers.int4(raf) * tenToNegSix);
-					dx = (float) (GribNumbers.int4(raf) * tenToNegThree);
-					dy = (float) (GribNumbers.int4(raf) * tenToNegThree);
-					projectionCenter = raf.ReadByte();
-					scanMode = raf.ReadByte();
-					latin1 = (float) (GribNumbers.int4(raf) * tenToNegSix);
-					latin2 = (float) (GribNumbers.int4(raf) * tenToNegSix);
-					//System.out.println( "latin1=" + latin1);
-					//System.out.println( "latin2=" + latin2);
-					spLat = (float) (GribNumbers.int4(raf) * tenToNegSix);
-					spLon = (float) (GribNumbers.int4(raf) * tenToNegSix);
-					//System.out.println( "spLat=" + spLat);
-					//System.out.println( "spLon=" + spLon);
+					shape = gribStream.ReadByte();
+					scaleFactorRadius = gribStream.ReadByte();
+					scaledValueRadius = GribNumbers.int4(gribStream);
+					scaleFactorMajor = gribStream.ReadByte();
+					scaledValueMajor = GribNumbers.int4(gribStream);
+					scaleFactorMinor = gribStream.ReadByte();
+					scaledValueMinor = GribNumbers.int4(gribStream);
+					nx = GribNumbers.int4(gribStream);
+					ny = GribNumbers.int4(gribStream);
+					la1 = (float) (GribNumbers.int4(gribStream) * tenToNegSix);
+					lo1 = (float) (GribNumbers.int4(gribStream) * tenToNegSix);
+					resolution = gribStream.ReadByte();
+					lad = (float) (GribNumbers.int4(gribStream) * tenToNegSix);
+					lov = (float) (GribNumbers.int4(gribStream) * tenToNegSix);
+					dx = (float) (GribNumbers.int4(gribStream) * tenToNegThree);
+					dy = (float) (GribNumbers.int4(gribStream) * tenToNegThree);
+					projectionCenter = gribStream.ReadByte();
+					scanMode = gribStream.ReadByte();
+					latin1 = (float) (GribNumbers.int4(gribStream) * tenToNegSix);
+					latin2 = (float) (GribNumbers.int4(gribStream) * tenToNegSix);
+					spLat = (float) (GribNumbers.int4(gribStream) * tenToNegSix);
+					spLon = (float) (GribNumbers.int4(gribStream) * tenToNegSix);
 					
 					break;
 				
 				
 				case 31:  // Albers Equal Area
 					// la1, lo1, lad, and lov need checked
-					shape = raf.ReadByte();
-					//System.out.println( "shape=" + shape );
-					scalefactorradius = raf.ReadByte();
-					scaledvalueradius = GribNumbers.int4(raf);
-					scalefactormajor = raf.ReadByte();
-					scaledvaluemajor = GribNumbers.int4(raf);
-					scalefactorminor = raf.ReadByte();
-					scaledvalueminor = GribNumbers.int4(raf);
-					nx = GribNumbers.int4(raf);
-					//System.out.println( "nx=" + nx);
-					ny = GribNumbers.int4(raf);
-					//System.out.println( "ny=" + ny);
-					la1 = GribNumbers.int4(raf) * tenToNegSix;
-					//System.out.println( "la1=" + la1 );
-					lo1 = GribNumbers.int4(raf) * tenToNegSix;
-					//System.out.println( "lo1=" + lo1);
-					resolution = raf.ReadByte();
-					lad = GribNumbers.int4(raf) * tenToNegSix;
-					lov = GribNumbers.int4(raf) * tenToNegSix;
-					dx = (float) (GribNumbers.int4(raf) * tenToNegThree);
-					dy = (float) (GribNumbers.int4(raf) * tenToNegThree);
-					projectionCenter = raf.ReadByte();
-					scanMode = raf.ReadByte();
-					latin1 = GribNumbers.int4(raf) * tenToNegSix;
-					latin2 = GribNumbers.int4(raf) * tenToNegSix;
-					//System.out.println( "latin1=" + latin1);
-					//System.out.println( "latin2=" + latin2);
-					spLat = GribNumbers.int4(raf) * tenToNegSix;
-					spLon = GribNumbers.int4(raf) * tenToNegSix;
-					//System.out.println( "spLat=" + spLat);
-					//System.out.println( "spLon=" + spLon);
+					shape = gribStream.ReadByte();
+					scaleFactorRadius = gribStream.ReadByte();
+					scaledValueRadius = GribNumbers.int4(gribStream);
+					scaleFactorMajor = gribStream.ReadByte();
+					scaledValueMajor = GribNumbers.int4(gribStream);
+					scaleFactorMinor = gribStream.ReadByte();
+					scaledValueMinor = GribNumbers.int4(gribStream);
+					nx = GribNumbers.int4(gribStream);
+					ny = GribNumbers.int4(gribStream);
+					la1 = GribNumbers.int4(gribStream) * tenToNegSix;
+					lo1 = GribNumbers.int4(gribStream) * tenToNegSix;
+					resolution = gribStream.ReadByte();
+					lad = GribNumbers.int4(gribStream) * tenToNegSix;
+					lov = GribNumbers.int4(gribStream) * tenToNegSix;
+					dx = (float) (GribNumbers.int4(gribStream) * tenToNegThree);
+					dy = (float) (GribNumbers.int4(gribStream) * tenToNegThree);
+					projectionCenter = gribStream.ReadByte();
+					scanMode = gribStream.ReadByte();
+					latin1 = GribNumbers.int4(gribStream) * tenToNegSix;
+					latin2 = GribNumbers.int4(gribStream) * tenToNegSix;
+					spLat = GribNumbers.int4(gribStream) * tenToNegSix;
+					spLon = GribNumbers.int4(gribStream) * tenToNegSix;
 					
 					break;
 				
@@ -1158,66 +1139,62 @@ namespace NGribCS.Grib2
 				case 41: 
 				case 42: 
 				case 43:  // Gaussian latitude/longitude
-					shape = raf.ReadByte();
-					//System.out.println( "shape=" + shape );
-					scalefactorradius = raf.ReadByte();
-					scaledvalueradius = GribNumbers.int4(raf);
-					scalefactormajor = raf.ReadByte();
-					scaledvaluemajor = GribNumbers.int4(raf);
-					scalefactorminor = raf.ReadByte();
-					scaledvalueminor = GribNumbers.int4(raf);
-					nx = GribNumbers.int4(raf);
-					//System.out.println( "nx=" + nx);
-					ny = GribNumbers.int4(raf);
-					//System.out.println( "ny=" + ny);
-					angle = GribNumbers.int4(raf);
-					subdivisionsangle = GribNumbers.int4(raf);
-					if (angle == 0)
+					shape = gribStream.ReadByte();
+					scaleFactorRadius = gribStream.ReadByte();
+					scaledValueRadius = GribNumbers.int4(gribStream);
+					scaleFactorMajor = gribStream.ReadByte();
+					scaledValueMajor = GribNumbers.int4(gribStream);
+					scaleFactorMinor = gribStream.ReadByte();
+					scaledValueMinor = GribNumbers.int4(gribStream);
+					nx = GribNumbers.int4(gribStream);
+					ny = GribNumbers.int4(gribStream);
+					basicAngleOfLatLon = GribNumbers.int4(gribStream);
+					unitOfBasicAngle = GribNumbers.int4(gribStream);
+					if (basicAngleOfLatLon == 0)
 					{
 						ratio = tenToNegSix;
 					}
 					else
 					{
-						ratio = angle / subdivisionsangle;
+						ratio = basicAngleOfLatLon / unitOfBasicAngle;
 					}
-					//System.out.println( "ratio =" + ratio );
-					la1 = (float) (GribNumbers.int4(raf) * ratio);
-					lo1 = (float) (GribNumbers.int4(raf) * ratio);
-					resolution = raf.ReadByte();
-					la2 = (float) (GribNumbers.int4(raf) * ratio);
-					lo2 = (float) (GribNumbers.int4(raf) * ratio);
-					dx = (float) (GribNumbers.int4(raf) * ratio);
-					n = raf.ReadByte();
-					scanMode = raf.ReadByte();
+					la1 = (float) (GribNumbers.int4(gribStream) * ratio);
+					lo1 = (float) (GribNumbers.int4(gribStream) * ratio);
+					resolution = gribStream.ReadByte();
+					la2 = (float) (GribNumbers.int4(gribStream) * ratio);
+					lo2 = (float) (GribNumbers.int4(gribStream) * ratio);
+					dx = (float) (GribNumbers.int4(gribStream) * ratio);
+					n = gribStream.ReadByte();
+					scanMode = gribStream.ReadByte();
 					
-					if (gdtn == 41)
+					if (gridDefinitionTemplateNumber == 41)
 					{
 						//Rotated Gaussian Latitude/longitude
 						
-						spLat = GribNumbers.int4(raf) * ratio;
-						spLon = GribNumbers.int4(raf) * ratio;
-                        rotationangle = GribNumbers.IEEEfloat4(raf);
+						spLat = GribNumbers.int4(gribStream) * ratio;
+						spLon = GribNumbers.int4(gribStream) * ratio;
+                        rotationangle = GribNumbers.IEEEfloat4(gribStream);
 					}
-					else if (gdtn == 42)
+					else if (gridDefinitionTemplateNumber == 42)
 					{
 						//Stretched Gaussian 
 						// Latitude/longitude
 						
-						poleLat = GribNumbers.int4(raf) * ratio;
-						poleLon = GribNumbers.int4(raf) * ratio;
-						factor = GribNumbers.int4(raf);
+						poleLat = GribNumbers.int4(gribStream) * ratio;
+						poleLon = GribNumbers.int4(gribStream) * ratio;
+						factor = GribNumbers.int4(gribStream);
 					}
-					else if (gdtn == 43)
+					else if (gridDefinitionTemplateNumber == 43)
 					{
 						//Stretched and Rotated Gaussian  
 						// Latitude/longitude
 						
-						spLat = GribNumbers.int4(raf) * ratio;
-						spLon = GribNumbers.int4(raf) * ratio;
-                        rotationangle = GribNumbers.IEEEfloat4(raf);
-						poleLat = GribNumbers.int4(raf) * ratio;
-						poleLon = GribNumbers.int4(raf) * ratio;
-						factor = GribNumbers.int4(raf);
+						spLat = GribNumbers.int4(gribStream) * ratio;
+						spLon = GribNumbers.int4(gribStream) * ratio;
+                        rotationangle = GribNumbers.IEEEfloat4(gribStream);
+						poleLat = GribNumbers.int4(gribStream) * ratio;
+						poleLon = GribNumbers.int4(gribStream) * ratio;
+						factor = GribNumbers.int4(gribStream);
 					}
 					break;
 				
@@ -1227,138 +1204,134 @@ namespace NGribCS.Grib2
 				case 52: 
 				case 53:  // Spherical harmonic coefficients
 
-                    j = GribNumbers.IEEEfloat4(raf);
-                    k = GribNumbers.IEEEfloat4(raf);
-                    m = GribNumbers.IEEEfloat4(raf);
-					method = raf.ReadByte();
-					mode = raf.ReadByte();
-					if (gdtn == 51)
+                    j = GribNumbers.IEEEfloat4(gribStream);
+                    k = GribNumbers.IEEEfloat4(gribStream);
+                    m = GribNumbers.IEEEfloat4(gribStream);
+					method = gribStream.ReadByte();
+					mode = gribStream.ReadByte();
+					if (gridDefinitionTemplateNumber == 51)
 					{
 						//Rotated Spherical harmonic coefficients
 						
-						spLat = GribNumbers.int4(raf) * tenToNegSix;
-						spLon = GribNumbers.int4(raf) * tenToNegSix;
-                        rotationangle = GribNumbers.IEEEfloat4(raf);
+						spLat = GribNumbers.int4(gribStream) * tenToNegSix;
+						spLon = GribNumbers.int4(gribStream) * tenToNegSix;
+                        rotationangle = GribNumbers.IEEEfloat4(gribStream);
 					}
-					else if (gdtn == 52)
+					else if (gridDefinitionTemplateNumber == 52)
 					{
 						//Stretched Spherical 
 						// harmonic coefficients
 						
-						poleLat = GribNumbers.int4(raf) * tenToNegSix;
-						poleLon = GribNumbers.int4(raf) * tenToNegSix;
-						factor = GribNumbers.int4(raf);
+						poleLat = GribNumbers.int4(gribStream) * tenToNegSix;
+						poleLon = GribNumbers.int4(gribStream) * tenToNegSix;
+						factor = GribNumbers.int4(gribStream);
 					}
-					else if (gdtn == 53)
+					else if (gridDefinitionTemplateNumber == 53)
 					{
 						//Stretched and Rotated 
 						// Spherical harmonic coefficients
 						
-						spLat = GribNumbers.int4(raf) * tenToNegSix;
-						spLon = GribNumbers.int4(raf) * tenToNegSix;
-                        rotationangle = GribNumbers.IEEEfloat4(raf);
-						poleLat = GribNumbers.int4(raf) * tenToNegSix;
-						poleLon = GribNumbers.int4(raf) * tenToNegSix;
-						factor = GribNumbers.int4(raf);
+						spLat = GribNumbers.int4(gribStream) * tenToNegSix;
+						spLon = GribNumbers.int4(gribStream) * tenToNegSix;
+                        rotationangle = GribNumbers.IEEEfloat4(gribStream);
+						poleLat = GribNumbers.int4(gribStream) * tenToNegSix;
+						poleLon = GribNumbers.int4(gribStream) * tenToNegSix;
+						factor = GribNumbers.int4(gribStream);
 					}
 					break;
 				
 				
 				case 90:  // Space view perspective or orthographic
-					shape = raf.ReadByte();
-					//System.out.println( "shape=" + shape );
-					scalefactorradius = raf.ReadByte();
-					scaledvalueradius = GribNumbers.int4(raf);
-					scalefactormajor = raf.ReadByte();
-					scaledvaluemajor = GribNumbers.int4(raf);
-					scalefactorminor = raf.ReadByte();
-					scaledvalueminor = GribNumbers.int4(raf);
-					nx = GribNumbers.int4(raf);
-					//System.out.println( "nx=" + nx);
-					ny = GribNumbers.int4(raf);
-					//System.out.println( "ny=" + ny);
-					lap = GribNumbers.int4(raf);
-					lop = GribNumbers.int4(raf);
-					resolution = raf.ReadByte();
-					dx = GribNumbers.int4(raf);
-					dy = GribNumbers.int4(raf);
-					xp = (float) (GribNumbers.int4(raf) * tenToNegThree);
-					yp = (float) (GribNumbers.int4(raf) * tenToNegThree);
-					scanMode = raf.ReadByte();
-					angle = GribNumbers.int4(raf);
-					altitude = GribNumbers.int4(raf) * 1000000;
-					xo = GribNumbers.int4(raf);
-					yo = GribNumbers.int4(raf);
+					shape = gribStream.ReadByte();
+					scaleFactorRadius = gribStream.ReadByte();
+					scaledValueRadius = GribNumbers.int4(gribStream);
+					scaleFactorMajor = gribStream.ReadByte();
+					scaledValueMajor = GribNumbers.int4(gribStream);
+					scaleFactorMinor = gribStream.ReadByte();
+					scaledValueMinor = GribNumbers.int4(gribStream);
+					nx = GribNumbers.int4(gribStream);
+					ny = GribNumbers.int4(gribStream);
+					lap = GribNumbers.int4(gribStream);
+					lop = GribNumbers.int4(gribStream);
+					resolution = gribStream.ReadByte();
+					dx = GribNumbers.int4(gribStream);
+					dy = GribNumbers.int4(gribStream);
+					xp = (float) (GribNumbers.int4(gribStream) * tenToNegThree);
+					yp = (float) (GribNumbers.int4(gribStream) * tenToNegThree);
+					scanMode = gribStream.ReadByte();
+					basicAngleOfLatLon = GribNumbers.int4(gribStream);
+					altitude = GribNumbers.int4(gribStream) * 1000000;
+					xo = GribNumbers.int4(gribStream);
+					yo = GribNumbers.int4(gribStream);
 					
 					break;
 				
 				
 				case 100:  // Triangular grid based on an icosahedron
 					
-					n2 = raf.ReadByte();
-					n3 = raf.ReadByte();
-					ni = GribNumbers.int2(raf);
-					nd = raf.ReadByte();
-					poleLat = GribNumbers.int4(raf) * tenToNegSix;
-					poleLon = GribNumbers.int4(raf) * tenToNegSix;
-					lonofcenter = GribNumbers.int4(raf);
-					position = raf.ReadByte();
-					order = raf.ReadByte();
-					scanMode = raf.ReadByte();
-					n = GribNumbers.int4(raf);
+					n2 = gribStream.ReadByte();
+					n3 = gribStream.ReadByte();
+					ni = GribNumbers.int2(gribStream);
+					nd = gribStream.ReadByte();
+					poleLat = GribNumbers.int4(gribStream) * tenToNegSix;
+					poleLon = GribNumbers.int4(gribStream) * tenToNegSix;
+					lonofcenter = GribNumbers.int4(gribStream);
+					position = gribStream.ReadByte();
+					order = gribStream.ReadByte();
+					scanMode = gribStream.ReadByte();
+					n = GribNumbers.int4(gribStream);
 					break;
 				
 				
 				case 110:  // Equatorial azimuthal equidistant projection
-					shape = raf.ReadByte();
-					//System.out.println( "shape=" + shape );
-					scalefactorradius = raf.ReadByte();
-					scaledvalueradius = GribNumbers.int4(raf);
-					scalefactormajor = raf.ReadByte();
-					scaledvaluemajor = GribNumbers.int4(raf);
-					scalefactorminor = raf.ReadByte();
-					scaledvalueminor = GribNumbers.int4(raf);
-					nx = GribNumbers.int4(raf);
-					//System.out.println( "nx=" + nx);
-					ny = GribNumbers.int4(raf);
-					//System.out.println( "ny=" + ny);
-					la1 = GribNumbers.int4(raf) * tenToNegSix;
-					lo1 = GribNumbers.int4(raf) * tenToNegSix;
-					resolution = raf.ReadByte();
-					dx = (float) (GribNumbers.int4(raf) * tenToNegThree);
-					dy = (float) (GribNumbers.int4(raf) * tenToNegThree);
-					projectionCenter = raf.ReadByte();
-					scanMode = raf.ReadByte();
+					shape = gribStream.ReadByte();
+					scaleFactorRadius = gribStream.ReadByte();
+					scaledValueRadius = GribNumbers.int4(gribStream);
+					scaleFactorMajor = gribStream.ReadByte();
+					scaledValueMajor = GribNumbers.int4(gribStream);
+					scaleFactorMinor = gribStream.ReadByte();
+					scaledValueMinor = GribNumbers.int4(gribStream);
+					nx = GribNumbers.int4(gribStream);
+					ny = GribNumbers.int4(gribStream);
+					la1 = GribNumbers.int4(gribStream) * tenToNegSix;
+					lo1 = GribNumbers.int4(gribStream) * tenToNegSix;
+					resolution = gribStream.ReadByte();
+					dx = (float) (GribNumbers.int4(gribStream) * tenToNegThree);
+					dy = (float) (GribNumbers.int4(gribStream) * tenToNegThree);
+					projectionCenter = gribStream.ReadByte();
+					scanMode = gribStream.ReadByte();
 					
 					break;
 				
 				
 				case 120:  // Azimuth-range Projection
-					nb = GribNumbers.int4(raf);
-					nr = GribNumbers.int4(raf);
-					la1 = GribNumbers.int4(raf);
-					lo1 = GribNumbers.int4(raf);
-					dx = GribNumbers.int4(raf);
-                    dstart = GribNumbers.IEEEfloat4(raf);
-					scanMode = raf.ReadByte();
+					nb = GribNumbers.int4(gribStream);
+					nr = GribNumbers.int4(gribStream);
+					la1 = GribNumbers.int4(gribStream);
+					lo1 = GribNumbers.int4(gribStream);
+					dx = GribNumbers.int4(gribStream);
+                    dstart = GribNumbers.IEEEfloat4(gribStream);
+					scanMode = gribStream.ReadByte();
 					for (int i = 0; i < nr; i++)
 					{
 						// get azi (33+4(Nr-1))-(34+4(Nr-1))
 						// get adelta (35+4(Nr-1))-(36+4(Nr-1))
 					}
-					System.Console.Out.WriteLine("need code to get azi and adelta");
+					throw new GribNotSupportedException("need code to get azi and adelta");
 					
-					break;
+
+                    // Comment in, when you remove the Exception, otherwise booom
+				    // break; 
 				
 				
 				default: 
-					System.Console.Out.WriteLine("Unknown Grid Type " + System.Convert.ToString(gdtn));
-					break;
+					throw new GribNotSupportedException("Unknown Grid Type " + System.Convert.ToString(gridDefinitionTemplateNumber));
+					
 				
-			} // end switch
+			} 
 			
 			// calculate earth radius
-			if ((gdtn < 50 || gdtn > 53) && gdtn != 100 && gdtn != 120)
+			if ((gridDefinitionTemplateNumber < 50 || gridDefinitionTemplateNumber > 53) && gridDefinitionTemplateNumber != 100 && gridDefinitionTemplateNumber != 120)
 			{
 				if (shape == 0)
 				{
@@ -1366,32 +1339,25 @@ namespace NGribCS.Grib2
 				}
 				else if (shape == 1)
 				{
-					earthRadius = scaledvalueradius;
-					if (scalefactorradius != 0)
-						earthRadius = (float) (earthRadius / System.Math.Pow(10, scalefactorradius));
+					earthRadius = scaledValueRadius;
+					if (scaleFactorRadius != 0)
+						earthRadius = (float) (earthRadius / System.Math.Pow(10, scaleFactorRadius));
 				}
 				else if (shape == 2)
 				{
-					//UPGRADE_WARNING: Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1042'"
 					majorAxis = (float) 6378160.0;
-					//UPGRADE_WARNING: Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1042'"
 					minorAxis = (float) 6356775.0;
 				}
 				else if (shape == 3)
 				{
-					majorAxis = scaledvaluemajor;
-					//System.out.println( "majorAxisScale =" + scalefactormajor );
-					//System.out.println( "majorAxisiValue =" + scaledvaluemajor );
-					majorAxis = (float) (majorAxis / System.Math.Pow(10, scalefactormajor));
+					majorAxis = scaledValueMajor;
+					majorAxis = (float) (majorAxis / System.Math.Pow(10, scaleFactorMajor));
 					
-					minorAxis = scaledvalueminor;
-					//System.out.println( "minorAxisScale =" + scalefactorminor );
-					//System.out.println( "minorAxisValue =" + scaledvalueminor );
-					minorAxis = (float) (minorAxis / System.Math.Pow(10, scalefactorminor));
+					minorAxis = scaledValueMinor;
+					minorAxis = (float) (minorAxis / System.Math.Pow(10, scaleFactorMinor));
 				}
 				else if (shape == 4)
 				{
-					//UPGRADE_WARNING: Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1042'"
 					majorAxis = (float) 6378137.0;
 					minorAxis = (float) SupportClass.Identity(6356752.314);
 				}
@@ -1403,7 +1369,7 @@ namespace NGribCS.Grib2
 		} // end of Grib2GridDefinitionSection
 		
 		/// <summary> .</summary>
-		/// <param name="gdtn"> Grid definition template number same as type of grid
+		/// <param gridTemplateName="gridDefinitionTemplateNumber"> Grid definition template number same as type of grid
 		/// </param>
 		/// <returns> GridName as a String
 		/// 
@@ -1458,30 +1424,9 @@ namespace NGribCS.Grib2
 				default:  return "Unknown projection" + gdtn;
 				
 			}
-		} // end getGridName
-		
-		// --Commented out by Inspection START (11/21/05 12:34 PM):
-		//   /**
-		//    * Get length in bytes of this section.
-		//    *
-		//    * @return length in bytes of this section
-		//    */
-		//   public final int getLength()
-		//   {
-		//      return length;
-		//   }
-		// --Commented out by Inspection STOP (11/21/05 12:34 PM)
-		
-		// --Commented out by Inspection START (12/1/05 3:04 PM):
-		//   /**
-		//    * Number of this section, should be 3
-		//    */
-		//   public final int getSection()
-		//   {
-		//      return section;
-		//   }
-		// --Commented out by Inspection STOP (12/1/05 3:04 PM)
-		
+		} 
+
+
 		/// <summary> .</summary>
 		/// <returns> shapeName as a String
 		/// 
@@ -1492,7 +1437,7 @@ namespace NGribCS.Grib2
 		}
 		
 		/// <summary> .</summary>
-		/// <param name="shape">
+		/// <param gridTemplateName="shape">
 		/// </param>
 		/// <returns> shapeName as a String
 		/// 

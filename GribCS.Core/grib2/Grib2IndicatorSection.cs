@@ -37,10 +37,10 @@ namespace NGribCS.Grib2
     [ClassInterface(ClassInterfaceType.None)]
 	public sealed class Grib2IndicatorSection : NGribCS.Grib2.IGrib2IndicatorSection
 	{
-		/// <summary> Get the byte length of this GRIB record.
+		/// <summary> Get the byte lengthOfSection of this GRIB record.
 		/// 
 		/// </summary>
-		/// <returns> length in bytes of GRIB record
+		/// <returns> lengthOfSection in bytes of GRIB record
 		/// </returns>
 		public long GribLength
 		{
@@ -106,10 +106,15 @@ namespace NGribCS.Grib2
 		private long gribLength;
 		
 		/// <summary> Length in bytes of IndicatorSection.
-		/// Section length differs between GRIB editions 1 and 2
-		/// Currently only GRIB edition 2 supported - length is 16 octets/bytes.
+		/// Section lengthOfSection differs between GRIB editions 1 and 2
+		/// Currently only GRIB edition 2 supported - lengthOfSection is 16 octets/bytes.
 		/// </summary>
-		private int length;
+        private int lengthOfSection;
+
+        public int LengthOfSection
+        {
+            get { return lengthOfSection; }
+        }
 		
 		/// <summary> Discipline - GRIB Master Table Number.</summary>
 		private int discipline;
@@ -124,10 +129,10 @@ namespace NGribCS.Grib2
 		/// <summary> Constructs a <tt>Grib2IndicatorSection</tt> object from a byteBuffer.
 		/// 
 		/// </summary>
-		/// <param name="raf">RandomAccessFile with IndicatorSection content
+		/// <param gridTemplateName="gribStream">RandomAccessFile with IndicatorSection content
 		/// 
 		/// </param>
-		/// <throws>  IOException  if raf contains no valid GRIB file </throws>
+		/// <throws>  IOException  if gribStream contains no valid GRIB file </throws>
 		//UPGRADE_TODO: Class 'java.io.RandomAccessFile' was converted to 'System.IO.FileStream' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaioRandomAccessFile'"
 		public Grib2IndicatorSection(System.IO.Stream raf)
 		{
@@ -145,23 +150,23 @@ namespace NGribCS.Grib2
 			//System.out.println( "edition=" + edition ) ;
 			if (edition == 1)
 			{
-				// length of GRIB record
+				// lengthOfSection of GRIB record
                 // Reset to beginning, then read 3 bytes
                 raf.Position = 0;
 				gribLength = (long) GribNumbers.uint3(raf);
                 // Skip next byte, edition already read
                 raf.ReadByte();
 				//System.out.println( "edition 1 gribLength=" + gribLength ) ;
-				length = 8;
+				lengthOfSection = 8;
 			}
 			else if (edition == 2)
 			{
-				// length of GRIB record
+				// lengthOfSection of GRIB record
 				discipline = data[2];
 				//System.out.println( "discipline=" + discipline) ;
 				gribLength = GribNumbers.int8(raf);
 				//System.out.println( "editon 2 gribLength=" + gribLength) ;
-				length = 16;
+				lengthOfSection = 16;
 			}
 			else
 			{
@@ -171,13 +176,13 @@ namespace NGribCS.Grib2
 		
 		// --Commented out by Inspection START (11/21/05 1:18 PM):
 		//   /**
-		//    * Get the byte length of the IndicatorSection0 section.
+		//    * Get the byte lengthOfSection of the IndicatorSection0 numberOfSection.
 		//    *
-		//    * @return length in bytes of IndicatorSection0 section
+		//    * @return lengthOfSection in bytes of IndicatorSection0 numberOfSection
 		//    */
 		//   public final int getLength()
 		//   {
-		//      return length;
+		//      return lengthOfSection;
 		//   }
 		// --Commented out by Inspection STOP (11/21/05 1:18 PM)
 	}

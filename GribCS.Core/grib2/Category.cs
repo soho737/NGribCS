@@ -38,7 +38,7 @@ namespace NGribCS.Grib2
 	
 	/// <summary> Class which represents a Category from a parameter table.
 	/// A parameter consists of a discipline( ie Meteorological_products), 
-	/// a Category( ie Temperature ) and a number that refers to a name( ie Temperature)
+	/// a Category( ie Temperature ) and a number that refers to a gridTemplateName( ie Temperature)
 	/// </summary>
 	
 
@@ -49,7 +49,7 @@ namespace NGribCS.Grib2
 		/// <returns> int
 		/// </returns>
 		/// <summary> number value of this Category.</summary>
-		/// <param name="number">of Category
+		/// <param gridTemplateName="number">of Category
 		/// </param>
 		public int Number
 		{
@@ -84,7 +84,7 @@ namespace NGribCS.Grib2
 		
 		
 		/// <summary> given a Parameter number returns Parameter object for this Category.</summary>
-		/// <param name="paramNumber">
+		/// <param gridTemplateName="paramNumber">
 		/// </param>
 		/// <returns> Parameter
 		/// </returns>
@@ -102,7 +102,7 @@ namespace NGribCS.Grib2
 		
 		
 		/// <summary> add this Parameter to this Category.</summary>
-		/// <param name="param">object
+		/// <param gridTemplateName="param">object
 		/// </param>
 		public void  setParameter(Parameter param)
 		{

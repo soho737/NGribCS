@@ -219,7 +219,29 @@ namespace NGribCS.SampleApplication
             pictureBox1.Image = null;
         }
 
+        private void testFunctionAToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TestFunctionA();
+        }
+
 
       
+        private void TestFunctionA()
+        {
+            if (treeView2.SelectedNode != null && treeView2.SelectedNode.Tag != null && treeView2.SelectedNode.Tag is InventoryItem)
+            {
+                try
+                {
+                      InventoryItem target = treeView2.SelectedNode.Tag as InventoryItem;
+                      Grib2GridDefinitionSection gds = g2m.GetGDS(target);
+                  
+                    PointF[,] test = g2m.GetCoordinateGrid(target);
+                }
+                catch
+                {
+                    throw;
+                }
+            }
+        }
     }
 }

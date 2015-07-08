@@ -58,7 +58,7 @@ namespace NGribCS.Grib2
 					return 0; // not valid Grib file
 				}
 				//  Read Section 0 Indicator Section to get Edition number
-				Grib2IndicatorSection indicatorSec = new Grib2IndicatorSection(raf); // section 0
+				Grib2IndicatorSection indicatorSec = new Grib2IndicatorSection(raf); // numberOfSection 0
                 return indicatorSec.GribEdition;
 			}
 			// end getEdition
@@ -148,10 +148,10 @@ namespace NGribCS.Grib2
         private Dictionary<string, Grib2GridDefinitionSection> gdsHM = new Dictionary<string, Grib2GridDefinitionSection>();
 		
 		
-		/// <summary> Constructs a Grib2Input object from a raf.
+		/// <summary> Constructs a Grib2Input object from a gribStream.
 		/// 
 		/// </summary>
-		/// <param name="raf">with GRIB content
+		/// <param gridTemplateName="gribStream">with GRIB content
 		/// 
 		/// </param>
 		public Grib2Input(System.IO.Stream raf)
@@ -177,9 +177,9 @@ namespace NGribCS.Grib2
 		/// needed information for data extraction later. For most purposes, 
 		/// getProductsOnly should be set to true, it's lightweight of getRecords.
 		/// </summary>
-		/// <param name="getProductsOnly">
+		/// <param gridTemplateName="getProductsOnly">
 		/// </param>
-		/// <param name="oneRecord">
+		/// <param gridTemplateName="oneRecord">
 		/// </param>
 		/// <returns> success
 		/// </returns>
@@ -198,7 +198,7 @@ namespace NGribCS.Grib2
 			Grib2IdentificationSection id = null;
 			Grib2LocalUseSection lus = null;
 			Grib2GridDefinitionSection gds = null;
-			// if raf.getFilePointer() != 0 then called from Grib2IndexExtender
+			// if gribStream.getFilePointer() != 0 then called from Grib2IndexExtender
 			if (raf.Position > 4)
 			{
 				raf.Seek(raf.Position - 4, System.IO.SeekOrigin.Begin);
@@ -210,7 +210,7 @@ namespace NGribCS.Grib2
 				}
 				//System.out.println( "Scan succeeded to find end of record");
 			}
-			//System.out.println("Scan file pointer =" + raf.getFilePointer()); 
+			//System.out.println("Scan file pointer =" + gribStream.getFilePointer()); 
 			long GdsOffset = 0; // GDS offset from start of file
 			bool startAtHeader = true; // otherwise skip to GDS
 			bool processGDS = true;
@@ -226,8 +226,8 @@ namespace NGribCS.Grib2
 					}
 					
 					// Read Section 0 Indicator Section
-					is_Renamed = new Grib2IndicatorSection(raf); // section 0
-					//System.out.println( "Grib record length=" + is.getGribLength());
+					is_Renamed = new Grib2IndicatorSection(raf); // numberOfSection 0
+					//System.out.println( "Grib record lengthOfSection=" + is.getGribLength());
 					
 					// Read other Sections
 					id = new Grib2IdentificationSection(raf); // Section 1
@@ -242,7 +242,7 @@ namespace NGribCS.Grib2
 					
 					// Section 3
 					gds = new Grib2GridDefinitionSection(raf, getProductsOnly);
-					//System.out.println( "GDS length=" + gds.getLength() );
+					//System.out.println( "GDS lengthOfSection=" + gds.getLength() );
 				} // end processGDS
 				
 				// obtain PDS offset in the file for this record
@@ -257,7 +257,7 @@ namespace NGribCS.Grib2
 				
 				bms = new Grib2BitMapSection(raf, gds); // Section 6
 				
-				//descriptorSpatial =  new Grib2DataSection( getData, raf, gds, drs, bms ); //Section 7
+				//descriptorSpatial =  new Grib2DataSection( getData, gribStream, gds, drs, bms ); //Section 7
 				ds = new Grib2DataSection(false, raf, gds, drs, bms); //Section 7
 				
 				// assume scan ok
@@ -281,7 +281,7 @@ namespace NGribCS.Grib2
 					return true;
 				}
 				
-				// EndSection processing section 8
+				// EndSection processing numberOfSection 8
 				int ending = GribNumbers.int4(raf);
 				//System.out.println( "ending = " + ending );
 				if (ending == 926365495)
@@ -292,9 +292,9 @@ namespace NGribCS.Grib2
 				}
 				else
 				{
-					int section = raf.ReadByte(); // check if GDS or PDS section, 3 or 4
-					//System.out.println( "section = " + section );
-					//reset back to begining of section
+					int section = raf.ReadByte(); // check if GDS or PDS numberOfSection, 3 or 4
+					//System.out.println( "numberOfSection = " + numberOfSection );
+					//reset back to begining of numberOfSection
 					raf.Seek(raf.Position - 5, System.IO.SeekOrigin.Begin);
 					
 					if (section == 3)

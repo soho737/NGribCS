@@ -49,8 +49,8 @@ public class SupportClass
 	/// <summary>
 	/// Try to skip bytes in the input stream and return the actual number of bytes skipped.
 	/// </summary>
-	/// <param name="stream">Input stream that will be used to skip the bytes</param>
-	/// <param name="skipbytes">Number of bytes to be skipped</param>
+	/// <param gridTemplateName="stream">Input stream that will be used to skip the bytes</param>
+	/// <param gridTemplateName="skipbytes">Number of bytes to be skipped</param>
 	/// <returns>Actual number of bytes skipped</returns>
 	public static int Skip(System.IO.Stream stream, int skipBytes)
 	{
@@ -62,8 +62,8 @@ public class SupportClass
 	/// <summary>
 	/// Skips a given number of characters into a given Stream.
 	/// </summary>
-	/// <param name=" stream">The stream in which the skips are done.</param>
-	/// <param name="number">The number of caracters to skip.</param>
+	/// <param gridTemplateName=" stream">The stream in which the skips are done.</param>
+	/// <param gridTemplateName="number">The number of caracters to skip.</param>
 	/// <returns>The number of characters skipped.</returns>
 	public static long Skip(System.IO.StreamReader stream,long number)
 	{
@@ -79,8 +79,8 @@ public class SupportClass
 	/// <summary>
 	/// Skips a given number of characters into a given StringReader.
 	/// </summary>
-	/// <param name="strReader">The StringReader in which the skips are done.</param>
-	/// <param name="number">The number of caracters to skip.</param>
+	/// <param gridTemplateName="strReader">The StringReader in which the skips are done.</param>
+	/// <param gridTemplateName="number">The number of caracters to skip.</param>
 	/// <returns>The number of characters skipped.</returns>
 	public static long Skip(System.IO.StringReader strReader,long number)
 	{
@@ -95,12 +95,12 @@ public class SupportClass
 
 
 	/*******************************/
-	/// <summary>Reads a number of characters from the current source Stream and writes the data to the target array at the specified index.</summary>
-	/// <param name="sourceStream">The source Stream to read from.</param>
-	/// <param name="target">Contains the array of characteres read from the source Stream.</param>
-	/// <param name="start">The starting index of the target array.</param>
-	/// <param name="count">The maximum number of characters to read from the source Stream.</param>
-	/// <returns>The number of characters read. The number will be less than or equal to count depending on the data available in the source Stream. Returns -1 if the end of the stream is reached.</returns>
+	/// <summary>Reads a number of characters from the current sourceOfGridDefinition Stream and writes the data to the target array at the specified index.</summary>
+	/// <param gridTemplateName="sourceStream">The sourceOfGridDefinition Stream to read from.</param>
+	/// <param gridTemplateName="target">Contains the array of characteres read from the sourceOfGridDefinition Stream.</param>
+	/// <param gridTemplateName="start">The starting index of the target array.</param>
+	/// <param gridTemplateName="count">The maximum number of characters to read from the sourceOfGridDefinition Stream.</param>
+	/// <returns>The number of characters read. The number will be less than or equal to count depending on the data available in the sourceOfGridDefinition Stream. Returns -1 if the end of the stream is reached.</returns>
 	public static System.Int32 ReadInput(System.IO.Stream sourceStream, sbyte[] target, int start, int count)
 	{
 		// Returns 0 bytes if not enough space in target
@@ -120,12 +120,12 @@ public class SupportClass
 		return bytesRead;
 	}
 
-	/// <summary>Reads a number of characters from the current source TextReader and writes the data to the target array at the specified index.</summary>
-	/// <param name="sourceTextReader">The source TextReader to read from</param>
-	/// <param name="target">Contains the array of characteres read from the source TextReader.</param>
-	/// <param name="start">The starting index of the target array.</param>
-	/// <param name="count">The maximum number of characters to read from the source TextReader.</param>
-	/// <returns>The number of characters read. The number will be less than or equal to count depending on the data available in the source TextReader. Returns -1 if the end of the stream is reached.</returns>
+	/// <summary>Reads a number of characters from the current sourceOfGridDefinition TextReader and writes the data to the target array at the specified index.</summary>
+	/// <param gridTemplateName="sourceTextReader">The sourceOfGridDefinition TextReader to read from</param>
+	/// <param gridTemplateName="target">Contains the array of characteres read from the sourceOfGridDefinition TextReader.</param>
+	/// <param gridTemplateName="start">The starting index of the target array.</param>
+	/// <param gridTemplateName="count">The maximum number of characters to read from the sourceOfGridDefinition TextReader.</param>
+	/// <returns>The number of characters read. The number will be less than or equal to count depending on the data available in the sourceOfGridDefinition TextReader. Returns -1 if the end of the stream is reached.</returns>
 	public static System.Int32 ReadInput(System.IO.TextReader sourceTextReader, sbyte[] target, int start, int count)
 	{
 		// Returns 0 bytes if not enough space in target
@@ -152,8 +152,8 @@ public class SupportClass
 		/// <summary>
 		/// Creates a new random acces stream with read-write or read rights
 		/// </summary>
-		/// <param name="fileName">A relative or absolute path for the file to open</param>
-		/// <param name="mode">Mode to open the file in</param>
+		/// <param gridTemplateName="fileName">A relative or absolute path for the file to open</param>
+		/// <param gridTemplateName="mode">Mode to open the file in</param>
 		/// <returns>The new System.IO.FileStream</returns>
 		public static System.IO.FileStream CreateRandomAccessFile(System.String fileName, System.String mode) 
 		{
@@ -172,8 +172,8 @@ public class SupportClass
 		/// <summary>
 		/// Creates a new random acces stream with read-write or read rights
 		/// </summary>
-		/// <param name="fileName">File infomation for the file to open</param>
-		/// <param name="mode">Mode to open the file in</param>
+		/// <param gridTemplateName="fileName">File infomation for the file to open</param>
+		/// <param gridTemplateName="mode">Mode to open the file in</param>
 		/// <returns>The new System.IO.FileStream</returns>
 		public static System.IO.FileStream CreateRandomAccessFile(System.IO.FileInfo fileName, System.String mode)
 		{
@@ -183,8 +183,8 @@ public class SupportClass
 		/// <summary>
 		/// Writes the data to the specified file stream
 		/// </summary>
-		/// <param name="data">Data to write</param>
-		/// <param name="fileStream">File to write to</param>
+		/// <param gridTemplateName="data">Data to write</param>
+		/// <param gridTemplateName="fileStream">File to write to</param>
 		public static void WriteBytes(System.String data,System.IO.FileStream fileStream)
 		{
 			int index = 0;
@@ -197,8 +197,8 @@ public class SupportClass
 		/// <summary>
 		/// Writes the received string to the file stream
 		/// </summary>
-		/// <param name="data">String of information to write</param>
-		/// <param name="fileStream">File to write to</param>
+		/// <param gridTemplateName="data">String of information to write</param>
+		/// <param gridTemplateName="fileStream">File to write to</param>
 		public static void WriteChars(System.String data,System.IO.FileStream fileStream)
 		{
 			WriteBytes(data, fileStream);	
@@ -207,8 +207,8 @@ public class SupportClass
 		/// <summary>
 		/// Writes the received data to the file stream
 		/// </summary>
-		/// <param name="sByteArray">Data to write</param>
-		/// <param name="fileStream">File to write to</param>
+		/// <param gridTemplateName="sByteArray">Data to write</param>
+		/// <param gridTemplateName="fileStream">File to write to</param>
 		public static void WriteRandomFile(sbyte[] sByteArray,System.IO.FileStream fileStream) 
 		{
 			byte[] byteArray = ToByteArray(sByteArray);
@@ -220,7 +220,7 @@ public class SupportClass
 	/// <summary>
 	/// Converts an array of sbytes to an array of bytes
 	/// </summary>
-	/// <param name="sbyteArray">The array of sbytes to be converted</param>
+	/// <param gridTemplateName="sbyteArray">The array of sbytes to be converted</param>
 	/// <returns>The new array of bytes</returns>
 	public static byte[] ToByteArray(sbyte[] sbyteArray)
 	{
@@ -238,7 +238,7 @@ public class SupportClass
 	/// <summary>
 	/// Converts a string to an array of bytes
 	/// </summary>
-	/// <param name="sourceString">The string to be converted</param>
+	/// <param gridTemplateName="sourceString">The string to be converted</param>
 	/// <returns>The new array of bytes</returns>
 	public static byte[] ToByteArray(System.String sourceString)
 	{
@@ -248,7 +248,7 @@ public class SupportClass
 	/// <summary>
 	/// Converts a array of object-type instances to a byte-type array.
 	/// </summary>
-	/// <param name="tempObjectArray">Array to convert.</param>
+	/// <param gridTemplateName="tempObjectArray">Array to convert.</param>
 	/// <returns>An array of byte type elements.</returns>
 	public static byte[] ToByteArray(System.Object[] tempObjectArray)
 	{
@@ -355,7 +355,7 @@ public class SupportClass
 			/// <summary>
 			/// Gets the calendar current date and time.
 			/// </summary>
-			/// <param name="calendar">The calendar to get its current date and time.</param>
+			/// <param gridTemplateName="calendar">The calendar to get its current date and time.</param>
 			/// <returns>A System.DateTime value that indicates the current date and time for the 
 			/// calendar given.</returns>
 			public System.DateTime GetDateTime(System.Globalization.Calendar calendar)
@@ -374,8 +374,8 @@ public class SupportClass
 			/// <summary>
 			/// Sets the specified System.DateTime value to the specified calendar.
 			/// </summary>
-			/// <param name="calendar">The calendar to set its date.</param>
-			/// <param name="date">The System.DateTime value to set to the calendar.</param>
+			/// <param gridTemplateName="calendar">The calendar to set its date.</param>
+			/// <param gridTemplateName="date">The System.DateTime value to set to the calendar.</param>
 			public void SetDateTime(System.Globalization.Calendar calendar, System.DateTime date)
 			{
 				if (this[calendar] != null)
@@ -396,9 +396,9 @@ public class SupportClass
 			/// new instance of the calendar with the current date and time and then assings it 
 			/// the new specified value.
 			/// </summary>
-			/// <param name="calendar">The calendar to set its date or time.</param>
-			/// <param name="field">One of the fields that composes a date/time.</param>
-			/// <param name="fieldValue">The value to be set.</param>
+			/// <param gridTemplateName="calendar">The calendar to set its date or time.</param>
+			/// <param gridTemplateName="field">One of the fields that composes a date/time.</param>
+			/// <param gridTemplateName="fieldValue">The value to be set.</param>
 			public void Set(System.Globalization.Calendar calendar, int field, int fieldValue)
 			{
 				if (this[calendar] != null)
@@ -460,10 +460,10 @@ public class SupportClass
 			/// If the calendar does not exist in the hash table, it creates a new instance and sets 
 			/// its values.
 			/// </summary>
-			/// <param name="calendar">The calendar to set its date.</param>
-			/// <param name="year">Integer value that represent the year.</param>
-			/// <param name="month">Integer value that represent the month.</param>
-			/// <param name="day">Integer value that represent the day.</param>
+			/// <param gridTemplateName="calendar">The calendar to set its date.</param>
+			/// <param gridTemplateName="year">Integer value that represent the year.</param>
+			/// <param gridTemplateName="month">Integer value that represent the month.</param>
+			/// <param gridTemplateName="day">Integer value that represent the day.</param>
 			public void Set(System.Globalization.Calendar calendar, int year, int month, int day)
 			{
 				if (this[calendar] != null)
@@ -487,12 +487,12 @@ public class SupportClass
 			/// If the calendar does not exist in the hash table, it creates a new instance and sets 
 			/// its values.
 			/// </summary>
-			/// <param name="calendar">The calendar to set its date and time.</param>
-			/// <param name="year">Integer value that represent the year.</param>
-			/// <param name="month">Integer value that represent the month.</param>
-			/// <param name="day">Integer value that represent the day.</param>
-			/// <param name="hour">Integer value that represent the hour.</param>
-			/// <param name="minute">Integer value that represent the minutes.</param>
+			/// <param gridTemplateName="calendar">The calendar to set its date and time.</param>
+			/// <param gridTemplateName="year">Integer value that represent the year.</param>
+			/// <param gridTemplateName="month">Integer value that represent the month.</param>
+			/// <param gridTemplateName="day">Integer value that represent the day.</param>
+			/// <param gridTemplateName="hour">Integer value that represent the hour.</param>
+			/// <param gridTemplateName="minute">Integer value that represent the minutes.</param>
 			public void Set(System.Globalization.Calendar calendar, int year, int month, int day, int hour, int minute)
 			{
 				if (this[calendar] != null)
@@ -518,13 +518,13 @@ public class SupportClass
 			/// If the calendar does not exist in the hash table, it creates a new instance and sets 
 			/// its values.
 			/// </summary>
-			/// <param name="calendar">The calendar to set its date and time.</param>
-			/// <param name="year">Integer value that represent the year.</param>
-			/// <param name="month">Integer value that represent the month.</param>
-			/// <param name="day">Integer value that represent the day.</param>
-			/// <param name="hour">Integer value that represent the hour.</param>
-			/// <param name="minute">Integer value that represent the minutes.</param>
-			/// <param name="second">Integer value that represent the seconds.</param>
+			/// <param gridTemplateName="calendar">The calendar to set its date and time.</param>
+			/// <param gridTemplateName="year">Integer value that represent the year.</param>
+			/// <param gridTemplateName="month">Integer value that represent the month.</param>
+			/// <param gridTemplateName="day">Integer value that represent the day.</param>
+			/// <param gridTemplateName="hour">Integer value that represent the hour.</param>
+			/// <param gridTemplateName="minute">Integer value that represent the minutes.</param>
+			/// <param gridTemplateName="second">Integer value that represent the seconds.</param>
 			public void Set(System.Globalization.Calendar calendar, int year, int month, int day, int hour, int minute, int second)
 			{
 				if (this[calendar] != null)
@@ -548,8 +548,8 @@ public class SupportClass
 			/// <summary>
 			/// Gets the value represented by the field specified.
 			/// </summary>
-			/// <param name="calendar">The calendar to get its date or time.</param>
-			/// <param name="field">One of the field that composes a date/time.</param>
+			/// <param gridTemplateName="calendar">The calendar to get its date or time.</param>
+			/// <param gridTemplateName="field">One of the field that composes a date/time.</param>
 			/// <returns>The integer value for the field given.</returns>
 			public int Get(System.Globalization.Calendar calendar, int field)
 			{
@@ -602,8 +602,8 @@ public class SupportClass
 			/// <summary>
 			/// Sets the time in the specified calendar with the long value.
 			/// </summary>
-			/// <param name="calendar">The calendar to set its date and time.</param>
-			/// <param name="milliseconds">A long value that indicates the milliseconds to be set to 
+			/// <param gridTemplateName="calendar">The calendar to set its date and time.</param>
+			/// <param gridTemplateName="milliseconds">A long value that indicates the milliseconds to be set to 
 			/// the hour for the calendar.</param>
 			public void SetTimeInMilliseconds(System.Globalization.Calendar calendar, long milliseconds)
 			{
@@ -622,7 +622,7 @@ public class SupportClass
 			/// <summary>
 			/// Gets what the first day of the week is; e.g., Sunday in US, Monday in France.
 			/// </summary>
-			/// <param name="calendar">The calendar to get its first day of the week.</param>
+			/// <param gridTemplateName="calendar">The calendar to get its first day of the week.</param>
 			/// <returns>A System.DayOfWeek value indicating the first day of the week.</returns>
 			public System.DayOfWeek GetFirstDayOfWeek(System.Globalization.Calendar calendar)
 			{
@@ -649,8 +649,8 @@ public class SupportClass
 			/// <summary>
 			/// Sets what the first day of the week is; e.g., Sunday in US, Monday in France.
 			/// </summary>
-			/// <param name="calendar">The calendar to set its first day of the week.</param>
-			/// <param name="firstDayOfWeek">A System.DayOfWeek value indicating the first day of the week
+			/// <param gridTemplateName="calendar">The calendar to set its first day of the week.</param>
+			/// <param gridTemplateName="firstDayOfWeek">A System.DayOfWeek value indicating the first day of the week
 			/// to be set.</param>
 			public void SetFirstDayOfWeek(System.Globalization.Calendar calendar, System.DayOfWeek  firstDayOfWeek)
 			{
@@ -674,7 +674,7 @@ public class SupportClass
 			/// <summary>
 			/// Removes the specified calendar from the hash table.
 			/// </summary>
-			/// <param name="calendar">The calendar to be removed.</param>
+			/// <param gridTemplateName="calendar">The calendar to be removed.</param>
 			public void Clear(System.Globalization.Calendar calendar)
 			{
 				if (this[calendar] != null)
@@ -685,8 +685,8 @@ public class SupportClass
 			/// Removes the specified field from the calendar given.
 			/// If the field does not exists in the calendar, the calendar is removed from the table.
 			/// </summary>
-			/// <param name="calendar">The calendar to remove the value from.</param>
-			/// <param name="field">The field to be removed from the calendar.</param>
+			/// <param gridTemplateName="calendar">The calendar to remove the value from.</param>
+			/// <param gridTemplateName="field">The field to be removed from the calendar.</param>
 			public void Clear(System.Globalization.Calendar calendar, int field)
 			{
 				if (this[calendar] != null)
@@ -726,8 +726,8 @@ public class DateTimeFormatManager
 		/// <summary>
 		/// Sets the format for datetime.
 		/// </summary>
-		/// <param name="format">DateTimeFormat instance to set the pattern</param>
-		/// <param name="newPattern">A string with the pattern format</param>
+		/// <param gridTemplateName="format">DateTimeFormat instance to set the pattern</param>
+		/// <param gridTemplateName="newPattern">A string with the pattern format</param>
 		public void SetDateFormatPattern(System.Globalization.DateTimeFormatInfo format, System.String newPattern)
 		{
 			if (this[format] != null)
@@ -743,7 +743,7 @@ public class DateTimeFormatManager
 		/// <summary>
 		/// Gets the current format pattern of the DateTimeFormat instance
 		/// </summary>
-		/// <param name="format">The DateTimeFormat instance which the value will be obtained</param>
+		/// <param gridTemplateName="format">The DateTimeFormat instance which the value will be obtained</param>
 		/// <returns>The string representing the current datetimeformat pattern</returns>
 		public System.String GetDateFormatPattern(System.Globalization.DateTimeFormatInfo format)
 		{
@@ -756,8 +756,8 @@ public class DateTimeFormatManager
 		/// <summary>
 		/// Sets the datetimeformat pattern to the giving format
 		/// </summary>
-		/// <param name="format">The datetimeformat instance to set</param>
-		/// <param name="newPattern">The new datetimeformat pattern</param>
+		/// <param gridTemplateName="format">The datetimeformat instance to set</param>
+		/// <param gridTemplateName="newPattern">The new datetimeformat pattern</param>
 		public void SetTimeFormatPattern(System.Globalization.DateTimeFormatInfo format, System.String newPattern)
 		{
 			if (this[format] != null)
@@ -773,7 +773,7 @@ public class DateTimeFormatManager
 		/// <summary>
 		/// Gets the current format pattern of the DateTimeFormat instance
 		/// </summary>
-		/// <param name="format">The DateTimeFormat instance which the value will be obtained</param>
+		/// <param gridTemplateName="format">The DateTimeFormat instance which the value will be obtained</param>
 		/// <returns>The string representing the current datetimeformat pattern</returns>
 		public System.String GetTimeFormatPattern(System.Globalization.DateTimeFormatInfo format)
 		{
@@ -797,8 +797,8 @@ public class DateTimeFormatManager
 	/// <summary>
 	/// Gets the DateTimeFormat instance and date instance to obtain the date with the format passed
 	/// </summary>
-	/// <param name="format">The DateTimeFormat to obtain the time and date pattern</param>
-	/// <param name="date">The date instance used to get the date</param>
+	/// <param gridTemplateName="format">The DateTimeFormat to obtain the time and date pattern</param>
+	/// <param gridTemplateName="date">The date instance used to get the date</param>
 	/// <returns>A string representing the date with the time and date patterns</returns>
 	public static System.String FormatDateTime(System.Globalization.DateTimeFormatInfo format, System.DateTime date)
 	{
@@ -816,14 +816,14 @@ public class DateTimeFormatManager
 		/// <summary>
 		/// Adds a new element to the Collection if it is not already present.
 		/// </summary>
-		/// <param name="obj">The object to add to the collection.</param>
+		/// <param gridTemplateName="obj">The object to add to the collection.</param>
 		/// <returns>Returns true if the object was added to the collection, otherwise false.</returns>
 		new bool Add(System.Object obj);
 
 		/// <summary>
 		/// Adds all the elements of the specified collection to the Set.
 		/// </summary>
-		/// <param name="c">Collection of objects to add.</param>
+		/// <param gridTemplateName="c">Collection of objects to add.</param>
 		/// <returns>true</returns>
 		bool AddAll(System.Collections.ICollection c);
 	}
@@ -852,7 +852,7 @@ public class DateTimeFormatManager
 		/// <summary>
 		/// Adds a new element to the ArrayList if it is not already present.
 		/// </summary>		
-		/// <param name="obj">Element to insert to the ArrayList.</param>
+		/// <param gridTemplateName="obj">Element to insert to the ArrayList.</param>
 		/// <returns>Returns true if the new element was inserted, false otherwise.</returns>
 		new public virtual bool Add(System.Object obj)
 		{
@@ -869,7 +869,7 @@ public class DateTimeFormatManager
 		/// <summary>
 		/// Adds all the elements of the specified collection that are not present to the list.
 		/// </summary>
-		/// <param name="c">Collection where the new elements will be added</param>
+		/// <param gridTemplateName="c">Collection where the new elements will be added</param>
 		/// <returns>Returns true if at least one element was added, false otherwise.</returns>
 		public bool AddAll(System.Collections.ICollection c)
 		{
@@ -905,8 +905,8 @@ public class DateTimeFormatManager
 		/// <summary>
 		/// Adds a new element to the specified collection.
 		/// </summary>
-		/// <param name="c">Collection where the new element will be added.</param>
-		/// <param name="obj">Object to add.</param>
+		/// <param gridTemplateName="c">Collection where the new element will be added.</param>
+		/// <param gridTemplateName="obj">Object to add.</param>
 		/// <returns>true</returns>
 		public static bool Add(System.Collections.ICollection c, System.Object obj)
 		{
@@ -933,8 +933,8 @@ public class DateTimeFormatManager
 		/// <summary>
 		/// Adds all of the elements of the "c" collection to the "target" collection.
 		/// </summary>
-		/// <param name="target">Collection where the new elements will be added.</param>
-		/// <param name="c">Collection whose elements will be added.</param>
+		/// <param gridTemplateName="target">Collection where the new elements will be added.</param>
+		/// <param gridTemplateName="c">Collection whose elements will be added.</param>
 		/// <returns>Returns true if at least one element was added, false otherwise.</returns>
 		public static bool AddAll(System.Collections.ICollection target, System.Collections.ICollection c)
 		{
@@ -969,7 +969,7 @@ public class DateTimeFormatManager
 		/// <summary>
 		/// Removes all the elements from the collection.
 		/// </summary>
-		/// <param name="c">The collection to remove elements.</param>
+		/// <param gridTemplateName="c">The collection to remove elements.</param>
 		public static void Clear(System.Collections.ICollection c)
 		{
 			//Reflection. Invoke "Clear" method or "clear" method for proprietary classes
@@ -992,8 +992,8 @@ public class DateTimeFormatManager
 		/// <summary>
 		/// Determines whether the collection contains the specified element.
 		/// </summary>
-		/// <param name="c">The collection to check.</param>
-		/// <param name="obj">The object to locate in the collection.</param>
+		/// <param gridTemplateName="c">The collection to check.</param>
+		/// <param gridTemplateName="obj">The object to locate in the collection.</param>
 		/// <returns>true if the element is in the collection.</returns>
 		public static bool Contains(System.Collections.ICollection c, System.Object obj)
 		{
@@ -1021,8 +1021,8 @@ public class DateTimeFormatManager
 		/// <summary>
 		/// Determines whether the collection contains all the elements in the specified collection.
 		/// </summary>
-		/// <param name="target">The collection to check.</param>
-		/// <param name="c">Collection whose elements would be checked for containment.</param>
+		/// <param gridTemplateName="target">The collection to check.</param>
+		/// <param gridTemplateName="c">Collection whose elements would be checked for containment.</param>
 		/// <returns>true id the target collection contains all the elements of the specified collection.</returns>
 		public static bool ContainsAll(System.Collections.ICollection target, System.Collections.ICollection c)
 		{						
@@ -1059,8 +1059,8 @@ public class DateTimeFormatManager
 		/// <summary>
 		/// Removes the specified element from the collection.
 		/// </summary>
-		/// <param name="c">The collection where the element will be removed.</param>
-		/// <param name="obj">The element to remove from the collection.</param>
+		/// <param gridTemplateName="c">The collection where the element will be removed.</param>
+		/// <param gridTemplateName="obj">The element to remove from the collection.</param>
 		public static bool Remove(System.Collections.ICollection c, System.Object obj)
 		{
 			bool changed = false;
@@ -1092,8 +1092,8 @@ public class DateTimeFormatManager
 		/// <summary>
 		/// Removes all the elements from the specified collection that are contained in the target collection.
 		/// </summary>
-		/// <param name="target">Collection where the elements will be removed.</param>
-		/// <param name="c">Elements to remove from the target collection.</param>
+		/// <param gridTemplateName="target">Collection where the elements will be removed.</param>
+		/// <param gridTemplateName="c">Elements to remove from the target collection.</param>
 		/// <returns>true</returns>
 		public static bool RemoveAll(System.Collections.ICollection target, System.Collections.ICollection c)
 		{
@@ -1130,8 +1130,8 @@ public class DateTimeFormatManager
 		/// <summary>
 		/// Retains the elements in the target collection that are contained in the specified collection
 		/// </summary>
-		/// <param name="target">Collection where the elements will be removed.</param>
-		/// <param name="c">Elements to be retained in the target collection.</param>
+		/// <param gridTemplateName="target">Collection where the elements will be removed.</param>
+		/// <param gridTemplateName="c">Elements to be retained in the target collection.</param>
 		/// <returns>true</returns>
 		public static bool RetainAll(System.Collections.ICollection target, System.Collections.ICollection c)
 		{
@@ -1184,7 +1184,7 @@ public class DateTimeFormatManager
 		/// <summary>
 		/// Obtains an array containing all the elements of the collection.
 		/// </summary>
-		/// <param name="objects">The array into which the elements of the collection will be stored.</param>
+		/// <param gridTemplateName="objects">The array into which the elements of the collection will be stored.</param>
 		/// <returns>The array containing all the elements of the collection.</returns>
 		public static System.Object[] ToArray(System.Collections.ICollection c, System.Object[] objects)
 		{	
@@ -1208,7 +1208,7 @@ public class DateTimeFormatManager
 		/// <summary>
 		/// Converts an ICollection instance to an ArrayList instance.
 		/// </summary>
-		/// <param name="c">The ICollection instance to be converted.</param>
+		/// <param gridTemplateName="c">The ICollection instance to be converted.</param>
 		/// <returns>An ArrayList instance in which its elements are the elements of the ICollection instance.</returns>
 		public static System.Collections.ArrayList ToArrayList(System.Collections.ICollection c)
 		{
@@ -1225,7 +1225,7 @@ public class DateTimeFormatManager
 	/// <summary>
 	/// This method returns the literal value received
 	/// </summary>
-	/// <param name="literal">The literal to return</param>
+	/// <param gridTemplateName="literal">The literal to return</param>
 	/// <returns>The received value</returns>
 	public static long Identity(long literal)
 	{
@@ -1235,7 +1235,7 @@ public class DateTimeFormatManager
 	/// <summary>
 	/// This method returns the literal value received
 	/// </summary>
-	/// <param name="literal">The literal to return</param>
+	/// <param gridTemplateName="literal">The literal to return</param>
 	/// <returns>The received value</returns>
 	public static ulong Identity(ulong literal)
 	{
@@ -1245,7 +1245,7 @@ public class DateTimeFormatManager
 	/// <summary>
 	/// This method returns the literal value received
 	/// </summary>
-	/// <param name="literal">The literal to return</param>
+	/// <param gridTemplateName="literal">The literal to return</param>
 	/// <returns>The received value</returns>
 	public static float Identity(float literal)
 	{
@@ -1255,7 +1255,7 @@ public class DateTimeFormatManager
 	/// <summary>
 	/// This method returns the literal value received
 	/// </summary>
-	/// <param name="literal">The literal to return</param>
+	/// <param gridTemplateName="literal">The literal to return</param>
 	/// <returns>The received value</returns>
 	public static double Identity(double literal)
 	{
@@ -1266,8 +1266,8 @@ public class DateTimeFormatManager
 	/// <summary>
 	/// Writes the exception stack trace to the received stream
 	/// </summary>
-	/// <param name="throwable">Exception to obtain information from</param>
-	/// <param name="stream">Output sream used to write to</param>
+	/// <param gridTemplateName="throwable">Exception to obtain information from</param>
+	/// <param gridTemplateName="stream">Output sream used to write to</param>
 	public static void WriteStackTrace(System.Exception throwable, System.IO.TextWriter stream)
 	{
 		stream.Write(throwable.StackTrace);
@@ -1295,7 +1295,7 @@ public class DateTimeFormatManager
 		/// <summary>
 		/// Initializes a new class instance with a specified string to process
 		/// </summary>
-		/// <param name="source">String to tokenize</param>
+		/// <param gridTemplateName="sourceOfGridDefinition">String to tokenize</param>
 		public Tokenizer(System.String source)
 		{			
 			this.chars = source.ToCharArray();
@@ -1305,8 +1305,8 @@ public class DateTimeFormatManager
 		/// Initializes a new class instance with a specified string to process
 		/// and the specified token delimiters to use
 		/// </summary>
-		/// <param name="source">String to tokenize</param>
-		/// <param name="delimiters">String containing the delimiters</param>
+		/// <param gridTemplateName="sourceOfGridDefinition">String to tokenize</param>
+		/// <param gridTemplateName="delimiters">String containing the delimiters</param>
 		public Tokenizer(System.String source, System.String delimiters):this(source)
 		{			
 			this.delimiters = delimiters;
@@ -1317,9 +1317,9 @@ public class DateTimeFormatManager
 		/// Initializes a new class instance with a specified string to process, the specified token 
 		/// delimiters to use, and whether the delimiters must be included in the results.
 		/// </summary>
-		/// <param name="source">String to tokenize</param>
-		/// <param name="delimiters">String containing the delimiters</param>
-		/// <param name="includeDelims">Determines if delimiters are included in the results.</param>
+		/// <param gridTemplateName="sourceOfGridDefinition">String to tokenize</param>
+		/// <param gridTemplateName="delimiters">String containing the delimiters</param>
+		/// <param gridTemplateName="includeDelims">Determines if delimiters are included in the results.</param>
 		public Tokenizer(System.String source, System.String delimiters, bool includeDelims):this(source,delimiters)
 		{
 			this.includeDelims = includeDelims;
@@ -1336,10 +1336,10 @@ public class DateTimeFormatManager
 		}
 
 		/// <summary>
-		/// Returns the next token from the source string, using the provided
+		/// Returns the next token from the sourceOfGridDefinition string, using the provided
 		/// token delimiters
 		/// </summary>
-		/// <param name="delimiters">String containing the delimiters to use</param>
+		/// <param gridTemplateName="delimiters">String containing the delimiters to use</param>
 		/// <returns>The string value of the token</returns>
 		public System.String NextToken(System.String delimiters)
 		{
@@ -1387,7 +1387,7 @@ public class DateTimeFormatManager
 
 				
 		/// <summary>
-		/// Determines if there are more tokens to return from the source string
+		/// Determines if there are more tokens to return from the sourceOfGridDefinition string
 		/// </summary>
 		/// <returns>True or false, depending if there are more tokens</returns>
 		public bool HasMoreTokens()

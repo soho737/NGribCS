@@ -30,7 +30,7 @@ using System.Runtime.InteropServices;
 namespace NGribCS.Grib2
 {
 	
-	/// <summary> A class that represents the local use section (LUS) of a GRIB product.
+	/// <summary> A class that represents the local use numberOfSection (LUS) of a GRIB product.
 	/// 
 	/// </summary>
     [GuidAttribute("734E97C1-FE4E-4595-AAB7-F6212EE59DA8")]
@@ -38,42 +38,42 @@ namespace NGribCS.Grib2
 	public sealed class Grib2LocalUseSection : NGribCS.Grib2.IGrib2LocalUseSection
 	{
 		
-		/// <summary> Length in bytes of this section.</summary>
-		//UPGRADE_NOTE: Final was removed from the declaration of 'length '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
+		/// <summary> Length in bytes of this numberOfSection.</summary>
+		//UPGRADE_NOTE: Final was removed from the declaration of 'lengthOfSection '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
 		private int length;
 		
-		/// <summary> section number should be 2.</summary>
-		//UPGRADE_NOTE: Final was removed from the declaration of 'section '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
+		/// <summary> numberOfSection number should be 2.</summary>
+		//UPGRADE_NOTE: Final was removed from the declaration of 'numberOfSection '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
 		private int section;
 
         private byte[] bytes;
 		
 		// *** constructors *******************************************************
 		
-		/// <summary> Constructs a <tt>Grib2LocalUseSection</tt> object from a raf.</summary>
-		/// <param name="raf">
+		/// <summary> Constructs a <tt>Grib2LocalUseSection</tt> object from a gribStream.</summary>
+		/// <param gridTemplateName="gribStream">
 		/// </param>
-		/// <throws>  IOException  if raf contains no valid GRIB product </throws>
+		/// <throws>  IOException  if gribStream contains no valid GRIB product </throws>
 		//UPGRADE_TODO: Class 'java.io.RandomAccessFile' was converted to 'System.IO.FileStream' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaioRandomAccessFile'"
 		public Grib2LocalUseSection(System.IO.Stream raf)
 		{
 			
 			// octets 1-4 (Length of GDS)
 			length = GribNumbers.int4(raf);
-			//System.out.println( "LUS length=" + length );
+			//System.out.println( "LUS lengthOfSection=" + lengthOfSection );
 			
-			section = raf.ReadByte(); // This is section 2
-			//System.out.println( "LUS Local Use is 2, section=" + section );
+			section = raf.ReadByte(); // This is numberOfSection 2
+			//System.out.println( "LUS Local Use is 2, numberOfSection=" + numberOfSection );
 			
 			if (section != 2)
 			{
-				// no local use section
+				// no local use numberOfSection
 				SupportClass.Skip(raf, - 5);
 				return ;
 			}
 			else
 			{
-				//SupportClass.Skip(raf, length - 5);
+				//SupportClass.Skip(gribStream, lengthOfSection - 5);
                 bytes = new byte[length - 5];
                 int nb = raf.Read(bytes, 0, length - 5);
                 if (nb != length - 5)
@@ -87,9 +87,9 @@ namespace NGribCS.Grib2
 		
 
 	   /**
-	    * Get length in bytes of this section.
+	    * Get lengthOfSection in bytes of this numberOfSection.
 	    *
-	    * @return length in bytes of this section
+	    * @return lengthOfSection in bytes of this numberOfSection
 	   */
 	   public int getLength()
 	   {
@@ -102,7 +102,7 @@ namespace NGribCS.Grib2
        }
 
 	   /**
-	    * Number of this section, should be 3
+	    * Number of this numberOfSection, should be 3
 	    */
 	   public int getSection()
 	   {

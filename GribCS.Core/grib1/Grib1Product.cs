@@ -68,7 +68,7 @@ namespace NGribCS.Grib1
 		/// <returns> gdsKey
 		/// </returns>
 		/// <summary> sets the GDS key for this product.</summary>
-		/// <param name="aGDSkey"> MD5 checksum as text
+		/// <param gridTemplateName="aGDSkey"> MD5 checksum as text
 		/// </param>
 		public System.String GDSkey
 		{
@@ -130,15 +130,15 @@ namespace NGribCS.Grib1
 		private long endRecordOffset = - 1;
 		
 		/// <summary> Constructor.</summary>
-		/// <param name="header">
+		/// <param gridTemplateName="header">
 		/// </param>
-		/// <param name="pds">
+		/// <param gridTemplateName="pds">
 		/// </param>
-		/// <param name="gdsKey">
+		/// <param gridTemplateName="gdsKey">
 		/// </param>
-		/// <param name="offset">
+		/// <param gridTemplateName="offset">
 		/// </param>
-		/// <param name="size">endRecordOffset in file
+		/// <param gridTemplateName="size">endRecordOffset in file
 		/// </param>
 		public Grib1Product(System.String header, Grib1ProductDefinitionSection pds, System.String gdsKey, long offset, long size)
 		{

@@ -48,7 +48,7 @@ namespace NGribCS.Grib1
 		/// <summary> Constructs a Grib2Data object from a stream.
 		/// 
 		/// </summary>
-		/// <param name="raf">ucar.unidata.io.RandomAccessFile with GRIB content.
+		/// <param gridTemplateName="gribStream">ucar.unidata.io.RandomAccessFile with GRIB content.
 		/// 
 		/// </param>
 		//UPGRADE_TODO: Class 'java.io.RandomAccessFile' was converted to 'System.IO.FileStream' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaioRandomAccessFile'"
@@ -74,11 +74,11 @@ namespace NGribCS.Grib1
 		/// <summary> Reads the Grib data 
 		/// 
 		/// </summary>
-		/// <param name="offset"> offset into file.
+		/// <param gridTemplateName="offset"> offset into file.
 		/// </param>
-		/// <param name="DecimalScale">
+		/// <param gridTemplateName="DecimalScale">
 		/// </param>
-		/// <param name="bmsExists">
+		/// <param gridTemplateName="bmsExists">
 		/// </param>
 		/// <throws>  NotSupportedException </throws>
 		/// <returns> float[]
@@ -88,9 +88,9 @@ namespace NGribCS.Grib1
 			long start = (System.DateTime.Now.Ticks - 621355968000000000) / 10000;
 			
 			raf.Seek(offset, System.IO.SeekOrigin.Begin);
-			//System.out.println( "raf.Position=" + raf.Position );
+			//System.out.println( "gribStream.Position=" + gribStream.Position );
 			
-			// Need section 3 and 4 to read/interpet the data, section 5
+			// Need numberOfSection 3 and 4 to read/interpet the data, numberOfSection 5
 			// as a check that all data read and sections are correct
 			
 			Grib1BitMapSection bms = null;

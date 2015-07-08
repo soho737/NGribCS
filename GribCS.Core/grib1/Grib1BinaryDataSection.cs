@@ -31,7 +31,7 @@ using NGribCS.Helpers;
 namespace NGribCS.Grib1
 {
 	
-	/// <summary> A class representing the binary data section (BDS) of a GRIB record.
+	/// <summary> A class representing the binary data numberOfSection (BDS) of a GRIB record.
 	/// 
 	/// </summary>
 	/// <version>  1.0
@@ -86,13 +86,13 @@ namespace NGribCS.Grib1
 		
 		// *** constructors *******************************************************
 		
-		/// <summary> Constructs a Grib1BinaryDataSection object from a raf.
+		/// <summary> Constructs a Grib1BinaryDataSection object from a gribStream.
 		/// A bit map is not available.
 		/// 
 		/// </summary>
-		/// <param name="raf">RandomAccessFile stream with BDS content
+		/// <param gridTemplateName="gribStream">RandomAccessFile stream with BDS content
 		/// </param>
-		/// <param name="decimalscale">the exponent of the decimal scale
+		/// <param gridTemplateName="decimalscale">the exponent of the decimal scale
 		/// 
 		/// </param>
 		/// <throws>  NotSupportedException  if stream contains no valid GRIB file </throws>
@@ -101,24 +101,24 @@ namespace NGribCS.Grib1
 		{
 		}
 		
-		/// <summary> Constructs a Grib1BinaryDataSection object from a raf.
+		/// <summary> Constructs a Grib1BinaryDataSection object from a gribStream.
 		/// A bit map is defined.
 		/// 
 		/// </summary>
-		/// <param name="raf">raf with BDS content
+		/// <param gridTemplateName="gribStream">gribStream with BDS content
 		/// </param>
-		/// <param name="decimalscale">the exponent of the decimal scale
+		/// <param gridTemplateName="decimalscale">the exponent of the decimal scale
 		/// </param>
-		/// <param name="bms">bit map section of GRIB record
+		/// <param gridTemplateName="bms">bit map numberOfSection of GRIB record
 		/// 
 		/// </param>
 		/// <throws>  NotSupportedException  if stream contains no valid GRIB file </throws>
 		//UPGRADE_TODO: Class 'java.io.RandomAccessFile' was converted to 'System.IO.FileStream' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaioRandomAccessFile'"
 		public Grib1BinaryDataSection(System.IO.Stream raf, int decimalscale, Grib1BitMapSection bms)
 		{
-			// octets 1-3 (section length)
+			// octets 1-3 (numberOfSection lengthOfSection)
 			length = (int)GribNumbers.uint3(raf);
-			//System.out.println( "BDS length = " + length );
+			//System.out.println( "BDS lengthOfSection = " + lengthOfSection );
 			
 			// octet 4, 1st half (packing flag)
 			int unusedbits = raf.ReadByte();
@@ -127,7 +127,7 @@ namespace NGribCS.Grib1
 			if ((unusedbits & 192) != 0)
 				throw new NGribCS.Helpers.GribNotSupportedException("BDS: (octet 4, 1st half) not grid point data and simple packing ");
 			
-			// octet 4, 2nd half (number of unused bits at end of this section)
+			// octet 4, 2nd half (number of unused bits at end of this numberOfSection)
 			unusedbits = unusedbits & 15;
 			//System.out.println( "BDS unusedbits = " + unusedbits );
 			
@@ -180,7 +180,7 @@ namespace NGribCS.Grib1
 				if (!isConstant)
 				{
 					//System.out.println( "BDS values.size = " + 
-					//(((length - 11) * 8 - unusedbits) /  numbits));
+					//(((lengthOfSection - 11) * 8 - unusedbits) /  numbits));
 					values = new float[((length - 11) * 8 - unusedbits) / numbits];
 					
 					for (int i = 0; i < values.Length; i++)
@@ -228,11 +228,11 @@ namespace NGribCS.Grib1
 		/// <summary> Convert bits (numberOfBits) to Unsigned Int .
 		/// 
 		/// </summary>
-		/// <param name="numberOfBits">
+		/// <param gridTemplateName="numberOfBits">
 		/// </param>
-		/// <param name="raf">
+		/// <param gridTemplateName="gribStream">
 		/// </param>
-		/// <returns> int of BinaryDataSection section
+		/// <returns> int of BinaryDataSection numberOfSection
 		/// </returns>
 		//UPGRADE_TODO: Class 'java.io.RandomAccessFile' was converted to 'System.IO.FileStream' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaioRandomAccessFile'"
 		private int bits2UInt(int nb, System.IO.Stream raf)
@@ -275,13 +275,13 @@ namespace NGribCS.Grib1
 		
 		// --Commented out by Inspection START (11/17/05 1:25 PM):
 		//   /**
-		//    * Get the length in bytes of this section.
+		//    * Get the lengthOfSection in bytes of this numberOfSection.
 		//    *
-		//    * @return length in bytes of this section
+		//    * @return lengthOfSection in bytes of this numberOfSection
 		//    */
 		//   public int getLength()
 		//   {
-		//      return length;
+		//      return lengthOfSection;
 		//   }
 		// --Commented out by Inspection STOP (11/17/05 1:25 PM)
 	} // end class Grib1BinaryDataSection

@@ -149,23 +149,23 @@ namespace NGribCS.Grib2
 		private long PdsOffset = - 1;
 		
 		/// <summary> Construction for Grib2Record.</summary>
-		/// <param name="header">
+		/// <param gridTemplateName="header">
 		/// </param>
-		/// <param name="is">
+		/// <param gridTemplateName="is">
 		/// </param>
-		/// <param name="id">
+		/// <param gridTemplateName="id">
 		/// </param>
-		/// <param name="gds">
+		/// <param gridTemplateName="gds">
 		/// </param>
-		/// <param name="pds">
+		/// <param gridTemplateName="pds">
 		/// </param>
-		/// <param name="drs">
+		/// <param gridTemplateName="drs">
 		/// </param>
-		/// <param name="bms">
+		/// <param gridTemplateName="bms">
 		/// </param>
-		/// <param name="GdsOffset">
+		/// <param gridTemplateName="GdsOffset">
 		/// </param>
-		/// <param name="PdsOffset">PDS offset in Grib file
+		/// <param gridTemplateName="PdsOffset">PDS offset in Grib file
 		/// </param>
 		public Grib2Record(System.String header, Grib2IndicatorSection is_Renamed, 
                Grib2IdentificationSection id, Grib2GridDefinitionSection gds, 

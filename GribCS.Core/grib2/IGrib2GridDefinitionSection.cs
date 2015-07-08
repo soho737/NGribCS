@@ -41,7 +41,8 @@ namespace NGribCS.Grib2
         float Factor { get; }
         int Gdtn { get; }
         string getShapeName();
-        int Iolon { get; }
+        int IolonCode { get; }
+        InterpretationOfListOfNumbersMode IoLonMode { get; }
         float J { get; }
         float K { get; }
         float La1 { get; }

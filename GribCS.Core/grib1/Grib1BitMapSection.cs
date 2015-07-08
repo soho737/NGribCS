@@ -31,7 +31,7 @@ using NGribCS.Helpers;
 namespace NGribCS.Grib1
 {
 	
-	/// <summary> A class that represents the bitmap section (BMS) of a GRIB record. It
+	/// <summary> A class that represents the bitmap numberOfSection (BMS) of a GRIB record. It
 	/// indicates grid points where no grid value is defined by a 0.
 	/// 
 	/// </summary>
@@ -55,8 +55,8 @@ namespace NGribCS.Grib1
 			
 		}
 		
-		/// <summary> Length in bytes of this section.</summary>
-		//UPGRADE_NOTE: Final was removed from the declaration of 'length '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
+		/// <summary> Length in bytes of this numberOfSection.</summary>
+		//UPGRADE_NOTE: Final was removed from the declaration of 'lengthOfSection '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
 		private int length;
 		
 		/// <summary> The bit map.</summary>
@@ -65,10 +65,10 @@ namespace NGribCS.Grib1
 		
 		// *** constructors *******************************************************
 		
-		/// <summary> Constructs a <tt> Grib1BitMapSection</tt> object from a raf input stream.
+		/// <summary> Constructs a <tt> Grib1BitMapSection</tt> object from a gribStream input stream.
 		/// 
 		/// </summary>
-		/// <param name="raf">input stream with BMS content
+		/// <param gridTemplateName="gribStream">input stream with BMS content
 		/// 
 		/// </param>
 		//UPGRADE_TODO: Class 'java.io.RandomAccessFile' was converted to 'System.IO.FileStream' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaioRandomAccessFile'"
@@ -76,9 +76,9 @@ namespace NGribCS.Grib1
 		{
 			int[] bitmask = new int[]{128, 64, 32, 16, 8, 4, 2, 1};
 			
-			// octet 1-3 (length of section)
+			// octet 1-3 (lengthOfSection of numberOfSection)
             length = (int)GribNumbers.uint3(raf);
-			//System.out.println( "BMS length = " + length );
+			//System.out.println( "BMS lengthOfSection = " + lengthOfSection );
 			
 			// octet 4 unused bits
 			int unused = raf.ReadByte();
@@ -100,7 +100,7 @@ namespace NGribCS.Grib1
 			
 			// create new bit map, octet 4 contains number of unused bits at the end
 			bitmap = new bool[(length - 6) * 8 - unused];
-			//System.out.println( "BMS bitmap.length = " + bitmap.length );
+			//System.out.println( "BMS bitmap.lengthOfSection = " + bitmap.lengthOfSection );
 			
 			// fill bit map
 			for (int i = 0; i < bitmap.Length; i++)
@@ -111,13 +111,13 @@ namespace NGribCS.Grib1
 		
 		// --Commented out by Inspection START (11/17/05 1:25 PM):
 		//   /**
-		//    * Get length in bytes of this section.
+		//    * Get lengthOfSection in bytes of this numberOfSection.
 		//    *
-		//    * @return length in bytes
+		//    * @return lengthOfSection in bytes
 		//    */
 		//   public int getLength()
 		//   {
-		//      return length;
+		//      return lengthOfSection;
 		//   }
 		// --Commented out by Inspection STOP (11/17/05 1:25 PM)
 	} // end Grib1BitMapSection
