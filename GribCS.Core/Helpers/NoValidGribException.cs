@@ -39,7 +39,7 @@ namespace NGribCS.Helpers
 	/// </version>
 	[ComVisible(false)]
 	[Serializable]
-	public sealed class NoValidGribException:System.Exception
+	public sealed class NoValidGribException:GribException
 	{
 		
 		/// <summary> Construct a new Exception with message <tt>msg</tt>.

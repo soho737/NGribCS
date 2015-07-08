@@ -36,7 +36,7 @@ namespace NGribCS.SampleApplication
         private void addNewFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
-                g2m.AddFile(openFileDialog1.FileName);
+                g2m.LoadGrib2File(openFileDialog1.FileName);
 
             RebuildTree();
         }

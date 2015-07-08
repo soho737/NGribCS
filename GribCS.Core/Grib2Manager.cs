@@ -9,20 +9,23 @@ using System.Text;
 
 namespace NGribCS.Grib2
 {
+    /// <summary>
+    /// This is the main class for interfacing with the GRIB2 subsystem of NGribCS
+    /// </summary>
     public class Grib2Manager : IDisposable
     {
-
-
 
         private bool _inMemoryProcessing = false;
 
         private Dictionary<int,Stream> _StreamDictionary;
+        private Inventory _grib2Inventory;
         private Dictionary<int, Grib2Input> _Grib2Inputs;
 
         private int sourcecount = 0;
 
-        private Inventory _grib2Inventory;
-
+        /// <summary>
+        /// This is the global inventory containing all records in all openend grib2-files
+        /// </summary>
         public Inventory Inventory
         {
             get
@@ -45,48 +48,46 @@ namespace NGribCS.Grib2
         }
 
 
-        public void AddFile(string pFileName)
+        /// <summary>
+        /// Loads and inventarizes a grib2-File
+        /// </summary>
+        /// <param name="pFileName">Name of the file that should be loaded</param>
+        public void LoadGrib2File(string pFileName)
         {
             Stream _sourceStream;
-            try
+
+            if (_inMemoryProcessing)
             {
-                if (_inMemoryProcessing)
+                using (FileStream fs = new System.IO.FileStream(pFileName, FileMode.Open, FileAccess.Read, FileShare.Read))
                 {
-                    using (FileStream fs = new System.IO.FileStream(pFileName, FileMode.Open, FileAccess.Read, FileShare.Read))
-                    {
-                        _sourceStream = new MemoryStream();
-                        copyStream(fs, _sourceStream);
-                        _sourceStream.Position = 0;
-                    }
+                    _sourceStream = new MemoryStream();
+                    copyStream(fs, _sourceStream);
+                    _sourceStream.Position = 0;
                 }
-                else
-                {
-                    _sourceStream = new System.IO.FileStream(pFileName, FileMode.Open, FileAccess.Read, FileShare.Read);
-                }
-
-                Grib2Input g2i = new Grib2Input(_sourceStream);
-                g2i.scan(true, false);
-
-                _StreamDictionary.Add(sourcecount, _sourceStream);
-                _Grib2Inputs.Add(sourcecount, g2i);
-
-                // RebuildInventory
-                _grib2Inventory = new Inventory(getInventory());
-
-                sourcecount++;
             }
-            catch(Exception Ex)
+            else
             {
-                throw Ex;
+                _sourceStream = new System.IO.FileStream(pFileName, FileMode.Open, FileAccess.Read, FileShare.Read);
             }
-            finally
-            {
 
-            }
+            Grib2Input g2i = new Grib2Input(_sourceStream);
+            g2i.scan(true, false);
+
+            _StreamDictionary.Add(sourcecount, _sourceStream);
+            _Grib2Inputs.Add(sourcecount, g2i);
+
+            // RebuildInventory
+            _grib2Inventory = new Inventory(inventarize());
+
+            sourcecount++;
+
         }
 
-
-        private List<InventoryItem> getInventory()
+        /// <summary>
+        /// Builds a list of all records in the grib file
+        /// </summary>
+        /// <returns>List of InventoryItems</returns>
+        protected List<InventoryItem> inventarize()
         {
             List<InventoryItem> iv =new List<InventoryItem>();
             foreach (int key in _Grib2Inputs.Keys)
@@ -96,26 +97,32 @@ namespace NGribCS.Grib2
                 {
                     iv.Add(new InventoryItem(key, i++, gp));
                 }
-
-          
             }
             return iv;
         }
     
-
-        public IGrib2Product GetProduct(InventoryItem i)
+   
+        /// <summary>
+        /// Returns the raw data grid for a given inventory item as a multidimensional float array
+        /// Maybe you don't want to use this, unless you need to do something very specific or
+        /// you encountered some mishap in NGribCS when using GetGriddedData
+        /// </summary>
+        /// <param name="pInvItem">The InventoryItem for which the data should be retrieved</param>
+        /// <returns>A multidimensional array float[x,y], scanning direction as defined in the GDS</returns>
+        public float[] GetRawData(InventoryItem pInvItem)
         {
-            return  _Grib2Inputs[i.SourceIndex].GetProduct(i.ProductIndex);
-        }
-
-        public float[] GetRawData(InventoryItem i)
-        {
-            Grib2Data d = new Grib2Data(_StreamDictionary[i.SourceIndex]);
-            float[] data = d.getData(i.Product.getGdsOffset(), i.Product.getPdsOffset());
+            Grib2Data d = new Grib2Data(_StreamDictionary[pInvItem.SourceIndex]);
+            float[] data = d.getData(pInvItem.Product.getGdsOffset(), pInvItem.Product.getPdsOffset());
            
             return data;
         }
 
+
+        /// <summary>
+        /// Returns a scanning corrected data grid for a given inventory item as a multidimensional float array
+        /// </summary>
+        /// <param name="pInvItem">The InventoryItem for which the data should be retrieved</param>
+        /// <returns>A multidimensional array float[x,y], scanning is always left to right and top to bottom</returns>
         public float[,] GetGriddedData(InventoryItem iv)
         {
            
@@ -245,28 +252,6 @@ namespace NGribCS.Grib2
             Grib2GridDefinitionSection gds = GetGDS(iv);
             PointF[,] coordinateGrid = new PointF[gds.Nx, gds.Ny];
 
-            
-            //if (gds.Gdtn == 0) //LatLon
-            //{ 
-
-            // L2R
-            // Lo1 = 0
-            // Lo2 = 90
-            // Dx = 1
-
-            // R2L
-            // Lo1 = 90
-            // Lo2 = 0
-            // Dx = -1 // Ist das dann negativ?
-
-
-            // x=0
-            // SOLL: 0
-
-            // x=1
-            // Soll: 1
-
-
             for (int x = 0; x < gds.Nx; x++)
                 for (int y = 0; y < gds.Ny; y++)
                 {
@@ -290,29 +275,28 @@ namespace NGribCS.Grib2
                 }
 
             return coordinateGrid;
-            //}
+           
 
             //throw new NotSupportedException("Other templates than Lat/Lon (0) are not supported right now");
         }
 
-
-        public Grib2GridDefinitionSection GetGDS(InventoryItem i)
+        /// <summary>
+        /// Returns the Grid Definition Section (GDS) for a given InventoryItem
+        /// </summary>
+        /// <param name="pInvItem">The InventoryItem for which the GDS should be retrieved</param>
+        /// <returns>Grid Definition Section (GDS) for given InventoryItem</returns>
+        public Grib2GridDefinitionSection GetGDS(InventoryItem pInvItem)
         {
-            IGrib2Product p = _Grib2Inputs[i.SourceIndex].GetProduct(i.ProductIndex);
+            IGrib2Product p = _Grib2Inputs[pInvItem.SourceIndex].GetProduct(pInvItem.ProductIndex);
 
-            return _Grib2Inputs[i.SourceIndex].GDSs[i.Product.GDSkey];
+            return _Grib2Inputs[pInvItem.SourceIndex].GDSs[pInvItem.Product.GDSkey];
          
         }
-        public IGrib2Record GetRecord(InventoryItem i)
-        {
-            _StreamDictionary[i.SourceIndex].Position = 0;
-            Grib2Input tmp = new Grib2Input(_StreamDictionary[i.SourceIndex]);
-            tmp.scan(false, false);
+    
 
-            return tmp.GetRecord(i.ProductIndex);
-        }
-
-
+        /// <summary>
+        /// Disposal function
+        /// </summary>
         public void Dispose()
         {
             foreach (Grib2Input g2i in _Grib2Inputs.Values)
@@ -323,6 +307,11 @@ namespace NGribCS.Grib2
                     s.Dispose();
         }
 
+        /// <summary>
+        /// Internal function to copy the file stream to a memory stream if InMemoryProcessing is enabled
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="output"></param>
         private static void copyStream(Stream input, Stream output)
         {
             byte[] buffer = new byte[32768];

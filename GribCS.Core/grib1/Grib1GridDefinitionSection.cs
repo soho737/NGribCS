@@ -747,7 +747,7 @@ namespace NGribCS.Grib1
 			for (int i = 0; i < numPts; i++)
 			{
                 numPlPts[i] = GribNumbers.int2(raf);
-				//System.out.println( "GDS  numPlPts[ i ] = " +  numPlPts[ i ] );
+				//System.out.println( "GDS  numPlPts[ pInvItem ] = " +  numPlPts[ pInvItem ] );
 			}
 		}
 		

@@ -1367,7 +1367,7 @@ public class DateTimeFormatManager
 
 			//skip possible delimiters
 			while (System.Array.IndexOf(delimiters,this.chars[currentPos]) != -1)
-				//The last one is a delimiter (i.e there is no more tokens)
+				//The last one is a delimiter (pInvItem.e there is no more tokens)
 				if (++this.currentPos == this.chars.Length)
 				{
 					this.currentPos = pos;

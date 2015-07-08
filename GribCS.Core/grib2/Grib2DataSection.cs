@@ -192,13 +192,13 @@ namespace NGribCS.Grib2
 			//   R = reference value
 			//   X1 = 0
 			//   X2 = scaled encoded value
-			//   data[ i ] = (R + ( X1 + X2) * EE)/DD ;
+			//   data[ pInvItem ] = (R + ( X1 + X2) * EE)/DD ;
 			
 			if (bitmap == null)
 			{
 				for (int i = 0; i < numberPoints; i++)
 				{
-					//data[ i ] = (R + ( X1 + X2) * EE)/DD ;
+					//data[ pInvItem ] = (R + ( X1 + X2) * EE)/DD ;
 					data[i] = (R + bits2UInt(nb, raf) * EE) / DD;
 				}
 			}
@@ -210,7 +210,7 @@ namespace NGribCS.Grib2
 				{
 					if (bitmap[i])
 					{
-						//data[ i ] = (R + ( X1 + X2) * EE)/DD ;
+						//data[ pInvItem ] = (R + ( X1 + X2) * EE)/DD ;
 						data[i] = (R + bits2UInt(nb, raf) * EE) / DD;
 					}
 					else
@@ -256,7 +256,7 @@ namespace NGribCS.Grib2
 			for (int i = 0; i < NG; i++)
 			{
 				X1[i] = bits2UInt(nb, raf);
-				//System.out.println( "DS X1[ i ]=" + X1[ i ] );
+				//System.out.println( "DS X1[ pInvItem ]=" + X1[ pInvItem ] );
 			}
 			
 			// [xx +1 ]-yy Get number of bits used to encode each group
@@ -268,7 +268,7 @@ namespace NGribCS.Grib2
 			for (int i = 0; i < NG; i++)
 			{
 				NB[i] = bits2UInt(nb, raf);
-				//System.out.println( "DS numBitsEncodingEachGroup[ i ]=" + numBitsEncodingEachGroup[ i ] );
+				//System.out.println( "DS numBitsEncodingEachGroup[ pInvItem ]=" + numBitsEncodingEachGroup[ pInvItem ] );
 			}
 			
 			// [yy +1 ]-zz Get the scaled group lengths using formula
@@ -289,7 +289,7 @@ namespace NGribCS.Grib2
 			{
 				// numGroups
 				L[i] = ref_Renamed + (bits2UInt(nb, raf) * len_inc);
-				//System.out.println( "DS L[ i ]=" + L[ i ] );
+				//System.out.println( "DS L[ pInvItem ]=" + L[ pInvItem ] );
 				countL += L[i];
 			}
 			//System.out.println( "DS countL=" + countL );
@@ -322,22 +322,22 @@ namespace NGribCS.Grib2
 			//int bitsmv2[] = new int[ 31 ]; didn't code cuz number larger the # of bits
 			for (int i = 0; i < 31; i++)
 			{
-				//bitsmv1[ i ] = ( bitsmv1[ i -1 ] +1 ) *2 -1;
-				//bitsmv2[ i ] = ( bitsmv2[ i -1 ] +2 ) *2 -2;
+				//bitsmv1[ pInvItem ] = ( bitsmv1[ pInvItem -1 ] +1 ) *2 -1;
+				//bitsmv2[ pInvItem ] = ( bitsmv2[ pInvItem -1 ] +2 ) *2 -2;
 				//UPGRADE_WARNING: Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1042'"
 				bitsmv1[i] = (int) System.Math.Pow((double) 2, (double) i) - 1;
-				//bitsmv2[ i ] = (int) java.lang.Math.pow( (double)2, (double)i +1) -2;
-				//System.out.println( "DS bitsmv1[ "+ i +" ] =" + bitsmv1[ i ] );
-				//System.out.println( "DS bitsmv2[ "+ i +" ] =" + bitsmv2[ i ] );
+				//bitsmv2[ pInvItem ] = (int) java.lang.Math.pow( (double)2, (double)pInvItem +1) -2;
+				//System.out.println( "DS bitsmv1[ "+ pInvItem +" ] =" + bitsmv1[ pInvItem ] );
+				//System.out.println( "DS bitsmv2[ "+ pInvItem +" ] =" + bitsmv2[ pInvItem ] );
 			}
 			int X2;
 			bitPos = 0;
 			bitBuf = 0;
 			for (int i = 0; i < NG - 1; i++)
 			{
-				//System.out.println( "DS numBitsEncodingEachGroup[ i ]=" + numBitsEncodingEachGroup[ i ] );
-				//System.out.println( "DS L[ i ]=" + L[ i ] );
-				//System.out.println( "DS X1[ i ]=" + X1[ i ] );
+				//System.out.println( "DS numBitsEncodingEachGroup[ pInvItem ]=" + numBitsEncodingEachGroup[ pInvItem ] );
+				//System.out.println( "DS L[ pInvItem ]=" + L[ pInvItem ] );
+				//System.out.println( "DS X1[ pInvItem ]=" + X1[ pInvItem ] );
 				for (int j = 0; j < L[i]; j++)
 				{
 					if (NB[i] == 0)
@@ -372,13 +372,13 @@ namespace NGribCS.Grib2
 							}
 						}
 						//System.out.println( "DS count=" + count );
-						//System.out.println( "DS numBitsEncodingEachGroup[ "+ i +" ]=" + numBitsEncodingEachGroup[ i ] );
-						//System.out.println( "DS X1[ "+ i +" ]=" + X1[ i ] );
+						//System.out.println( "DS numBitsEncodingEachGroup[ "+ pInvItem +" ]=" + numBitsEncodingEachGroup[ pInvItem ] );
+						//System.out.println( "DS X1[ "+ pInvItem +" ]=" + X1[ pInvItem ] );
 						//System.out.println( "DS X2 =" +X2 );
-						//System.out.println( "DS X1[ i ] + X2 ="+(X1[ i ]+X2) );
+						//System.out.println( "DS X1[ pInvItem ] + X2 ="+(X1[ pInvItem ]+X2) );
 					}
 				} // end for j
-			} // end for i
+			} // end for pInvItem
 			// process last group
 			int last = drs.LengthLastGroup;
 			//System.out.println( "DS last=" + last );
@@ -519,7 +519,7 @@ namespace NGribCS.Grib2
 			for (int i = 0; i < numGroups; i++)
 			{
 				X1[i] = bits2UInt(numberOfBits, raf);
-				//System.out.println( "DS X1[ i ]=" + X1[ i ] );
+				//System.out.println( "DS X1[ pInvItem ]=" + X1[ pInvItem ] );
 			}
 			
 			// [xx +1 ]-yy Get number of bits used to encode each group
@@ -551,12 +551,12 @@ namespace NGribCS.Grib2
 			{
 				// numGroups
 				L[i] = referenceGroupLength + (bits2UInt(numberOfBits, raf) * lengthIncrement);
-				//System.out.println( "DS L[ i ]=" + L[ i ] );
+				//System.out.println( "DS L[ pInvItem ]=" + L[ pInvItem ] );
 				countL += L[i];
 			}
 			//System.out.println( "DS countL=" + countL );
 			
-			// [zz +1 ]-nn get X2 values and add X1[ i ] + X2
+			// [zz +1 ]-nn get X2 values and add X1[ pInvItem ] + X2
 
             countL += drs.LengthLastGroup;
 
@@ -570,12 +570,12 @@ namespace NGribCS.Grib2
 			//int bitsmv2[] = new int[ 31 ]; didn't code cuz number larger the # of bits
 			for (int i = 0; i < 31; i++)
 			{
-				//bitsmv1[ i ] = ( bitsmv1[ i -1 ] +1 ) *2 -1;
-				//bitsmv2[ i ] = ( bitsmv2[ i -1 ] +2 ) *2 -2;
+				//bitsmv1[ pInvItem ] = ( bitsmv1[ pInvItem -1 ] +1 ) *2 -1;
+				//bitsmv2[ pInvItem ] = ( bitsmv2[ pInvItem -1 ] +2 ) *2 -2;
 				bitsmv1[i] = (int) System.Math.Pow((double) 2, (double) i) - 1;
-				//bitsmv2[ i ] = (int) java.lang.Math.pow( (double)2, (double)i +1) -2;
-				//System.out.println( "DS bitsmv1[ "+ i +" ] =" + bitsmv1[ i ] );
-				//System.out.println( "DS bitsmv2[ "+ i +" ] =" + bitsmv2[ i ] );
+				//bitsmv2[ pInvItem ] = (int) java.lang.Math.pow( (double)2, (double)pInvItem +1) -2;
+				//System.out.println( "DS bitsmv1[ "+ pInvItem +" ] =" + bitsmv1[ pInvItem ] );
+				//System.out.println( "DS bitsmv2[ "+ pInvItem +" ] =" + bitsmv2[ pInvItem ] );
 			}
 			count = 0;
 			Xlength = gds.Nx; // needs some smarts for different type Grids
@@ -624,14 +624,14 @@ namespace NGribCS.Grib2
 						}
 						//if( count > 1235 && count < 1275 ) {
 						//   System.out.println( "DS count=" + count );
-						//   System.out.println( "DS numBitsEncodingEachGroup[ "+ i +" ]=" + numBitsEncodingEachGroup[ i ] );
-						//   System.out.println( "DS X1[ "+ i +" ]=" + X1[ i ] );
+						//   System.out.println( "DS numBitsEncodingEachGroup[ "+ pInvItem +" ]=" + numBitsEncodingEachGroup[ pInvItem ] );
+						//   System.out.println( "DS X1[ "+ pInvItem +" ]=" + X1[ pInvItem ] );
 						//   System.out.println( "DS X2 =" +X2 );
-						//   System.out.println( "DS X1[ i ] + X2 ="+(X1[ i ]+X2) );
+						//   System.out.println( "DS X1[ pInvItem ] + X2 ="+(X1[ pInvItem ]+X2) );
 						//}
 					}
 				} // end for j
-			} // end for i
+			} // end for pInvItem
 			// process last group
 			int last = drs.LengthLastGroup;
 			//System.out.println( "DS last=" + last );
@@ -728,11 +728,11 @@ namespace NGribCS.Grib2
 					{
 						if (data[i] != primaryMissingValue)
 						{
-							//System.out.println( "DS i=" + i + " sum =" + sum );
+							//System.out.println( "DS pInvItem=" + pInvItem + " sum =" + sum );
 							sum += data[i];
 							data[i] = lastOne + sum;
 							lastOne = data[i];
-							//System.out.println( "DS data[ "+ i +" ] =" + data[ i ] );
+							//System.out.println( "DS data[ "+ pInvItem +" ] =" + data[ pInvItem ] );
 						}
 					}
 				}
@@ -799,12 +799,12 @@ namespace NGribCS.Grib2
 					{
 						if (data[i] != primaryMissingValue)
 						{
-							//System.out.println( "DS i=" + i + " sum =" + sum );
+							//System.out.println( "DS pInvItem=" + pInvItem + " sum =" + sum );
 							sum += data[i];
-							//System.out.println( "DS before data[ "+ i +" ] =" + data[ i ] );
+							//System.out.println( "DS before data[ "+ pInvItem +" ] =" + data[ pInvItem ] );
 							data[i] = lastOne + sum;
 							lastOne = data[i];
-							//System.out.println( "DS after data[ "+ i +" ] =" + data[ i ] );
+							//System.out.println( "DS after data[ "+ pInvItem +" ] =" + data[ pInvItem ] );
 						}
 					}
 				}
@@ -954,7 +954,7 @@ namespace NGribCS.Grib2
 					{
 						//Y = (R + ( 0 + X2) * EE)/DD ;
 						data[i] = (R + values[i] * EE) / DD;
-						//System.out.println( "DS data[ " + i +"  ]=" + data[ i ] );
+						//System.out.println( "DS data[ " + pInvItem +"  ]=" + data[ pInvItem ] );
 					}
 				}
 			}
