@@ -274,7 +274,6 @@ namespace NGribCS.grib2
                         xval = gds.Lo1 + gds.Dx * x;
                     else if (gds.HorizontalScanning == HorizontalScanningMode.RightToLeft)
                     {
-                        throw new Exception("This needs verification if the code works correctly");
                         xval = gds.Lo2 + gds.Dx * x;
                     }
                     float yval = float.NaN;
@@ -283,7 +282,6 @@ namespace NGribCS.grib2
                     else if (gds.VerticalScanning == VerticalScanningMode.BottomToTop)
                     {
                         yval = gds.La2 + gds.Dy * y;
-                        //throw new Exception("This needs verification if the code works correctly");
                     }
 
                     coordinateGrid[x, y] = new PointF(xval, yval);

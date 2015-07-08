@@ -133,39 +133,71 @@ namespace NGribCS.WinformsTester
 
         private void button1_Click_1(object sender, EventArgs e)
         {
+
             // Plotting
             if (treeView2.SelectedNode != null && treeView2.SelectedNode.Tag != null && treeView2.SelectedNode.Tag is InventoryItem)
             {
-                InventoryItem target = treeView2.SelectedNode.Tag as InventoryItem;
+                try
+                {
+                    InventoryItem target = treeView2.SelectedNode.Tag as InventoryItem;
 
 
-                Grib2GridDefinitionSection gds = g2m.GetGDS(target);
+                    Grib2GridDefinitionSection gds = g2m.GetGDS(target);
 
-                float[,] fx = g2m.GetGriddedData(target);
-                //PointF[,] cg = g2m.GetCoordinateGrid(target);
-
-               
-                float min = fx.Min();
-                float max = fx.Max();
-
-                float delta = max - min;
-                float step = 255 / delta;
+                    float[,] fx = g2m.GetGriddedData(target);
+                    //PointF[,] cg = g2m.GetCoordinateGrid(target);
 
 
+                    float min = fx.Min(-9999);
+                    float max = fx.Max();
 
-                System.Drawing.Bitmap bmp = new Bitmap(gds.Nx, gds.Ny);
+                    float delta = max - min;
+                    float step = 255 / delta;
 
-                for (int x = 0; x < gds.Nx; x++)
-                    for (int y = 0; y < gds.Ny; y++)
-                    {
-                        float check = fx[x, y];
-                        Color c = GetColor(min, max, check);
-                        bmp.SetPixel(x, y, c);
-                    }
-         
+                       System.Drawing.Bitmap bmp;
+                       if (pictureBox1.Image != null)
+                           bmp = pictureBox1.Image as Bitmap;
+                       else
+                           bmp = new Bitmap(gds.Nx, gds.Ny);
 
-                pictureBox1.Image = bmp;
+                    for (int x = 0; x < gds.Nx; x++)
+                        for (int y = 0; y < gds.Ny; y++)
+                        {
+                            float check = fx[x, y];
+                            Color c = GetColor(min, max, check);
+                            bmp.SetPixel(x, y, c);
+                        }
+
+
+                    pictureBox1.Image = bmp;
+                }
+
+                catch (Exception Ex)
+                {
+                    System.Drawing.Bitmap bmp = new Bitmap(500, 500);
+
+                    Graphics g = Graphics.FromImage(bmp);
+
+                    g.FillRectangle(Brushes.LightBlue, new Rectangle(0, 0, 500, 500));
+
+
+                    g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+                    
+                    g.DrawString("Entire Grid undefined",
+                                 new Font("Tahoma", 20),
+                                 Brushes.Black,
+                                 new PointF(0, 0));
+
+                    g.DrawString("Internal Error:" + Environment.NewLine + Ex.Message,
+                             new Font("Tahoma", 10),
+                             Brushes.Black,
+                             new PointF(0, 30), StringFormat.GenericTypographic);
+
+
+                    pictureBox1.Image = bmp;
+                }
             }
+
         }
 
 
