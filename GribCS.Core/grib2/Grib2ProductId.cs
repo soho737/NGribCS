@@ -1,11 +1,11 @@
-﻿using NGribCS.grib2.Tables;
+﻿using NGribCS.Grib2.Tables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NGribCS.grib2
+namespace NGribCS.Grib2
 {
     public class Grib2ProductId : System.IEquatable<Grib2ProductId>
     {

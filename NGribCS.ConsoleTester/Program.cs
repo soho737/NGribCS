@@ -1,5 +1,4 @@
-﻿using NGribCS.grib2;
-using NGribCS.Grib2;
+﻿using NGribCS.Grib2;
 using System;
 using System.Collections.Generic;
 using System.IO;

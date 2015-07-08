@@ -24,8 +24,8 @@
  * along with GribCS.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using NGribCS.grib2;
-using NGribCS.grib2.Tables;
+using NGribCS.Grib2;
+using NGribCS.Grib2.Tables;
 using NGribCS.GribCS.grib2.Tables;
 /// <summary> Grib2Product.java</summary>
 /// <author>  Robb Kambic

@@ -1,4 +1,4 @@
-﻿using NGribCS.grib2;
+﻿using NGribCS.Grib2;
 /*
  * This file is part of GribCS.
  * This code is based on an automatic conversion of JGRIB Beta 7 

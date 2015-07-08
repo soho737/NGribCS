@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NGribCS.grib2
+namespace NGribCS.Grib2
 {
     public class Grib2SurfaceDefinition : IGrib2SurfaceDefinition
     {

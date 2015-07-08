@@ -1,4 +1,4 @@
-﻿using NGribCS.grib2.Tables;
+﻿using NGribCS.Grib2.Tables;
 using NGribCS.GribCS.grib2.Tables;
 /*
  * This file is part of NGribCS which is a fork of GribCS
@@ -34,7 +34,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace NGribCS.grib2.Tables
+namespace NGribCS.Grib2.Tables
 {
     public interface ITableResolver
     {

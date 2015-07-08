@@ -1,5 +1,4 @@
-﻿using NGribCS.grib2;
-using NGribCS.Grib2;
+﻿using NGribCS.Grib2;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace NGribCS.WinformsTester
+namespace NGribCS.SampleApplication
 {
     public partial class Form1 : Form
     {
@@ -111,7 +110,7 @@ namespace NGribCS.WinformsTester
                 {
                     info.Append(Environment.NewLine + gs.ToString());
 
-                    if (!treeView2.Nodes.ContainsKey(gs.ToString())) ;
+                    if (!treeView2.Nodes.ContainsKey(gs.ToString())) 
                          treeView2.Nodes.Add(gs.ToString(),gs.ToString());
 
                      List<InventoryItem> records = g2m.Inventory.GetAllValidTimesForProductAndSurface(pid.Discipline.DisciplineId, pid.Category.Id, pid.Parameter.Id, gs);

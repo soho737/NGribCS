@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace NGribCS.grib2
+namespace NGribCS.Grib2
 {
     public class Grib2Manager : IDisposable
     {
@@ -112,6 +112,7 @@ namespace NGribCS.grib2
         {
             Grib2Data d = new Grib2Data(_StreamDictionary[i.SourceIndex]);
             float[] data = d.getData(i.Product.getGdsOffset(), i.Product.getPdsOffset());
+           
             return data;
         }
 

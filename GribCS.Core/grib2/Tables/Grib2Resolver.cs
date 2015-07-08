@@ -1,4 +1,4 @@
-﻿using NGribCS.grib2.Tables;
+﻿using NGribCS.Grib2.Tables;
 /*
  * This file is part of NGribCS which is a fork of GribCS
  * found at http://sourceforge.net/projects/gribcs/ 

@@ -1,0 +1,12 @@
+C:\Users\Karsten\Documents\GitHub\NGribCS\NGribCS.WinformsTester\bin\Debug\NGribCS.SampleApplication.exe.config
+C:\Users\Karsten\Documents\GitHub\NGribCS\NGribCS.WinformsTester\bin\Debug\JpcDecoder.dll
+C:\Users\Karsten\Documents\GitHub\NGribCS\NGribCS.WinformsTester\bin\Debug\NGribCS.SampleApplication.exe
+C:\Users\Karsten\Documents\GitHub\NGribCS\NGribCS.WinformsTester\bin\Debug\NGribCS.SampleApplication.pdb
+C:\Users\Karsten\Documents\GitHub\NGribCS\NGribCS.WinformsTester\bin\Debug\GribCS.dll
+C:\Users\Karsten\Documents\GitHub\NGribCS\NGribCS.WinformsTester\bin\Debug\GribCS.pdb
+C:\Users\Karsten\Documents\GitHub\NGribCS\NGribCS.WinformsTester\obj\Debug\NGribCS.SampleApplication.csprojResolveAssemblyReference.cache
+C:\Users\Karsten\Documents\GitHub\NGribCS\NGribCS.WinformsTester\obj\Debug\NGribCS.SampleApplication.Form1.resources
+C:\Users\Karsten\Documents\GitHub\NGribCS\NGribCS.WinformsTester\obj\Debug\NGribCS.SampleApplication.Properties.Resources.resources
+C:\Users\Karsten\Documents\GitHub\NGribCS\NGribCS.WinformsTester\obj\Debug\NGribCS.SampleApplication.csproj.GenerateResource.Cache
+C:\Users\Karsten\Documents\GitHub\NGribCS\NGribCS.WinformsTester\obj\Debug\NGribCS.SampleApplication.exe
+C:\Users\Karsten\Documents\GitHub\NGribCS\NGribCS.WinformsTester\obj\Debug\NGribCS.SampleApplication.pdb

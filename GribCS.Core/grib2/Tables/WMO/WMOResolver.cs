@@ -1,4 +1,4 @@
-﻿using NGribCS.grib2.Tables;
+﻿using NGribCS.Grib2.Tables;
 /*
  * This file is part of NGribCS which is a fork of GribCS
  * found at http://sourceforge.net/projects/gribcs/ 
@@ -78,11 +78,6 @@ namespace NGribCS.GribCS.grib2.Tables.WMO
         public ParameterDefinition ResolveParameter(int pDiscipline, int pMasterTableVersion, int pLocalTableVersion, int pCategory, int pParamNumber)
         {
             LoadXML();
-
-            if (pCategory==0)
-            {
-                int x = 01;
-            }
 
             XElement parmElement = getParameterElement(pDiscipline, pMasterTableVersion, pCategory, pParamNumber);
 
@@ -170,7 +165,7 @@ namespace NGribCS.GribCS.grib2.Tables.WMO
             if (_xDoc == null)
             {
                 Assembly a = this.GetType().Assembly;
-                Stream s = a.GetManifestResourceStream("NGribCS.grib2.Tables.WMO.Grib2MasterTable.xml");
+                Stream s = a.GetManifestResourceStream("NGribCS.Grib2.Tables.WMO.Grib2MasterTable.xml");
 
                 _xDoc = XElement.Load(s);
                 _xDoc.Save(@"E:\text.xml");

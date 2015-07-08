@@ -34,7 +34,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NGribCS.grib2.Tables
+namespace NGribCS.Grib2.Tables
 {
     public class Discipline
     {

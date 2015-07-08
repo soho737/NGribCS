@@ -28,7 +28,7 @@
  * along with GribCS.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using NGribCS.grib2.Tables;
+using NGribCS.Grib2.Tables;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -25,7 +25,7 @@
 */
 
 using NGribCS;
-using NGribCS.grib2;
+using NGribCS.Grib2;
 using NGribCS.GribCS.grib2.Tables;
 using NGribCS.Helpers;
 /// <summary> Grib2ProductDefinitionSection.java  1.1  08/29/2003.</summary>

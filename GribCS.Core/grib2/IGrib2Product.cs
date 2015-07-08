@@ -1,5 +1,5 @@
-﻿using NGribCS.grib2;
-using NGribCS.grib2.Tables;
+﻿using NGribCS.Grib2;
+using NGribCS.Grib2.Tables;
 using NGribCS.GribCS.grib2.Tables;
 /*
  * This file is part of GribCS.
