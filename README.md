@@ -1,6 +1,7 @@
 # NGribCS
 This is a fork of GribCS, resuming the development. This is heavy work in progess and should <b>NOT BE USED</b> right now.
 It is defunct, and don't blame me, if you do use it anyway...
+<img src="http://soho737.github.io/NGribCS/logo.png" />
 
 <b>Roadmap:</b><br />
 1. A functional version with basic features for grib2 files within in couple of weeks (maybe Aug 2015).<br />
